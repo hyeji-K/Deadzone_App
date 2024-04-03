@@ -13,6 +13,13 @@
 		1067F8DB2BBD85A8007708E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8D92BBD85A8007708E4 /* Main.storyboard */; };
 		1067F8DD2BBD85A9007708E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8DC2BBD85A9007708E4 /* Assets.xcassets */; };
 		1067F8E02BBD85A9007708E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8DE2BBD85A9007708E4 /* LaunchScreen.storyboard */; };
+		1067F8EC2BBD916B007708E4 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8EB2BBD916B007708E4 /* Colors.xcassets */; };
+		1067F8EE2BBD95EC007708E4 /* DZColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8ED2BBD95EC007708E4 /* DZColor.swift */; };
+		1067F8F02BBD9764007708E4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8EF2BBD9764007708E4 /* Images.xcassets */; };
+		1067F8F22BBD982F007708E4 /* DZImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8F12BBD982F007708E4 /* DZImage.swift */; };
+		1067F8F52BBD98A6007708E4 /* Her-Leeoksun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8F42BBD98A6007708E4 /* Her-Leeoksun.ttf */; };
+		1067F8F72BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8F62BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf */; };
+		1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8F82BBD9AC1007708E4 /* DZFont.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,13 @@
 		1067F8DC2BBD85A9007708E4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1067F8DF2BBD85A9007708E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1067F8E12BBD85A9007708E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1067F8EB2BBD916B007708E4 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		1067F8ED2BBD95EC007708E4 /* DZColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DZColor.swift; sourceTree = "<group>"; };
+		1067F8EF2BBD9764007708E4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1067F8F12BBD982F007708E4 /* DZImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DZImage.swift; sourceTree = "<group>"; };
+		1067F8F42BBD98A6007708E4 /* Her-Leeoksun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Her-Leeoksun.ttf"; sourceTree = "<group>"; };
+		1067F8F62BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumSquareNeoOTF-Lt.otf"; sourceTree = "<group>"; };
+		1067F8F82BBD9AC1007708E4 /* DZFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DZFont.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +70,7 @@
 		1067F8D22BBD85A8007708E4 /* Deadzone */ = {
 			isa = PBXGroup;
 			children = (
+				1067F8EA2BBD9127007708E4 /* DesignSource */,
 				1067F8D32BBD85A8007708E4 /* AppDelegate.swift */,
 				1067F8D52BBD85A8007708E4 /* SceneDelegate.swift */,
 				1067F8D72BBD85A8007708E4 /* ViewController.swift */,
@@ -65,6 +80,28 @@
 				1067F8E12BBD85A9007708E4 /* Info.plist */,
 			);
 			path = Deadzone;
+			sourceTree = "<group>";
+		};
+		1067F8EA2BBD9127007708E4 /* DesignSource */ = {
+			isa = PBXGroup;
+			children = (
+				1067F8F32BBD9896007708E4 /* Font */,
+				1067F8EB2BBD916B007708E4 /* Colors.xcassets */,
+				1067F8ED2BBD95EC007708E4 /* DZColor.swift */,
+				1067F8EF2BBD9764007708E4 /* Images.xcassets */,
+				1067F8F12BBD982F007708E4 /* DZImage.swift */,
+				1067F8F82BBD9AC1007708E4 /* DZFont.swift */,
+			);
+			path = DesignSource;
+			sourceTree = "<group>";
+		};
+		1067F8F32BBD9896007708E4 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				1067F8F42BBD98A6007708E4 /* Her-Leeoksun.ttf */,
+				1067F8F62BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +163,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1067F8E02BBD85A9007708E4 /* LaunchScreen.storyboard in Resources */,
+				1067F8F02BBD9764007708E4 /* Images.xcassets in Resources */,
+				1067F8EC2BBD916B007708E4 /* Colors.xcassets in Resources */,
+				1067F8F72BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf in Resources */,
+				1067F8F52BBD98A6007708E4 /* Her-Leeoksun.ttf in Resources */,
 				1067F8DD2BBD85A9007708E4 /* Assets.xcassets in Resources */,
 				1067F8DB2BBD85A8007708E4 /* Main.storyboard in Resources */,
 			);
@@ -138,8 +179,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */,
 				1067F8D82BBD85A8007708E4 /* ViewController.swift in Sources */,
+				1067F8F22BBD982F007708E4 /* DZImage.swift in Sources */,
 				1067F8D42BBD85A8007708E4 /* AppDelegate.swift in Sources */,
+				1067F8EE2BBD95EC007708E4 /* DZColor.swift in Sources */,
 				1067F8D62BBD85A8007708E4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
