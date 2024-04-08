@@ -4,8 +4,9 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>NanumSquareNeoOTF-Bd.otf</string>
+		<string>NanumSquareNeoOTF-Rg.otf</string>
 		<string>Her-Leeoksun.ttf</string>
-		<string>NanumSquareNeoOTF-Lt.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

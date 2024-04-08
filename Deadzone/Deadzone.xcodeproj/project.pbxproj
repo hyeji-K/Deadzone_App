@@ -18,10 +18,11 @@
 		1067F8F02BBD9764007708E4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8EF2BBD9764007708E4 /* Images.xcassets */; };
 		1067F8F22BBD982F007708E4 /* DZImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8F12BBD982F007708E4 /* DZImage.swift */; };
 		1067F8F52BBD98A6007708E4 /* Her-Leeoksun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8F42BBD98A6007708E4 /* Her-Leeoksun.ttf */; };
-		1067F8F72BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1067F8F62BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf */; };
 		1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8F82BBD9AC1007708E4 /* DZFont.swift */; };
 		1067F8FC2BBDA0E6007708E4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1067F8FB2BBDA0E6007708E4 /* SnapKit */; };
 		1067F8FE2BBDA0E6007708E4 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 1067F8FD2BBDA0E6007708E4 /* SnapKit-Dynamic */; };
+		1067F9142BBE4983007708E4 /* NanumSquareNeoOTF-Bd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1067F9132BBE4983007708E4 /* NanumSquareNeoOTF-Bd.otf */; };
+		1067F9162BBE498C007708E4 /* NanumSquareNeoOTF-Rg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1067F9152BBE498C007708E4 /* NanumSquareNeoOTF-Rg.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +39,9 @@
 		1067F8EF2BBD9764007708E4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1067F8F12BBD982F007708E4 /* DZImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DZImage.swift; sourceTree = "<group>"; };
 		1067F8F42BBD98A6007708E4 /* Her-Leeoksun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Her-Leeoksun.ttf"; sourceTree = "<group>"; };
-		1067F8F62BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumSquareNeoOTF-Lt.otf"; sourceTree = "<group>"; };
 		1067F8F82BBD9AC1007708E4 /* DZFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DZFont.swift; sourceTree = "<group>"; };
+		1067F9132BBE4983007708E4 /* NanumSquareNeoOTF-Bd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumSquareNeoOTF-Bd.otf"; sourceTree = "<group>"; };
+		1067F9152BBE498C007708E4 /* NanumSquareNeoOTF-Rg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumSquareNeoOTF-Rg.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				1067F9022BBDA910007708E4 /* Model */,
 				1067F9032BBDA915007708E4 /* View */,
 				1067F9042BBDA91C007708E4 /* Controller */,
+				1067F90C2BBE28D6007708E4 /* Extension */,
 				1067F8EA2BBD9127007708E4 /* DesignSource */,
 				1067F8D92BBD85A8007708E4 /* Main.storyboard */,
 				1067F8DC2BBD85A9007708E4 /* Assets.xcassets */,
@@ -104,7 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				1067F8F42BBD98A6007708E4 /* Her-Leeoksun.ttf */,
-				1067F8F62BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf */,
+				1067F9152BBE498C007708E4 /* NanumSquareNeoOTF-Rg.otf */,
+				1067F9132BBE4983007708E4 /* NanumSquareNeoOTF-Bd.otf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
@@ -138,6 +142,13 @@
 				1067F8D52BBD85A8007708E4 /* SceneDelegate.swift */,
 			);
 			path = Delegate;
+			sourceTree = "<group>";
+		};
+		1067F90C2BBE28D6007708E4 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,8 +219,9 @@
 				1067F8E02BBD85A9007708E4 /* LaunchScreen.storyboard in Resources */,
 				1067F8F02BBD9764007708E4 /* Images.xcassets in Resources */,
 				1067F8EC2BBD916B007708E4 /* Colors.xcassets in Resources */,
-				1067F8F72BBD98B8007708E4 /* NanumSquareNeoOTF-Lt.otf in Resources */,
 				1067F8F52BBD98A6007708E4 /* Her-Leeoksun.ttf in Resources */,
+				1067F9142BBE4983007708E4 /* NanumSquareNeoOTF-Bd.otf in Resources */,
+				1067F9162BBE498C007708E4 /* NanumSquareNeoOTF-Rg.otf in Resources */,
 				1067F8DD2BBD85A9007708E4 /* Assets.xcassets in Resources */,
 				1067F8DB2BBD85A8007708E4 /* Main.storyboard in Resources */,
 			);
