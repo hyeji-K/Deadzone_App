@@ -26,6 +26,14 @@
 		1067F94E2BC3B065007708E4 /* BasicTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F94B2BC3B065007708E4 /* BasicTextField.swift */; };
 		1067F94F2BC3B065007708E4 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F94C2BC3B065007708E4 /* MainButton.swift */; };
 		1067F9502BC3B065007708E4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F94D2BC3B065007708E4 /* Extensions.swift */; };
+		1067F95B2BC3B0C8007708E4 /* ThirdOnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9522BC3B0C7007708E4 /* ThirdOnboardView.swift */; };
+		1067F95C2BC3B0C8007708E4 /* SecondOnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9532BC3B0C7007708E4 /* SecondOnboardView.swift */; };
+		1067F95D2BC3B0C8007708E4 /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9542BC3B0C7007708E4 /* OnboardView.swift */; };
+		1067F95E2BC3B0C8007708E4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9552BC3B0C7007708E4 /* LoginView.swift */; };
+		1067F95F2BC3B0C8007708E4 /* RepasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9562BC3B0C7007708E4 /* RepasswordView.swift */; };
+		1067F9602BC3B0C8007708E4 /* SetpasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9572BC3B0C7007708E4 /* SetpasswordView.swift */; };
+		1067F9612BC3B0C8007708E4 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9582BC3B0C7007708E4 /* RegisterView.swift */; };
+		1067F9622BC3B0C8007708E4 /* FeelingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F95A2BC3B0C7007708E4 /* FeelingCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +56,14 @@
 		1067F94B2BC3B065007708E4 /* BasicTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicTextField.swift; sourceTree = "<group>"; };
 		1067F94C2BC3B065007708E4 /* MainButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
 		1067F94D2BC3B065007708E4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1067F9522BC3B0C7007708E4 /* ThirdOnboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdOnboardView.swift; sourceTree = "<group>"; };
+		1067F9532BC3B0C7007708E4 /* SecondOnboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondOnboardView.swift; sourceTree = "<group>"; };
+		1067F9542BC3B0C7007708E4 /* OnboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
+		1067F9552BC3B0C7007708E4 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		1067F9562BC3B0C7007708E4 /* RepasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepasswordView.swift; sourceTree = "<group>"; };
+		1067F9572BC3B0C7007708E4 /* SetpasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetpasswordView.swift; sourceTree = "<group>"; };
+		1067F9582BC3B0C7007708E4 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		1067F95A2BC3B0C7007708E4 /* FeelingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeelingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +145,8 @@
 		1067F9032BBDA915007708E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1067F9592BC3B0C7007708E4 /* Cell */,
+				1067F9512BC3B0C7007708E4 /* Login */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -158,6 +176,28 @@
 				1067F94C2BC3B065007708E4 /* MainButton.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		1067F9512BC3B0C7007708E4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1067F9552BC3B0C7007708E4 /* LoginView.swift */,
+				1067F9582BC3B0C7007708E4 /* RegisterView.swift */,
+				1067F9562BC3B0C7007708E4 /* RepasswordView.swift */,
+				1067F9572BC3B0C7007708E4 /* SetpasswordView.swift */,
+				1067F9542BC3B0C7007708E4 /* OnboardView.swift */,
+				1067F9532BC3B0C7007708E4 /* SecondOnboardView.swift */,
+				1067F9522BC3B0C7007708E4 /* ThirdOnboardView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1067F9592BC3B0C7007708E4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1067F95A2BC3B0C7007708E4 /* FeelingCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,14 +284,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */,
+				1067F9622BC3B0C8007708E4 /* FeelingCell.swift in Sources */,
+				1067F9602BC3B0C8007708E4 /* SetpasswordView.swift in Sources */,
 				1067F9502BC3B065007708E4 /* Extensions.swift in Sources */,
 				1067F8D82BBD85A8007708E4 /* ViewController.swift in Sources */,
 				1067F8F22BBD982F007708E4 /* DZImage.swift in Sources */,
+				1067F95F2BC3B0C8007708E4 /* RepasswordView.swift in Sources */,
+				1067F95D2BC3B0C8007708E4 /* OnboardView.swift in Sources */,
 				1067F94E2BC3B065007708E4 /* BasicTextField.swift in Sources */,
 				1067F94F2BC3B065007708E4 /* MainButton.swift in Sources */,
+				1067F95B2BC3B0C8007708E4 /* ThirdOnboardView.swift in Sources */,
 				1067F8D42BBD85A8007708E4 /* AppDelegate.swift in Sources */,
 				1067F8EE2BBD95EC007708E4 /* DZColor.swift in Sources */,
+				1067F95E2BC3B0C8007708E4 /* LoginView.swift in Sources */,
+				1067F9612BC3B0C8007708E4 /* RegisterView.swift in Sources */,
 				1067F8D62BBD85A8007708E4 /* SceneDelegate.swift in Sources */,
+				1067F95C2BC3B0C8007708E4 /* SecondOnboardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
