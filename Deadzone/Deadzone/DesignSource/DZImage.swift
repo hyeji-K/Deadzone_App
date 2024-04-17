@@ -17,4 +17,6 @@ enum DZImage {
     static var pageControl1: UIImage = UIImage(resource: .pageControl1)
     static var pageControl2: UIImage = UIImage(resource: .pageControl2)
     static var pageControl3: UIImage = UIImage(resource: .pageControl3)
+    static var passDefault: UIImage = UIImage(resource: .passdefault)
+    static var passActive: UIImage = UIImage(resource: .passactive)
 }
