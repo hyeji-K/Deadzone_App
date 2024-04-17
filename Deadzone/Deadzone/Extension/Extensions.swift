@@ -108,3 +108,19 @@ extension NSAttributedString {
         return attrString
     }
 }
+
+extension String {
+    // 이메일 유효성 검사
+    func isValidEmail() -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let predicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return predicate.evaluate(with: self)
+    }
+    
+    // 비밀번호 유효성 검사
+    func isValidPassword() -> Bool {
+        let passwordRegEx = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
+        return predicate.evaluate(with: self)
+    }
+}

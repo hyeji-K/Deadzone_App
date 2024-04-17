@@ -51,6 +51,13 @@
 		1067F9812BC3B45D007708E4 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 1067F9802BC3B45D007708E4 /* FirebasePerformance */; };
 		1067F9832BC3B45D007708E4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1067F9822BC3B45D007708E4 /* FirebaseStorage */; };
 		1067F9852BC3B45D007708E4 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 1067F9842BC3B45D007708E4 /* FirebaseStorageCombine-Community */; };
+		1067F99A2BCFAB79007708E4 /* SecondOnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9942BCFAB79007708E4 /* SecondOnboardViewController.swift */; };
+		1067F99B2BCFAB79007708E4 /* RepasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9952BCFAB79007708E4 /* RepasswordViewController.swift */; };
+		1067F99C2BCFAB79007708E4 /* OnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9962BCFAB79007708E4 /* OnboardViewController.swift */; };
+		1067F99D2BCFAB79007708E4 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9972BCFAB79007708E4 /* RegisterViewController.swift */; };
+		1067F99E2BCFAB79007708E4 /* SetpasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */; };
+		1067F99F2BCFAB79007708E4 /* ThirdOnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */; };
+		1067F9A12BCFAB85007708E4 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9A02BCFAB85007708E4 /* Networking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +89,13 @@
 		1067F9582BC3B0C7007708E4 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		1067F95A2BC3B0C7007708E4 /* FeelingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeelingCell.swift; sourceTree = "<group>"; };
 		1067F9632BC3B37E007708E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1067F9942BCFAB79007708E4 /* SecondOnboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondOnboardViewController.swift; sourceTree = "<group>"; };
+		1067F9952BCFAB79007708E4 /* RepasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepasswordViewController.swift; sourceTree = "<group>"; };
+		1067F9962BCFAB79007708E4 /* OnboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
+		1067F9972BCFAB79007708E4 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetpasswordViewController.swift; sourceTree = "<group>"; };
+		1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdOnboardViewController.swift; sourceTree = "<group>"; };
+		1067F9A02BCFAB85007708E4 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +204,12 @@
 			isa = PBXGroup;
 			children = (
 				1067F8D72BBD85A8007708E4 /* ViewController.swift */,
+				1067F9962BCFAB79007708E4 /* OnboardViewController.swift */,
+				1067F9972BCFAB79007708E4 /* RegisterViewController.swift */,
+				1067F9952BCFAB79007708E4 /* RepasswordViewController.swift */,
+				1067F9942BCFAB79007708E4 /* SecondOnboardViewController.swift */,
+				1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */,
+				1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -209,6 +229,7 @@
 				1067F94D2BC3B065007708E4 /* Extensions.swift */,
 				1067F94B2BC3B065007708E4 /* BasicTextField.swift */,
 				1067F94C2BC3B065007708E4 /* MainButton.swift */,
+				1067F9A02BCFAB85007708E4 /* Networking.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -217,9 +238,9 @@
 			isa = PBXGroup;
 			children = (
 				1067F9552BC3B0C7007708E4 /* LoginView.swift */,
-				1067F9582BC3B0C7007708E4 /* RegisterView.swift */,
 				1067F9562BC3B0C7007708E4 /* RepasswordView.swift */,
 				1067F9572BC3B0C7007708E4 /* SetpasswordView.swift */,
+				1067F9582BC3B0C7007708E4 /* RegisterView.swift */,
 				1067F9542BC3B0C7007708E4 /* OnboardView.swift */,
 				1067F9532BC3B0C7007708E4 /* SecondOnboardView.swift */,
 				1067F9522BC3B0C7007708E4 /* ThirdOnboardView.swift */,
@@ -336,15 +357,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1067F99E2BCFAB79007708E4 /* SetpasswordViewController.swift in Sources */,
 				1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */,
 				1067F9622BC3B0C8007708E4 /* FeelingCell.swift in Sources */,
+				1067F9A12BCFAB85007708E4 /* Networking.swift in Sources */,
 				1067F9602BC3B0C8007708E4 /* SetpasswordView.swift in Sources */,
+				1067F99F2BCFAB79007708E4 /* ThirdOnboardViewController.swift in Sources */,
 				1067F9502BC3B065007708E4 /* Extensions.swift in Sources */,
 				1067F8D82BBD85A8007708E4 /* ViewController.swift in Sources */,
 				1067F8F22BBD982F007708E4 /* DZImage.swift in Sources */,
 				1067F95F2BC3B0C8007708E4 /* RepasswordView.swift in Sources */,
 				1067F95D2BC3B0C8007708E4 /* OnboardView.swift in Sources */,
+				1067F99A2BCFAB79007708E4 /* SecondOnboardViewController.swift in Sources */,
+				1067F99D2BCFAB79007708E4 /* RegisterViewController.swift in Sources */,
 				1067F94E2BC3B065007708E4 /* BasicTextField.swift in Sources */,
+				1067F99C2BCFAB79007708E4 /* OnboardViewController.swift in Sources */,
 				1067F94F2BC3B065007708E4 /* MainButton.swift in Sources */,
 				1067F95B2BC3B0C8007708E4 /* ThirdOnboardView.swift in Sources */,
 				1067F8D42BBD85A8007708E4 /* AppDelegate.swift in Sources */,
@@ -353,6 +380,7 @@
 				1067F9612BC3B0C8007708E4 /* RegisterView.swift in Sources */,
 				1067F8D62BBD85A8007708E4 /* SceneDelegate.swift in Sources */,
 				1067F95C2BC3B0C8007708E4 /* SecondOnboardView.swift in Sources */,
+				1067F99B2BCFAB79007708E4 /* RepasswordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

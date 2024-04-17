@@ -25,7 +25,7 @@ final class OnboardView: UIView {
         return label
     }()
     
-    private let nicknameTextField: UITextField = {
+    let nicknameTextField: UITextField = {
         let textField = UITextField()
         textField.textAlignment = .center
         textField.placeholder = "5자리 내 한글, 영문, 숫자 조합"

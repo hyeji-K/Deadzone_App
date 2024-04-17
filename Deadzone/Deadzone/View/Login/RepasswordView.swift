@@ -19,7 +19,7 @@ final class RepasswordView: UIView {
         return label
     }()
     
-    private let emailTextField: UITextField = {
+    let emailTextField: UITextField = {
         let textField = BasicTextField(placeholderText: "이메일주소")
         textField.keyboardType = .emailAddress
         return textField
@@ -27,7 +27,7 @@ final class RepasswordView: UIView {
     
     let checkEmailLabel: UILabel = {
         let label = UILabel()
-        label.text = "이메일주소를 다시 확인해주세요."
+        label.text = "이메일 형식이 잘못되었어요."
         label.textAlignment = .left
         label.font = DZFont.subText12
         label.textColor = DZColor.errorColor
@@ -61,19 +61,19 @@ final class RepasswordView: UIView {
         addSubview(resettingButton)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(85)
+            make.top.equalToSuperview().inset(83)
             make.centerX.equalToSuperview()
         }
         emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(66)
+            make.top.equalToSuperview().offset(196)
             make.left.right.equalToSuperview().inset(16)
         }
         checkEmailLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(7)
+            make.top.equalTo(emailTextField.snp.bottom).offset(4)
             make.left.equalTo(emailTextField.snp.left).offset(8)
         }
         resettingButton.snp.makeConstraints { make in
-            make.top.equalTo(checkEmailLabel.snp.bottom).offset(134)
+            make.top.equalTo(emailTextField.snp.bottom).offset(134)
             make.left.right.equalToSuperview().inset(16)
         }
     }

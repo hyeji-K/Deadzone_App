@@ -19,13 +19,13 @@ final class LoginView: UIView {
         return label
     }()
     
-    private let emailTextField: UITextField = {
+    let emailTextField: UITextField = {
         let textField = BasicTextField(placeholderText: "이메일주소")
         textField.keyboardType = .emailAddress
         return textField
     }()
     
-    private let passwordTextField: UITextField = {
+    let passwordTextField: UITextField = {
         let textField = BasicTextField(placeholderText: "비밀번호")
         textField.isSecureTextEntry = true
         return textField
@@ -58,21 +58,21 @@ final class LoginView: UIView {
     let resetPasswordButton: UIButton = {
         let button = UIButton()
         button.setTitle("비밀번호 재설정", for: .normal)
-        button.setTitleColor(DZColor.black02, for: .normal)
+        button.setTitleColor(DZColor.black, for: .normal)
         button.titleLabel?.font = DZFont.subText12
         return button
     }()
     
     private let seperatedView: UIView = {
         let view = UIView()
-        view.backgroundColor = DZColor.grayColor154
+        view.backgroundColor = DZColor.grayColor100
         return view
     }()
     
     let registerButton: UIButton = {
         let button = UIButton()
         button.setTitle("회원가입", for: .normal)
-        button.setTitleColor(DZColor.black02, for: .normal)
+        button.setTitleColor(DZColor.black, for: .normal)
         button.titleLabel?.font = DZFont.subText12
         return button
     }()

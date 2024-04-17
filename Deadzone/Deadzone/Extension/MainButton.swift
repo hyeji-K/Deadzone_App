@@ -27,8 +27,8 @@ final class MainButton: UIButton {
             self.backgroundColor = DZColor.black
             self.setTitleColor(DZColor.backgroundColor, for: .normal)
         case false:
-            self.backgroundColor = DZColor.subGrayColor193
-            self.setTitleColor(DZColor.black03, for: .normal)
+            self.backgroundColor = DZColor.grayColor200
+            self.setTitleColor(DZColor.black, for: .normal)
         }
         
         self.snp.makeConstraints { make in

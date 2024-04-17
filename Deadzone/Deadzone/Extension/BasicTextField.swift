@@ -28,8 +28,9 @@ final class BasicTextField: UITextField {
         self.layer.cornerRadius = 8
         self.backgroundColor = DZColor.grayColor300
         self.addPadding(width: 16)
-        self.textColor = DZColor.grayColor100
-        self.font = DZFont.text14
+        self.textColor = DZColor.black
+        self.font = DZFont.subText12
+        self.autocapitalizationType = .none
         self.autocorrectionType = .no
         self.spellCheckingType = .no
         
