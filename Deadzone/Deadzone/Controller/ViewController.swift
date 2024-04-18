@@ -41,7 +41,13 @@ final class ViewController: UIViewController {
                 case .success(let str):
                     // 로그인 성공 시 홈 화면으로 전환
                     print("로그인 성공!")
-                    break
+                    DispatchQueue.main.async {
+                        let main = UIStoryboard.init(name: "Home", bundle: nil)
+                        let homeViewController = main.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
+                        let navigationController = UINavigationController(rootViewController: homeViewController)
+                        navigationController.modalPresentationStyle = .fullScreen
+                        self?.present(navigationController, animated: false)
+                    }
                 case .failure(let error):
                     self?.loginView.checkEmailAndPasswordLabel.isHidden = false
                 }

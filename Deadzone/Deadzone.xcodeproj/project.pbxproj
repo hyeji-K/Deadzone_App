@@ -58,6 +58,12 @@
 		1067F99E2BCFAB79007708E4 /* SetpasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */; };
 		1067F99F2BCFAB79007708E4 /* ThirdOnboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */; };
 		1067F9A12BCFAB85007708E4 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9A02BCFAB85007708E4 /* Networking.swift */; };
+		1067F9B52BD11896007708E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9B32BD11896007708E4 /* HomeViewController.swift */; };
+		1067F9B62BD11896007708E4 /* ActivitySelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9B42BD11896007708E4 /* ActivitySelectedViewController.swift */; };
+		1067F9BA2BD118A5007708E4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9B82BD118A5007708E4 /* HomeView.swift */; };
+		1067F9BB2BD118A5007708E4 /* ActivitySelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9B92BD118A5007708E4 /* ActivitySelectedView.swift */; };
+		1067F9BD2BD118B2007708E4 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9BC2BD118B2007708E4 /* ActivityCell.swift */; };
+		1067F9C02BD11C60007708E4 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1067F9BE2BD11C60007708E4 /* Home.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +102,12 @@
 		1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetpasswordViewController.swift; sourceTree = "<group>"; };
 		1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdOnboardViewController.swift; sourceTree = "<group>"; };
 		1067F9A02BCFAB85007708E4 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		1067F9B32BD11896007708E4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1067F9B42BD11896007708E4 /* ActivitySelectedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySelectedViewController.swift; sourceTree = "<group>"; };
+		1067F9B82BD118A5007708E4 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		1067F9B92BD118A5007708E4 /* ActivitySelectedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySelectedView.swift; sourceTree = "<group>"; };
+		1067F9BC2BD118B2007708E4 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
+		1067F9BF2BD11C60007708E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Deadzone/Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +165,7 @@
 				1067F90C2BBE28D6007708E4 /* Extension */,
 				1067F8EA2BBD9127007708E4 /* DesignSource */,
 				1067F8D92BBD85A8007708E4 /* Main.storyboard */,
+				1067F9BE2BD11C60007708E4 /* Home.storyboard */,
 				1067F8DC2BBD85A9007708E4 /* Assets.xcassets */,
 				1067F8DE2BBD85A9007708E4 /* LaunchScreen.storyboard */,
 				1067F8E12BBD85A9007708E4 /* Info.plist */,
@@ -196,6 +209,7 @@
 			children = (
 				1067F9592BC3B0C7007708E4 /* Cell */,
 				1067F9512BC3B0C7007708E4 /* Login */,
+				1067F9B72BD118A5007708E4 /* Home */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -210,6 +224,8 @@
 				1067F9942BCFAB79007708E4 /* SecondOnboardViewController.swift */,
 				1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */,
 				1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */,
+				1067F9B32BD11896007708E4 /* HomeViewController.swift */,
+				1067F9B42BD11896007708E4 /* ActivitySelectedViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -252,8 +268,18 @@
 			isa = PBXGroup;
 			children = (
 				1067F95A2BC3B0C7007708E4 /* FeelingCell.swift */,
+				1067F9BC2BD118B2007708E4 /* ActivityCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		1067F9B72BD118A5007708E4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1067F9B82BD118A5007708E4 /* HomeView.swift */,
+				1067F9B92BD118A5007708E4 /* ActivitySelectedView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1067F8E02BBD85A9007708E4 /* LaunchScreen.storyboard in Resources */,
+				1067F9C02BD11C60007708E4 /* Home.storyboard in Resources */,
 				1067F8F02BBD9764007708E4 /* Images.xcassets in Resources */,
 				1067F9642BC3B37E007708E4 /* GoogleService-Info.plist in Resources */,
 				1067F8EC2BBD916B007708E4 /* Colors.xcassets in Resources */,
@@ -357,6 +384,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1067F9BA2BD118A5007708E4 /* HomeView.swift in Sources */,
+				1067F9B52BD11896007708E4 /* HomeViewController.swift in Sources */,
 				1067F99E2BCFAB79007708E4 /* SetpasswordViewController.swift in Sources */,
 				1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */,
 				1067F9622BC3B0C8007708E4 /* FeelingCell.swift in Sources */,
@@ -369,13 +398,16 @@
 				1067F95F2BC3B0C8007708E4 /* RepasswordView.swift in Sources */,
 				1067F95D2BC3B0C8007708E4 /* OnboardView.swift in Sources */,
 				1067F99A2BCFAB79007708E4 /* SecondOnboardViewController.swift in Sources */,
+				1067F9BB2BD118A5007708E4 /* ActivitySelectedView.swift in Sources */,
 				1067F99D2BCFAB79007708E4 /* RegisterViewController.swift in Sources */,
+				1067F9BD2BD118B2007708E4 /* ActivityCell.swift in Sources */,
 				1067F94E2BC3B065007708E4 /* BasicTextField.swift in Sources */,
 				1067F99C2BCFAB79007708E4 /* OnboardViewController.swift in Sources */,
 				1067F94F2BC3B065007708E4 /* MainButton.swift in Sources */,
 				1067F95B2BC3B0C8007708E4 /* ThirdOnboardView.swift in Sources */,
 				1067F8D42BBD85A8007708E4 /* AppDelegate.swift in Sources */,
 				1067F8EE2BBD95EC007708E4 /* DZColor.swift in Sources */,
+				1067F9B62BD11896007708E4 /* ActivitySelectedViewController.swift in Sources */,
 				1067F95E2BC3B0C8007708E4 /* LoginView.swift in Sources */,
 				1067F9612BC3B0C8007708E4 /* RegisterView.swift in Sources */,
 				1067F8D62BBD85A8007708E4 /* SceneDelegate.swift in Sources */,
@@ -401,6 +433,14 @@
 				1067F8DF2BBD85A9007708E4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		1067F9BE2BD11C60007708E4 /* Home.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1067F9BF2BD11C60007708E4 /* Base */,
+			);
+			name = Home.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

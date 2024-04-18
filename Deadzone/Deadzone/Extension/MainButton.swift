@@ -35,6 +35,15 @@ final class MainButton: UIButton {
         self.clipsToBounds = true
         self.layer.cornerRadius = 8
         
+        switch self.isEnabled {
+        case true:
+            self.backgroundColor = DZColor.black
+            self.setTitleColor(DZColor.backgroundColor, for: .normal)
+        case false:
+            self.backgroundColor = DZColor.grayColor200
+            self.setTitleColor(DZColor.black, for: .normal)
+        }
+        
         self.snp.makeConstraints { make in
             make.height.equalTo(52)
         }
