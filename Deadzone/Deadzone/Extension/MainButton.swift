@@ -8,6 +8,19 @@
 import UIKit
 
 final class MainButton: UIButton {
+    
+    override var isEnabled: Bool {
+        didSet {
+            if isEnabled {
+                self.backgroundColor = DZColor.black
+                self.setTitleColor(DZColor.backgroundColor, for: .normal)
+            } else {
+                self.backgroundColor = DZColor.grayColor200
+                self.setTitleColor(DZColor.black, for: .normal)
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -21,15 +34,6 @@ final class MainButton: UIButton {
         self.titleLabel?.font = DZFont.text16
         self.clipsToBounds = true
         self.layer.cornerRadius = 8
-        
-        switch self.isEnabled {
-        case true:
-            self.backgroundColor = DZColor.black
-            self.setTitleColor(DZColor.backgroundColor, for: .normal)
-        case false:
-            self.backgroundColor = DZColor.grayColor200
-            self.setTitleColor(DZColor.black, for: .normal)
-        }
         
         self.snp.makeConstraints { make in
             make.height.equalTo(52)
