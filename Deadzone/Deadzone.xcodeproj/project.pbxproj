@@ -238,16 +238,8 @@
 		1067F9042BBDA91C007708E4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1067F8D72BBD85A8007708E4 /* ViewController.swift */,
-				1067F9972BCFAB79007708E4 /* RegisterViewController.swift */,
-				1067F9962BCFAB79007708E4 /* OnboardViewController.swift */,
-				1067F9942BCFAB79007708E4 /* SecondOnboardViewController.swift */,
-				1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */,
-				1067F9952BCFAB79007708E4 /* RepasswordViewController.swift */,
-				1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */,
-				1067F9B32BD11896007708E4 /* HomeViewController.swift */,
-				1067F9B42BD11896007708E4 /* ActivitySelectedViewController.swift */,
-				1067F9C92BD20CF8007708E4 /* NewActivityRequestViewController.swift */,
+				1067F9D02BD26F8D007708E4 /* Login */,
+				1067F9D12BD26F9C007708E4 /* Home */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -301,6 +293,30 @@
 				1067F9B82BD118A5007708E4 /* HomeView.swift */,
 				1067F9B92BD118A5007708E4 /* ActivitySelectedView.swift */,
 				1067F9C72BD20CE3007708E4 /* NewActivityRequestView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		1067F9D02BD26F8D007708E4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1067F8D72BBD85A8007708E4 /* ViewController.swift */,
+				1067F9972BCFAB79007708E4 /* RegisterViewController.swift */,
+				1067F9962BCFAB79007708E4 /* OnboardViewController.swift */,
+				1067F9942BCFAB79007708E4 /* SecondOnboardViewController.swift */,
+				1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */,
+				1067F9952BCFAB79007708E4 /* RepasswordViewController.swift */,
+				1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		1067F9D12BD26F9C007708E4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1067F9B32BD11896007708E4 /* HomeViewController.swift */,
+				1067F9B42BD11896007708E4 /* ActivitySelectedViewController.swift */,
+				1067F9C92BD20CF8007708E4 /* NewActivityRequestViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
