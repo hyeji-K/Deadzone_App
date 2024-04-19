@@ -74,8 +74,11 @@ final class ActivitySelectedViewController: UIViewController {
     
     @objc private func newActivityButtonTapped(_ sender: UIButton) {
         // TODO: 새로운 활동 요청
-//        let activitySelectedViewController = NewActivityRequestViewController()
-        
+        let activitySelectedViewController = NewActivityRequestViewController()
+        let navigationController = UINavigationController(rootViewController: activitySelectedViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true)
+//            navigationController.pushViewController(navigationController, animated: true)
     }
     
     // 바텀시트 밀어서 dismiss
