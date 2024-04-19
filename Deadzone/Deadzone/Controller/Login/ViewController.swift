@@ -21,6 +21,7 @@ final class ViewController: UIViewController {
     }
 
     private func setupView() {
+        self.view.backgroundColor = DZColor.backgroundColor
         self.view.addSubview(loginView)
         loginView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)

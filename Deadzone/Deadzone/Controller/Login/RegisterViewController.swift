@@ -20,7 +20,7 @@ final class RegisterViewController: UIViewController {
     }
     
     private func setupView() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = DZColor.backgroundColor
         self.view.addSubview(registerView)
         registerView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)

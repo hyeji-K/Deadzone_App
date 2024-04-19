@@ -18,7 +18,7 @@ final class RepasswordViewController: UIViewController {
     }
     
     private func setupView() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = DZColor.backgroundColor
         self.view.addSubview(repasswordView)
         repasswordView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)

@@ -18,7 +18,7 @@ final class ThirdOnboardViewController: UIViewController {
     }
     
     private func setupView() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = DZColor.backgroundColor
         self.view.addSubview(thirdOnboardView)
         thirdOnboardView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)

@@ -19,7 +19,7 @@ final class OnboardViewController: UIViewController {
     }
     
     private func setupView() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = DZColor.backgroundColor
         self.view.addSubview(onboardView)
         onboardView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)

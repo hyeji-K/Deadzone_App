@@ -44,6 +44,7 @@ final class ActivitySelectedViewController: UIViewController {
     }
     
     private func setupView() {
+        self.view.backgroundColor = DZColor.backgroundColor
         self.view.addSubview(activitySelectedView)
         activitySelectedView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
