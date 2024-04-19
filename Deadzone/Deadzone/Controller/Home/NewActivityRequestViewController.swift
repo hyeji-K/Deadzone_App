@@ -20,7 +20,7 @@ final class NewActivityRequestViewController: UIViewController {
     
     private func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: DZImage.back, style: .plain, target: self, action: #selector(backButtonTapped))
-        self.navigationController?.navigationBar.tintColor = DZColor.black
+        self.navigationController?.navigationBar.tintColor = DZColor.grayColor100
     }
     
     private func setupView() {
@@ -29,9 +29,18 @@ final class NewActivityRequestViewController: UIViewController {
         newActivityRequestView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
+        
+        newActivityRequestView.doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     
     @objc private func backButtonTapped(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func doneButtonTapped(_ sender: UIButton) {
+        // DB에 저장하면서 화면 dismiss
+        guard let requestText = newActivityRequestView.writenTextView.text else { return }
+        Networking.shared.postNewActivityRequest(data: requestText)
         self.navigationController?.popViewController(animated: true)
     }
 }

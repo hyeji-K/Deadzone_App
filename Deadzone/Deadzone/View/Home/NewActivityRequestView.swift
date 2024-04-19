@@ -21,7 +21,8 @@ final class NewActivityRequestView: UIView {
     
     lazy var writenTextView: UITextView = {
         let textView = UITextView()
-        textView.attributedText = NSAttributedString.attributeFont(font: .subText12, text: placeholder, lineHeight: 16)
+        textView.text = placeholder
+        textView.setLineSpacing(textView.text)
         textView.textColor = DZColor.grayColor100
         textView.font = DZFont.subText12
         textView.backgroundColor = DZColor.grayColor300
@@ -89,6 +90,15 @@ extension NewActivityRequestView: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = placeholder
+            doneButton.isEnabled = false
+        } else {
+            doneButton.isEnabled = true
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.text.count > 300 {
+            textView.deleteBackward()
         }
     }
     

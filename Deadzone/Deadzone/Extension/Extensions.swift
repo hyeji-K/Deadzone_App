@@ -67,6 +67,15 @@ extension UITextView {
             self.attributedText = attrString
         }
     }
+    func setLineSpacing(_ text: String) {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 4
+        
+        let attributedString = NSMutableAttributedString(string: self.text)
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedString.length))
+        
+        self.attributedText = attributedString
+    }
 }
 enum DZFontType {
     // Her-Leeoksun

@@ -169,6 +169,12 @@ final class Networking {
         self.ref.child("users").child(uid).child("myRoom").setValue(room.toDictionary)
     }
     
+    func postNewActivityRequest(data: String) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        let request: [String: String] = ["request": data, "createdAt": Date().stringFormat]
+        self.ref.child("Request").child(uid).child(UUID().uuidString).setValue(request)
+    }
+    
     enum UserInformation {
         case nickname
         case feeling
