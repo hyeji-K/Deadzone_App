@@ -7,13 +7,18 @@
 
 import Foundation
 
-struct MyRoom {
-    var cdplayerImageView: Bool
-    var wastedImageView: Bool
-    var meditationImageView: Bool
-    var tableImageView: Bool
-    var iceCoffeeImageView: Bool
-    var readingImageView: Bool
-    var fashion01ImageView: Bool
-    var fashion02ImageView: Bool
+struct MyRoom: Codable {
+    var cdplayer: Bool
+    var wasted: Bool
+    var meditation: Bool
+    var table: Bool
+    var iceCoffee: Bool
+    var reading: Bool
+    var fashion01: Bool
+    var fashion02: Bool
+    
+    var toDictionary: [String: Any] {
+        let myRoom: [String: Any] = ["cdplayer": cdplayer, "wasted": wasted, "meditation": meditation, "table": table, "iceCoffee": iceCoffee, "reading": reading, "fashion01": fashion01, "fashion02": fashion02]
+        return myRoom
+    }
 }
