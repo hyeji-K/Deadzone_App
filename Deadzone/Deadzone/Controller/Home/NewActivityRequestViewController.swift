@@ -32,6 +32,6 @@ final class NewActivityRequestViewController: UIViewController {
     }
     
     @objc private func backButtonTapped(_ sender: UIButton) {
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }

@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol ActivityDelegate: AnyObject {
+    func newActivityButtonTapped(_ activitySelectedVC: ActivitySelectedViewController)
+}
+
 final class ActivitySelectedViewController: UIViewController {
     
     private let activitySelectedView = ActivitySelectedView()
     private var originalPosition: CGPoint?
     private let dismissActivitySelectedViewController: Notification.Name = Notification.Name("ActivitySelectedViewController")
+    
+    weak var activityDelegate: ActivityDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,10 +80,11 @@ final class ActivitySelectedViewController: UIViewController {
     
     @objc private func newActivityButtonTapped(_ sender: UIButton) {
         // TODO: 새로운 활동 요청
-        let activitySelectedViewController = NewActivityRequestViewController()
-        let navigationController = UINavigationController(rootViewController: activitySelectedViewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: true)
+        activityDelegate?.newActivityButtonTapped(self)
+//        let activitySelectedViewController = NewActivityRequestViewController()
+//        let navigationController = UINavigationController(rootViewController: activitySelectedViewController)
+//        navigationController.modalPresentationStyle = .fullScreen
+//        self.present(navigationController, animated: true)
 //            navigationController.pushViewController(navigationController, animated: true)
     }
     

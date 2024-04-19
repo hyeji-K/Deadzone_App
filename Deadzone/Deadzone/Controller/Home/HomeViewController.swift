@@ -88,6 +88,7 @@ final class HomeViewController: UIViewController {
     @objc private func addAssetButtonTapped(_ sender: UIButton) {
         let activitySelectedViewController = ActivitySelectedViewController()
         activitySelectedViewController.modalPresentationStyle = .overCurrentContext
+        activitySelectedViewController.activityDelegate = self
         self.present(activitySelectedViewController, animated: false)
     }
     
@@ -99,4 +100,17 @@ final class HomeViewController: UIViewController {
     @objc private func didDismissNotification(_ notification: Notification) {
         reloadView()
     }
+}
+
+extension HomeViewController: ActivityDelegate {
+    func newActivityButtonTapped(_ activitySelectedVC: ActivitySelectedViewController) {
+        activitySelectedVC.dismiss(animated: true) {
+            let activitySelectedViewController = NewActivityRequestViewController()
+//            let navigationController = UINavigationController(rootViewController: activitySelectedViewController)
+//            navigationController.modalPresentationStyle = .fullScreen
+            self.navigationController?.pushViewController(activitySelectedViewController, animated: true)
+        }
+    }
+    
+    
 }
