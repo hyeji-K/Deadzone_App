@@ -59,8 +59,8 @@ final class SecondOnboardView: UIView {
     private func setupView() {
         addSubview(pageControlImageView)
         addSubview(titleLabel)
-        addSubview(nextButton)
         addSubview(feelingTableView)
+        addSubview(nextButton)
         
         pageControlImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(41)
