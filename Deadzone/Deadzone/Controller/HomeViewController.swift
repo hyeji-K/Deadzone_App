@@ -15,13 +15,11 @@ final class HomeViewController: UIViewController {
         button.setImage(DZImage.addasset, for: .normal)
         return button
     }()
-    
     private var archiveButton: UIButton = {
         let button = UIButton()
         button.setImage(DZImage.archive, for: .normal)
         return button
     }()
-    
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [addAssetButton, archiveButton])
         stackView.axis = .horizontal
@@ -34,6 +32,10 @@ final class HomeViewController: UIViewController {
 
         setupNavigationBar()
         setupView()
+        reloadView()
+        
+        // 1. ActivitySelectedViewController에서 활동 선택 후 홈 화면에 반영
+        NotificationCenter.default.addObserver(self, selector: #selector(didDismissNotification), name: NSNotification.Name("ActivitySelectedViewController"), object: nil)
     }
     
     private func setupNavigationBar() {
@@ -59,6 +61,28 @@ final class HomeViewController: UIViewController {
         addAssetButton.addTarget(self, action: #selector(addAssetButtonTapped), for: .touchUpInside)
         archiveButton.addTarget(self, action: #selector(archiveButtonTapped), for: .touchUpInside)
     }
+    
+    // 업데이트 된 활동을 읽어와서 홈 화면에 반영
+    private func reloadView() {
+        Networking.shared.getActivity { snapshot in
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                var activitys: [String: Bool] = [:]
+                for (key, value) in snapshot {
+                        activitys.updateValue((value as! Int).boolValue, forKey: key)
+                }
+                self.homeView.cdplayerImageView.isHidden = activitys["cdplayer"]!
+                self.homeView.fashion01ImageView.isHidden = activitys["fashion01"]!
+                self.homeView.fashion02ImageView.isHidden = activitys["fashion02"]!
+                self.homeView.tableImageView.isHidden = activitys["table"]!
+                self.homeView.iceCoffeeImageView.isHidden = activitys["iceCoffee"]!
+                self.homeView.readingImageView.isHidden = activitys["reading"]!
+                self.homeView.meditationImageView.isHidden = activitys["meditation"]!
+                self.homeView.wastedImageView.isHidden = activitys["wasted"]!
+                self.view.setNeedsDisplay()
+            }
+        }
+    }
 
     @objc private func addAssetButtonTapped(_ sender: UIButton) {
         let activitySelectedViewController = ActivitySelectedViewController()
@@ -68,5 +92,10 @@ final class HomeViewController: UIViewController {
     
     @objc private func archiveButtonTapped(_ sender: UIButton) {
         
+    }
+    
+    // 2. ActivitySelectedViewController에서 활동 선택 후 홈 화면에 반영
+    @objc private func didDismissNotification(_ notification: Notification) {
+        reloadView()
     }
 }

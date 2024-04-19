@@ -34,7 +34,6 @@
 		1067F9602BC3B0C8007708E4 /* SetpasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9572BC3B0C7007708E4 /* SetpasswordView.swift */; };
 		1067F9612BC3B0C8007708E4 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9582BC3B0C7007708E4 /* RegisterView.swift */; };
 		1067F9622BC3B0C8007708E4 /* FeelingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F95A2BC3B0C7007708E4 /* FeelingCell.swift */; };
-		1067F9642BC3B37E007708E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1067F9632BC3B37E007708E4 /* GoogleService-Info.plist */; };
 		1067F9672BC3B45D007708E4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1067F9662BC3B45D007708E4 /* FirebaseAnalytics */; };
 		1067F9692BC3B45D007708E4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 1067F9682BC3B45D007708E4 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		1067F96B2BC3B45D007708E4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1067F96A2BC3B45D007708E4 /* FirebaseAuth */; };
@@ -64,6 +63,9 @@
 		1067F9BB2BD118A5007708E4 /* ActivitySelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9B92BD118A5007708E4 /* ActivitySelectedView.swift */; };
 		1067F9BD2BD118B2007708E4 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9BC2BD118B2007708E4 /* ActivityCell.swift */; };
 		1067F9C02BD11C60007708E4 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1067F9BE2BD11C60007708E4 /* Home.storyboard */; };
+		1067F9C22BD12435007708E4 /* MyRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9C12BD12435007708E4 /* MyRoom.swift */; };
+		1067F9C42BD12444007708E4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F9C32BD12444007708E4 /* User.swift */; };
+		1067F9C62BD17D37007708E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1067F9C52BD17D37007708E4 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,7 +96,6 @@
 		1067F9572BC3B0C7007708E4 /* SetpasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetpasswordView.swift; sourceTree = "<group>"; };
 		1067F9582BC3B0C7007708E4 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		1067F95A2BC3B0C7007708E4 /* FeelingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeelingCell.swift; sourceTree = "<group>"; };
-		1067F9632BC3B37E007708E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1067F9942BCFAB79007708E4 /* SecondOnboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondOnboardViewController.swift; sourceTree = "<group>"; };
 		1067F9952BCFAB79007708E4 /* RepasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepasswordViewController.swift; sourceTree = "<group>"; };
 		1067F9962BCFAB79007708E4 /* OnboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +109,9 @@
 		1067F9B92BD118A5007708E4 /* ActivitySelectedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySelectedView.swift; sourceTree = "<group>"; };
 		1067F9BC2BD118B2007708E4 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		1067F9BF2BD11C60007708E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Deadzone/Base.lproj/Home.storyboard; sourceTree = "<group>"; };
+		1067F9C12BD12435007708E4 /* MyRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRoom.swift; sourceTree = "<group>"; };
+		1067F9C32BD12444007708E4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1067F9C52BD17D37007708E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +173,7 @@
 				1067F8DC2BBD85A9007708E4 /* Assets.xcassets */,
 				1067F8DE2BBD85A9007708E4 /* LaunchScreen.storyboard */,
 				1067F8E12BBD85A9007708E4 /* Info.plist */,
-				1067F9632BC3B37E007708E4 /* GoogleService-Info.plist */,
+				1067F9C52BD17D37007708E4 /* GoogleService-Info.plist */,
 			);
 			path = Deadzone;
 			sourceTree = "<group>";
@@ -200,6 +204,8 @@
 		1067F9022BBDA910007708E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1067F9C32BD12444007708E4 /* User.swift */,
+				1067F9C12BD12435007708E4 /* MyRoom.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -218,12 +224,12 @@
 			isa = PBXGroup;
 			children = (
 				1067F8D72BBD85A8007708E4 /* ViewController.swift */,
-				1067F9962BCFAB79007708E4 /* OnboardViewController.swift */,
 				1067F9972BCFAB79007708E4 /* RegisterViewController.swift */,
-				1067F9952BCFAB79007708E4 /* RepasswordViewController.swift */,
+				1067F9962BCFAB79007708E4 /* OnboardViewController.swift */,
 				1067F9942BCFAB79007708E4 /* SecondOnboardViewController.swift */,
-				1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */,
 				1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */,
+				1067F9952BCFAB79007708E4 /* RepasswordViewController.swift */,
+				1067F9982BCFAB79007708E4 /* SetpasswordViewController.swift */,
 				1067F9B32BD11896007708E4 /* HomeViewController.swift */,
 				1067F9B42BD11896007708E4 /* ActivitySelectedViewController.swift */,
 			);
@@ -367,11 +373,11 @@
 				1067F8E02BBD85A9007708E4 /* LaunchScreen.storyboard in Resources */,
 				1067F9C02BD11C60007708E4 /* Home.storyboard in Resources */,
 				1067F8F02BBD9764007708E4 /* Images.xcassets in Resources */,
-				1067F9642BC3B37E007708E4 /* GoogleService-Info.plist in Resources */,
 				1067F8EC2BBD916B007708E4 /* Colors.xcassets in Resources */,
 				1067F8F52BBD98A6007708E4 /* Her-Leeoksun.ttf in Resources */,
 				1067F9142BBE4983007708E4 /* NanumSquareNeoOTF-Bd.otf in Resources */,
 				1067F9162BBE498C007708E4 /* NanumSquareNeoOTF-Rg.otf in Resources */,
+				1067F9C62BD17D37007708E4 /* GoogleService-Info.plist in Resources */,
 				1067F8DD2BBD85A9007708E4 /* Assets.xcassets in Resources */,
 				1067F8DB2BBD85A8007708E4 /* Main.storyboard in Resources */,
 			);
@@ -388,6 +394,7 @@
 				1067F9B52BD11896007708E4 /* HomeViewController.swift in Sources */,
 				1067F99E2BCFAB79007708E4 /* SetpasswordViewController.swift in Sources */,
 				1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */,
+				1067F9C42BD12444007708E4 /* User.swift in Sources */,
 				1067F9622BC3B0C8007708E4 /* FeelingCell.swift in Sources */,
 				1067F9A12BCFAB85007708E4 /* Networking.swift in Sources */,
 				1067F9602BC3B0C8007708E4 /* SetpasswordView.swift in Sources */,
@@ -408,6 +415,7 @@
 				1067F8D42BBD85A8007708E4 /* AppDelegate.swift in Sources */,
 				1067F8EE2BBD95EC007708E4 /* DZColor.swift in Sources */,
 				1067F9B62BD11896007708E4 /* ActivitySelectedViewController.swift in Sources */,
+				1067F9C22BD12435007708E4 /* MyRoom.swift in Sources */,
 				1067F95E2BC3B0C8007708E4 /* LoginView.swift in Sources */,
 				1067F9612BC3B0C8007708E4 /* RegisterView.swift in Sources */,
 				1067F8D62BBD85A8007708E4 /* SceneDelegate.swift in Sources */,

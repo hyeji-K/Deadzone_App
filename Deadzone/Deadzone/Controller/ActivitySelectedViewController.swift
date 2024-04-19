@@ -11,6 +11,7 @@ final class ActivitySelectedViewController: UIViewController {
     
     private let activitySelectedView = ActivitySelectedView()
     private var originalPosition: CGPoint?
+    private let dismissActivitySelectedViewController: Notification.Name = Notification.Name("ActivitySelectedViewController")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +21,20 @@ final class ActivitySelectedViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        // 위로 올라오는 애니메이션 
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.activitySelectedView.snp.updateConstraints { make in
                 make.height.equalTo(364)
             }
             self?.view.layoutIfNeeded()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.post(name: dismissActivitySelectedViewController, object: nil)
     }
     
     private func setupView() {
@@ -45,7 +54,9 @@ final class ActivitySelectedViewController: UIViewController {
     }
     
     @objc private func doneButtonTapped(_ sender: UIButton) {
-        // TODO: 홈 화면 새로고침
+        // 1. 선택한 활동 데이터베이스에 저장 후 dismiss
+        let activitys = activitySelectedView.activitys
+        Networking.shared.createActivity(activityCount: activitys.count, activitys: activitys)
         UIView.animate(withDuration: 0.3,
             animations: {
                 self.view.frame.origin = CGPoint(
@@ -67,6 +78,8 @@ final class ActivitySelectedViewController: UIViewController {
         
     }
     
+    // 바텀시트 밀어서 dismiss
+    // TODO: 위로 이동 안되도록 수정하기
     @objc private func panGestureAction(_ panGesture: UIPanGestureRecognizer) {
         switch panGesture.state {
         case .began:

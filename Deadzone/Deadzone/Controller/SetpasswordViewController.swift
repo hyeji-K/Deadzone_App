@@ -73,10 +73,10 @@ extension SetpasswordViewController: UITextFieldDelegate {
         guard let pw = textField.text else { return }
         if pw.isValidPassword() {
             setpasswordView.checkPasswordLabel.isHidden = true
-            setpasswordView.newPasswordTextField.backgroundColor = DZColor.grayColor300
+            setpasswordView.newPasswordTextField.isCorrecting(value: true)
             password = pw
         } else {
-            setpasswordView.newPasswordTextField.backgroundColor = DZColor.red02
+            setpasswordView.newPasswordTextField.isCorrecting(value: false)
             setpasswordView.checkPasswordLabel.isHidden = false
         }
     }

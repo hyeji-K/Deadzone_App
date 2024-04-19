@@ -26,56 +26,56 @@ final class HomeView: UIView {
     var cdplayerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.cdplayer
-        imageView.isHidden = false
+        imageView.isHidden = true
         return imageView
     }()
     
     var wastedImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.wasted
-        imageView.isHidden = false
+        imageView.isHidden = true
         return imageView
     }()
     
     var meditationImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.meditation
-        imageView.isHidden = false
+        imageView.isHidden = true
         return imageView
     }()
     
     var tableImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.table
-        imageView.isHidden = false
+        imageView.isHidden = true
         return imageView
     }()
     
     var iceCoffeeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.iceCoffee
-        imageView.isHidden = false
+        imageView.isHidden = true
         return imageView
     }()
     
     var fashion01ImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.fashion01
-        imageView.isHidden = false
+        imageView.isHidden = true
         return imageView
     }()
     
     var fashion02ImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.fashion02
-        imageView.isHidden = false
+        imageView.isHidden = true
         return imageView
     }()
     
     var readingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.reading
-        imageView.isHidden = false
+        imageView.isHidden = true
         return imageView
     }()
 

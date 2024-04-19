@@ -11,6 +11,7 @@ final class ActivitySelectedView: UIView {
     
     private let activityList: [String] = ["음악", "카페", "명상", "독서", "음주", "패션"]
     private let activityImageList: [UIImage] = [DZImage.music01, DZImage.cafe02, DZImage.meditation03, DZImage.reading04, DZImage.drinking05, DZImage.fashion06]
+    var activitys: [String] = []
     
     let containerView: UIView = {
         let view = UIView()
@@ -168,6 +169,10 @@ extension ActivitySelectedView: UICollectionViewDataSource, UICollectionViewDele
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.activitys.append(activityList[indexPath.item])
+    }
+    
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         subTitleLabel.isHidden = false
         doneButton.isEnabled = true
@@ -178,6 +183,9 @@ extension ActivitySelectedView: UICollectionViewDataSource, UICollectionViewDele
         if collectionView.indexPathsForSelectedItems?.count == 0 {
             subTitleLabel.isHidden = true
             doneButton.isEnabled = false
+        }
+        if let index = activitys.firstIndex(of: activityList[indexPath.item]) {
+            self.activitys.remove(at: index)
         }
     }
 }

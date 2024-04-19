@@ -30,8 +30,10 @@ final class OnboardViewController: UIViewController {
     }
     
     @objc private func nextButtonTapped(_ sender: UIButton) {
-        // TODO: 파이어베이스 데이터베이스에 닉네임 저장 후 화면 전환
+        // 파이어베이스 데이터베이스에 닉네임 저장 후 화면 전환
         if nickname != nil {
+            guard let nickname else { return }
+            Networking.shared.updateUserInfo(dataName: .nickname, data: nickname)
             let secondOnboardViewController = SecondOnboardViewController()
             secondOnboardViewController.modalPresentationStyle = .fullScreen
             self.present(secondOnboardViewController, animated: false)            
