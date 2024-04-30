@@ -61,6 +61,14 @@ final class HomeViewController: UIViewController {
         }
         addAssetButton.addTarget(self, action: #selector(addAssetButtonTapped), for: .touchUpInside)
         archiveButton.addTarget(self, action: #selector(archiveButtonTapped), for: .touchUpInside)
+        
+        homeView.cdplayerImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
+        homeView.fashion01ImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
+        homeView.fashion02ImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
+        homeView.iceCoffeeImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
+        homeView.readingImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
+        homeView.meditationImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
+        homeView.wastedImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
     }
     
     // 업데이트 된 활동을 읽어와서 홈 화면에 반영
@@ -72,14 +80,14 @@ final class HomeViewController: UIViewController {
                 for (key, value) in snapshot {
                         activitys.updateValue((value as! Int).boolValue, forKey: key)
                 }
-                self.homeView.cdplayerImageView.isHidden = activitys["cdplayer"]!
-                self.homeView.fashion01ImageView.isHidden = activitys["fashion01"]!
-                self.homeView.fashion02ImageView.isHidden = activitys["fashion02"]!
+                self.homeView.cdplayerImageButton.isHidden = activitys["cdplayer"]!
+                self.homeView.fashion01ImageButton.isHidden = activitys["fashion01"]!
+                self.homeView.fashion02ImageButton.isHidden = activitys["fashion02"]!
                 self.homeView.tableImageView.isHidden = activitys["table"]!
-                self.homeView.iceCoffeeImageView.isHidden = activitys["iceCoffee"]!
-                self.homeView.readingImageView.isHidden = activitys["reading"]!
-                self.homeView.meditationImageView.isHidden = activitys["meditation"]!
-                self.homeView.wastedImageView.isHidden = activitys["wasted"]!
+                self.homeView.iceCoffeeImageButton.isHidden = activitys["iceCoffee"]!
+                self.homeView.readingImageButton.isHidden = activitys["reading"]!
+                self.homeView.meditationImageButton.isHidden = activitys["meditation"]!
+                self.homeView.wastedImageButton.isHidden = activitys["wasted"]!
                 self.view.setNeedsDisplay()
             }
         }
@@ -100,17 +108,21 @@ final class HomeViewController: UIViewController {
     @objc private func didDismissNotification(_ notification: Notification) {
         reloadView()
     }
+    
+    // Activity 터치 시 카메라 열기
+    @objc private func activityImageButtonTapped(_ sender: UIButton) {
+//        let pickerController = UIImagePickerController()
+//        pickerController.sourceType = .camera
+////        pickerController.delegate = self
+//        self.present(pickerController, animated: false)
+    }
 }
 
 extension HomeViewController: ActivityDelegate {
     func newActivityButtonTapped(_ activitySelectedVC: ActivitySelectedViewController) {
         activitySelectedVC.dismiss(animated: true) {
             let activitySelectedViewController = NewActivityRequestViewController()
-//            let navigationController = UINavigationController(rootViewController: activitySelectedViewController)
-//            navigationController.modalPresentationStyle = .fullScreen
             self.navigationController?.pushViewController(activitySelectedViewController, animated: true)
         }
     }
-    
-    
 }

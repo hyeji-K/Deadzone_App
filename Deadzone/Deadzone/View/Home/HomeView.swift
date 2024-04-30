@@ -23,25 +23,25 @@ final class HomeView: UIView {
         return imageView
     }()
     
-    var cdplayerImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = DZImage.cdplayer
-        imageView.isHidden = true
-        return imageView
+    var cdplayerImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(DZImage.cdplayer, for: .normal)
+        button.isHidden = true
+        return button
     }()
     
-    var wastedImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = DZImage.wasted
-        imageView.isHidden = true
-        return imageView
+    var wastedImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(DZImage.wasted, for: .normal)
+        button.isHidden = true
+        return button
     }()
     
-    var meditationImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = DZImage.meditation
-        imageView.isHidden = true
-        return imageView
+    var meditationImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(DZImage.meditation, for: .normal)
+        button.isHidden = true
+        return button
     }()
     
     var tableImageView: UIImageView = {
@@ -51,32 +51,32 @@ final class HomeView: UIView {
         return imageView
     }()
     
-    var iceCoffeeImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = DZImage.iceCoffee
-        imageView.isHidden = true
-        return imageView
+    var iceCoffeeImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(DZImage.iceCoffee, for: .normal)
+        button.isHidden = true
+        return button
     }()
     
-    var fashion01ImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = DZImage.fashion01
-        imageView.isHidden = true
-        return imageView
+    var fashion01ImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(DZImage.fashion01, for: .normal)
+        button.isHidden = true
+        return button
     }()
     
-    var fashion02ImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = DZImage.fashion02
-        imageView.isHidden = true
-        return imageView
+    var fashion02ImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(DZImage.fashion02, for: .normal)
+        button.isHidden = true
+        return button
     }()
     
-    var readingImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = DZImage.reading
-        imageView.isHidden = true
-        return imageView
+    var readingImageButton: UIButton = {
+        let button = UIButton()
+        button.setImage(DZImage.reading, for: .normal)
+        button.isHidden = true
+        return button
     }()
 
     override init(frame: CGRect) {
@@ -90,15 +90,15 @@ final class HomeView: UIView {
     
     private func setupView() {
         addSubview(floorView)
-        addSubview(fashion01ImageView)
+        addSubview(fashion01ImageButton)
         addSubview(sofaImageView)
-        addSubview(cdplayerImageView)
-        addSubview(wastedImageView)
-        addSubview(meditationImageView)
+        addSubview(cdplayerImageButton)
+        addSubview(wastedImageButton)
+        addSubview(meditationImageButton)
         addSubview(tableImageView)
-        addSubview(iceCoffeeImageView)
-        addSubview(fashion02ImageView)
-        addSubview(readingImageView)
+        addSubview(fashion02ImageButton)
+        addSubview(readingImageButton)
+        addSubview(iceCoffeeImageButton)
         floorView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(300)
@@ -107,15 +107,15 @@ final class HomeView: UIView {
             make.right.equalToSuperview().inset(54)
             make.top.equalTo(floorView.snp.top).offset(-107.5)
         }
-        cdplayerImageView.snp.makeConstraints { make in
+        cdplayerImageButton.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
             make.bottom.equalTo(floorView.snp.top).offset(-175.5)
         }
-        wastedImageView.snp.makeConstraints { make in
+        wastedImageButton.snp.makeConstraints { make in
             make.bottom.equalTo(sofaImageView.snp.top).offset(-80)
             make.right.equalTo(sofaImageView.snp.right).inset(104)
         }
-        meditationImageView.snp.makeConstraints { make in
+        meditationImageButton.snp.makeConstraints { make in
             make.top.equalTo(sofaImageView.snp.bottom).offset(119)
             make.left.equalToSuperview().offset(31)
         }
@@ -123,19 +123,19 @@ final class HomeView: UIView {
             make.top.equalTo(sofaImageView.snp.top).offset(126)
             make.right.equalTo(sofaImageView.snp.right).inset(76)
         }
-        iceCoffeeImageView.snp.makeConstraints { make in
+        iceCoffeeImageButton.snp.makeConstraints { make in
             make.top.equalTo(tableImageView.snp.top).offset(-9)
             make.right.equalTo(tableImageView.snp.right).inset(15)
         }
-        fashion01ImageView.snp.makeConstraints { make in
+        fashion01ImageButton.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(21)
             make.bottom.equalTo(sofaImageView.snp.bottom).offset(-52)
         }
-        fashion02ImageView.snp.makeConstraints { make in
+        fashion02ImageButton.snp.makeConstraints { make in
             make.right.equalTo(sofaImageView.snp.left).offset(-21)
             make.bottom.equalTo(sofaImageView.snp.bottom).offset(3)
         }
-        readingImageView.snp.makeConstraints { make in
+        readingImageButton.snp.makeConstraints { make in
             make.left.equalTo(tableImageView.snp.left).offset(21)
             make.bottom.equalTo(tableImageView.snp.bottom).offset(-6)
         }
