@@ -37,4 +37,12 @@ enum DZImage {
     static var reading04: UIImage = UIImage(resource: .reading04)
     static var drinking05: UIImage = UIImage(resource: .drinking05)
     static var fashion06: UIImage = UIImage(resource: .fashion06)
+    static var defaultBM: UIImage = UIImage(resource: .defaultBM)
+    static var pointBM: UIImage = UIImage(resource: .pointBM)
+    static var border: UIImage = UIImage(resource: .border)
+    static var caption: UIImage = UIImage(resource: .caption)
+    static var npcWording: UIImage = UIImage(resource: .npcWording)
+    static var check: UIImage = UIImage(resource: .check)
+    static var defaultCheck: UIImage = UIImage(resource: .defaultCheck)
+    static var activeCheck: UIImage = UIImage(resource: .activeCheck)
 }
