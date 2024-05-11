@@ -13,13 +13,14 @@ struct User: Codable {
     var email: String
     var nickname: String
     var feeling: String
-    var reason: String
+//    var reason: String
+    var archive: [String]
     var activate: Bool = true
     var createdAt: String
     var updatedAt: String = Date().stringFormat
     
     var toDictionary: [String: Any] {
-        let user: [String: Any] = ["id": id, "email": email, "nickname": nickname, "feeling": feeling, "reason": reason, "activate": activate, "createdAt": createdAt, "updatedAt": updatedAt]
+        let user: [String: Any] = ["id": id, "email": email, "nickname": nickname, "feeling": feeling, "archive": archive, "activate": activate, "createdAt": createdAt, "updatedAt": updatedAt]
         return user
     }
 }

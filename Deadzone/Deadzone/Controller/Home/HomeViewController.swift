@@ -78,7 +78,7 @@ final class HomeViewController: UIViewController {
                 guard let snapshot = snapshot.value as? [String: Any] else { return }
                 var activitys: [String: Bool] = [:]
                 for (key, value) in snapshot {
-                        activitys.updateValue((value as! Int).boolValue, forKey: key)
+                    activitys.updateValue((value as! Int).boolValue, forKey: key)
                 }
                 self.homeView.cdplayerImageButton.isHidden = activitys["cdplayer"]!
                 self.homeView.fashion01ImageButton.isHidden = activitys["fashion01"]!
@@ -101,7 +101,32 @@ final class HomeViewController: UIViewController {
     }
     
     @objc private func archiveButtonTapped(_ sender: UIButton) {
-        
+        // NOTE: 활동을 선택하지 않았을 때엔 알럿
+        Networking.shared.getUserInfo { snapshot in
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
+                    let decoder = JSONDecoder()
+                    let userInfo: User = try decoder.decode(User.self, from: data)
+                    
+                    if userInfo.archive.first == "" {
+                        let alert = UIAlertController(title: nil, message: "활동을 선택하지 않았습니다.", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "확인", style: .cancel)
+                        alert.addAction(okAction)
+                        self.present(alert, animated: false)
+                    } else {
+                        DispatchQueue.main.async {
+                            let archiveListViewController = ArchiveListViewController()
+                            self.navigationController?.pushViewController(archiveListViewController, animated: true)
+                        }
+                    }
+                    
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
     // 2. ActivitySelectedViewController에서 활동 선택 후 홈 화면에 반영
@@ -115,6 +140,12 @@ final class HomeViewController: UIViewController {
 //        pickerController.sourceType = .camera
 ////        pickerController.delegate = self
 //        self.present(pickerController, animated: false)
+        
+        if let archiveName = sender.accessibilityIdentifier {
+            UserDefaults.standard.setValue(archiveName, forKey: "archiveName")
+        }
+        let cameraViewController = CameraViewController()
+        self.navigationController?.pushViewController(cameraViewController, animated: false)
     }
 }
 

@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 enum NetworkError: Error {
     case invalidEmail
@@ -25,6 +26,9 @@ final class Networking {
     
     // MARK: 실시간 데이터베이스
     private var ref: DatabaseReference! = Database.database().reference()
+    
+    // MARK: 저장소
+    private let storage = FirebaseStorage.Storage.storage().reference()
     
     private init() { }
     
@@ -126,7 +130,7 @@ final class Networking {
     // MARK: 데이터 쓰기
     func createUser(email: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        let user = User(email: email, nickname: "", feeling: "", reason: "", createdAt: Date().stringFormat)
+        let user = User(email: email, nickname: "", feeling: "", archive: [""], createdAt: Date().stringFormat)
         UserDefaults.standard.setValue(userID, forKey: "userId")
         self.ref.child("users").child(userID).child("userInfo").setValue(user.toDictionary)
     }
@@ -178,10 +182,11 @@ final class Networking {
     enum UserInformation {
         case nickname
         case feeling
-        case reason
+//        case reason // DB에 저장하지 않음
+        case archiveName
     }
     
-    func updateUserInfo(dataName: UserInformation, data: String) {
+    func updateUserInfo(dataName: UserInformation, data: String, archive: [String]? = nil) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         switch dataName {
         case .nickname:
@@ -190,10 +195,36 @@ final class Networking {
         case .feeling:
             let childUpdates = ["feeling": data]
             ref.child("users").child(uid).child("userInfo").updateChildValues(childUpdates)
-        case .reason:
-            let childUpdates = ["reason": data]
+        case .archiveName:
+            guard let archive = archive else { return }
+            var childUpdates: [String: Any] = [:]
+            if archive.count == 1 {
+                childUpdates = ["archive": archive.first!]
+            } else {
+                childUpdates = ["archive": [archive.first!, archive.last!]]
+            }
             ref.child("users").child(uid).child("userInfo").updateChildValues(childUpdates)
         }
+    }
+    
+//    func postNewArchive(name: String) {
+//        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+//        let dic: [String: String] = ["createdAt": Date().stringFormat]
+//        self.ref.child("users").child(uid).child("Archive").child(name).setValue(dic)
+//    }
+    
+    func updateArchive(name: String, imageUrl: String) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        let archive = Archive(imageUrl: imageUrl, content: "", createdAt: Date().stringFormat)
+        let data = [archive.id: archive.toDictionary]
+        self.ref.child("users").child(uid).child("Archive").child(name).updateChildValues(data)
+    }
+    
+    func updateArchiveContent(name: String, archive: Archive, content: String) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        let updateArchive = Archive(id: archive.id, imageUrl: archive.imageUrl, content: content, createdAt: archive.createdAt)
+        let data = [archive.id: updateArchive.toDictionary]
+        self.ref.child("users").child(uid).child("Archive").child(name).updateChildValues(data)
     }
     
     // MARK: 데이터 읽기
@@ -230,6 +261,38 @@ final class Networking {
             }
             guard let snapshot else { return }
             completion(snapshot)
+        }
+    }
+    
+    func getArchive(completion: @escaping (DataSnapshot) -> Void) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        ref.child("users").child(uid).child("Archive").observe(.value) { snapshot in
+            completion(snapshot)
+        }
+    }
+    
+    // MARK: 이미지 업로드
+    func imageUpload(id: String, imageData: Data, completion: @escaping (String) -> Void) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        let imageRef = self.storage.child(uid).child("storageName.rawValue")
+        let imageName = "\(id).jpg"
+        let imagefileRef = imageRef.child(imageName)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        imagefileRef.putData(imageData, metadata: metadata) { metadata, error in
+            if let error = error {
+                print("이미지 올리기 실패! \(error)")
+            } else {
+                imagefileRef.downloadURL { url, error in
+                    if let error = error {
+                        print("이미지 다운로드 실패! \(error)")
+                    } else {
+                        guard let url = url else { return }
+                        completion("\(url)")
+                    }
+                }
+            }
         }
     }
 }

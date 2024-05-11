@@ -46,6 +46,16 @@ extension UILabel {
             self.attributedText = attrString
         }
     }
+    
+    func setLineSpacing(_ text: String?) {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 4
+        
+        let attributedString = NSMutableAttributedString(string: text ?? "")
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedString.length))
+        
+        self.attributedText = attributedString
+    }
 }
 
 extension UITextView {
@@ -164,4 +174,22 @@ extension Int {
     var boolValue: Bool {
         return self != 1
     }
+}
+
+extension UINavigationController {
+    func popViewController(animated: Bool, completion:@escaping (()->())) -> UIViewController? {
+        CATransaction.setCompletionBlock(completion)
+        CATransaction.begin()
+        let poppedViewController = self.popViewController(animated: animated)
+        CATransaction.commit()
+        return poppedViewController
+    }
+    
+    func pushViewController(_ viewController: UIViewController, animated: Bool, completion:@escaping (()->())) {
+        CATransaction.setCompletionBlock(completion)
+        CATransaction.begin()
+        self.pushViewController(viewController, animated: animated)
+        CATransaction.commit()
+    }
+    
 }
