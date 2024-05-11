@@ -30,8 +30,8 @@ final class ThirdOnboardViewController: UIViewController {
     @objc private func doneButtonTapped(_ sender: UIButton) {
         guard let reason = thirdOnboardView.writenTextView.text else { return }
         if reason != thirdOnboardView.placeholder {
-            // 이유 DB에 저장 후 홈 화면으로 화면 전환
-            Networking.shared.updateUserInfo(dataName: .reason, data: reason)
+            // 이유 DB에 저장 후 홈 화면으로 화면 전환 --> 삭제
+//            Networking.shared.updateUserInfo(dataName: .reason, data: reason)
             let main = UIStoryboard.init(name: "Home", bundle: nil)
             let homeViewController = main.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
             let navigationController = UINavigationController(rootViewController: homeViewController)

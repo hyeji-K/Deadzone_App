@@ -40,6 +40,7 @@ final class OnboardView: UIView {
         textField.font = DZFont.text14
         textField.autocorrectionType = .no
         textField.spellCheckingType = .no
+        textField.returnKeyType = .done
         return textField
     }()
     
