@@ -55,6 +55,7 @@ final class RegisterView: UIView {
     lazy var passwordTextField: UITextField = {
         let textField = BasicTextField(placeholderText: "영문과 숫자 조합, 8자리 이상")
         textField.isSecureTextEntry = true
+        textField.textContentType = .oneTimeCode
         textField.rightViewMode = .always
         textField.rightView = passwordEyeButton
         return textField
