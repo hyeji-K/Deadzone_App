@@ -18,6 +18,9 @@ final class ActivitySelectedViewController: UIViewController {
     private let dismissActivitySelectedViewController: Notification.Name = Notification.Name("ActivitySelectedViewController")
     
     weak var activityDelegate: ActivityDelegate?
+    var activityInit: Bool?
+    var selectedActivitys: [String: Bool] = [:]
+    var activitys: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +54,18 @@ final class ActivitySelectedViewController: UIViewController {
 //            make.left.right.equalTo(self.view.safeAreaLayoutGuide)
 //            make.bottom.equalToSuperview()
         }
+        guard let activityInit = activityInit else { return }
+        
+        if activityInit {
+            // 활동을 처음 선택할 때
+        } else {
+            // 활동을 변경할 때
+            self.getSelectedActivity()
+            self.activitySelectedView.activityInit = false
+            self.activitySelectedView.subTitleLabel.text = "활동을 변경하면, 기존에 선택한 활동은 저장되지 않아요."
+            self.activitySelectedView.subTitleLabel.isHidden = false
+            self.activitySelectedView.selectedActivitys = self.selectedActivitys
+        }
         
         activitySelectedView.doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         activitySelectedView.newActivityButton.addTarget(self, action: #selector(newActivityButtonTapped), for: .touchUpInside)
@@ -59,10 +74,18 @@ final class ActivitySelectedViewController: UIViewController {
         activitySelectedView.addGestureRecognizer(panGestureRecognizer)
     }
     
-    @objc private func doneButtonTapped(_ sender: UIButton) {
-        // 1. 선택한 활동 데이터베이스에 저장 후 dismiss
-        let activitys = activitySelectedView.activitys
-        Networking.shared.createActivity(activityCount: activitys.count, activitys: activitys)
+    private func getSelectedActivity() {
+        for (activity, value) in self.selectedActivitys {
+            if !value {
+                if activity == "fashion02" || activity == "table" {
+                    continue
+                }
+                self.activitys.append(activity)
+            }
+        }
+    }
+    
+    private func dimissViewController() {
         UIView.animate(withDuration: 0.3,
             animations: {
                 self.view.frame.origin = CGPoint(
@@ -78,8 +101,47 @@ final class ActivitySelectedViewController: UIViewController {
         )
     }
     
+    @objc private func doneButtonTapped(_ sender: UIButton) {
+        // 1. 선택한 활동 데이터베이스에 저장 후 dismiss
+        guard let activityInit = activityInit else { return }
+        if activityInit {
+            // 활동을 처음 선택할 때
+            self.activitys = activitySelectedView.activitys
+//            guard let activitys = self.activitys else { return }
+            Networking.shared.createActivity(activityCount: activitys.count, activitys: activitys)
+            Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: activitys)
+            self.dimissViewController()
+        } else {
+            // 활동을 변경할 때
+            let alert = UIAlertController(title: nil, message: "활동을 변경하면, 기존에 선택한 활동에 대한 데이터는 다시 볼 수 없습니다.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default) { action in
+                // NOTE: 기존 기록 삭제하고 새롭게 업데이트
+                let newActivitys = self.activitySelectedView.activitys
+                // 0. 변경될 것과 기존 기록 비교해서 변경된 것은 기록 삭제
+                for i in 0..<self.activitys.count {
+                    if newActivitys.contains(self.activitys[i]) {
+                        self.activitys.remove(at: i)
+                    }
+                }
+                // 1. 기존 기록 삭제
+                if self.activitys.count > 0 {
+                    Networking.shared.deleteArchiveData(firstArchiveName: self.activitys.first!, secondArchiveName: self.activitys.last ?? nil)
+                    // 2. 새롭게 업데이트
+                    Networking.shared.createActivity(activityCount: newActivitys.count, activitys: newActivitys)
+                    Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: newActivitys)
+                    self.activitys = newActivitys
+                }
+                self.dimissViewController()
+            }
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: false)
+        }
+    }
+    
     @objc private func newActivityButtonTapped(_ sender: UIButton) {
-        // TODO: 새로운 활동 요청
+        // 새로운 활동 요청
         activityDelegate?.newActivityButtonTapped(self)
 //        let activitySelectedViewController = NewActivityRequestViewController()
 //        let navigationController = UINavigationController(rootViewController: activitySelectedViewController)
@@ -122,6 +184,25 @@ final class ActivitySelectedViewController: UIViewController {
             )
         default:
             return
+        }
+    }
+    
+    func changeCatagotyName(name: String) -> String {
+        switch name {
+        case "음악":
+            return "music"
+        case "카페":
+            return "cafe"
+        case "명상":
+            return "meditation"
+        case "독서":
+            return "reading"
+        case "음주":
+            return "drinking"
+        case "패션":
+            return "fashion01"
+        default:
+            return ""
         }
     }
 }

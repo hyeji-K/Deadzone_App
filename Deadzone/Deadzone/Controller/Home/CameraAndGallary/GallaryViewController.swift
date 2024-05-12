@@ -104,10 +104,9 @@ final class GallaryViewController: UIViewController {
 //        })
         
         // MARK: 선택한 사진 저장하고 화면 전환
-        // TODO: 인디케이터 
         indicatorView.startAnimating()
-        Networking.shared.imageUpload(id: UUID().uuidString, imageData: self.imageData) { url in
-            guard let archiveName = UserDefaults.standard.string(forKey: "archiveName") else { return }
+        guard let archiveName = UserDefaults.standard.string(forKey: "archiveName") else { return }
+        Networking.shared.imageUpload(storageName: archiveName, id: UUID().uuidString, imageData: self.imageData) { url in
             Networking.shared.updateArchive(name: archiveName, imageUrl: url)
             
             DispatchQueue.main.async {

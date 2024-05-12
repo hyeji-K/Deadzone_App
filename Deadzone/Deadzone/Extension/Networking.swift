@@ -141,27 +141,27 @@ final class Networking {
         case meditation
         case reading
         case drinking
-        case fashion
+        case fashion01
     }
     
     func createActivity(activityCount: Int, activitys: [String]) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
-        var room = MyRoom(cdplayer: false, wasted: false, meditation: false, table: false, iceCoffee: false, reading: false, fashion01: false, fashion02: false)
+        var room = MyRoom(music: false, drinking: false, meditation: false, table: false, cafe: false, reading: false, fashion01: false, fashion02: false)
         
         for activity in activitys {
             switch activity {
             case "음악":
-                room.cdplayer = true
+                room.music = true
             case "카페":
                 room.table = true
-                room.iceCoffee = true
+                room.cafe = true
             case "명상":
                 room.meditation = true
             case "독서":
                 room.table = true
                 room.reading = true
             case "음주":
-                room.wasted = true
+                room.drinking = true
             case "패션":
                 room.fashion01 = true
                 room.fashion02 = true
@@ -272,9 +272,10 @@ final class Networking {
     }
     
     // MARK: 이미지 업로드
-    func imageUpload(id: String, imageData: Data, completion: @escaping (String) -> Void) {
+    func imageUpload(storageName: String, id: String, imageData: Data, completion: @escaping (String) -> Void) {
+        // TODO: 활동에 따른 이미지 폴더 만들기
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
-        let imageRef = self.storage.child(uid).child("storageName.rawValue")
+        let imageRef = self.storage.child(uid).child(storageName)
         let imageName = "\(id).jpg"
         let imagefileRef = imageRef.child(imageName)
         let metadata = StorageMetadata()
@@ -294,5 +295,48 @@ final class Networking {
                 }
             }
         }
+    }
+    
+    // MARK: 데이터 삭제
+    func deleteArchiveData(firstArchiveName: String, secondArchiveName: String? = nil) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        self.ref.child("users").child(uid).child("Archive").child(firstArchiveName).removeValue()
+        deleteImageAndData(storageName: firstArchiveName)
+        
+        guard let secondArchiveName else { return }
+        self.ref.child("users").child(uid).child("Archive").child(secondArchiveName).removeValue()
+        deleteImageAndData(storageName: secondArchiveName)
+    }
+    
+    private func deleteImageAndData(storageName: String) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        let imageRef = self.storage.child(uid).child(storageName)
+        
+        // 이미지가 있을 경우 전체 삭제
+        imageRef.listAll(completion: { result, error in
+            // NOTE: 파일 전체 삭제 안됨 > 파일 이름을 입력하여 하나하나 삭제해야함
+            if let error = error {
+                print(error)
+            }
+            guard let result = result else { return }
+            if result.items.count > 0 {
+                imageRef.delete { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+//            for item in result.items {
+//                if item.name == imageName {
+//                    imageRef.child(imageName).delete { error in
+//                        if let error = error {
+//                            print(error)
+//                        } else {
+//                            print("삭제되었습니다.")
+//                        }
+//                    }
+//                }
+//            }
+        })
     }
 }

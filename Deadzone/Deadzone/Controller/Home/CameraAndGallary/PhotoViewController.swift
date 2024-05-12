@@ -76,8 +76,8 @@ final class PhotoViewController: UIViewController {
         let imageData = image.jpegData(compressionQuality: 0.1)!
 //        let imageData = image.pngData()! as NSData
         
-        Networking.shared.imageUpload(id: UUID().uuidString, imageData: imageData as Data) { url in
-            guard let archiveName = UserDefaults.standard.string(forKey: "archiveName") else { return }
+        guard let archiveName = UserDefaults.standard.string(forKey: "archiveName") else { return }
+        Networking.shared.imageUpload(storageName: archiveName, id: UUID().uuidString, imageData: imageData as Data) { url in
             Networking.shared.updateArchive(name: archiveName, imageUrl: url)
             
             self.indicatorView.stopAnimating()

@@ -28,6 +28,8 @@ final class HomeViewController: UIViewController {
         return stackView
     }()
     
+    var selectedActivitys: [String: Bool] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,32 +78,23 @@ final class HomeViewController: UIViewController {
         Networking.shared.getActivity { snapshot in
             if snapshot.exists() {
                 guard let snapshot = snapshot.value as? [String: Any] else { return }
-                var activitys: [String: Bool] = [:]
                 for (key, value) in snapshot {
-                    activitys.updateValue((value as! Int).boolValue, forKey: key)
+                    self.selectedActivitys.updateValue((value as! Int).boolValue, forKey: key)
                 }
-                self.homeView.cdplayerImageButton.isHidden = activitys["cdplayer"]!
-                self.homeView.fashion01ImageButton.isHidden = activitys["fashion01"]!
-                self.homeView.fashion02ImageButton.isHidden = activitys["fashion02"]!
-                self.homeView.tableImageView.isHidden = activitys["table"]!
-                self.homeView.iceCoffeeImageButton.isHidden = activitys["iceCoffee"]!
-                self.homeView.readingImageButton.isHidden = activitys["reading"]!
-                self.homeView.meditationImageButton.isHidden = activitys["meditation"]!
-                self.homeView.wastedImageButton.isHidden = activitys["wasted"]!
+                self.homeView.cdplayerImageButton.isHidden = self.selectedActivitys["music"]!
+                self.homeView.fashion01ImageButton.isHidden = self.selectedActivitys["fashion01"]!
+                self.homeView.fashion02ImageButton.isHidden = self.selectedActivitys["fashion02"]!
+                self.homeView.tableImageView.isHidden = self.selectedActivitys["table"]!
+                self.homeView.iceCoffeeImageButton.isHidden = self.selectedActivitys["cafe"]!
+                self.homeView.readingImageButton.isHidden = self.selectedActivitys["reading"]!
+                self.homeView.meditationImageButton.isHidden = self.selectedActivitys["meditation"]!
+                self.homeView.wastedImageButton.isHidden = self.selectedActivitys["drinking"]!
                 self.view.setNeedsDisplay()
             }
         }
     }
-
-    @objc private func addAssetButtonTapped(_ sender: UIButton) {
-        let activitySelectedViewController = ActivitySelectedViewController()
-        activitySelectedViewController.modalPresentationStyle = .overCurrentContext
-        activitySelectedViewController.activityDelegate = self
-        self.present(activitySelectedViewController, animated: false)
-    }
     
-    @objc private func archiveButtonTapped(_ sender: UIButton) {
-        // NOTE: 활동을 선택하지 않았을 때엔 알럿
+    private func isExistSelectedActivity(completion: @escaping (Bool) -> Void) {
         Networking.shared.getUserInfo { snapshot in
             if snapshot.exists() {
                 guard let snapshot = snapshot.value as? [String: Any] else { return }
@@ -111,20 +104,58 @@ final class HomeViewController: UIViewController {
                     let userInfo: User = try decoder.decode(User.self, from: data)
                     
                     if userInfo.archive.first == "" {
-                        let alert = UIAlertController(title: nil, message: "활동을 선택하지 않았습니다.", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "확인", style: .cancel)
-                        alert.addAction(okAction)
-                        self.present(alert, animated: false)
+                        completion(false)
+                        
                     } else {
-                        DispatchQueue.main.async {
-                            let archiveListViewController = ArchiveListViewController()
-                            self.navigationController?.pushViewController(archiveListViewController, animated: true)
-                        }
+                        completion(true)
                     }
                     
                 } catch let error {
                     print(error.localizedDescription)
                 }
+            }
+        }
+    }
+
+    @objc private func addAssetButtonTapped(_ sender: UIButton) {
+        // NOTE: 활동 선택이 처음인지 아닌지 확인하기 위하여 유저 정보 불러오기
+        self.isExistSelectedActivity { result in
+            if result {
+                // 선택한 활동이 있을 때
+                DispatchQueue.main.async {
+                    let activitySelectedViewController = ActivitySelectedViewController()
+                    activitySelectedViewController.modalPresentationStyle = .overCurrentContext
+                    activitySelectedViewController.activityDelegate = self
+                    activitySelectedViewController.activityInit = false
+                    activitySelectedViewController.selectedActivitys = self.selectedActivitys
+                    self.present(activitySelectedViewController, animated: false)
+                }
+            } else {
+                // 선택한 활동이 없을 때
+                DispatchQueue.main.async {
+                    let activitySelectedViewController = ActivitySelectedViewController()
+                    activitySelectedViewController.modalPresentationStyle = .overCurrentContext
+                    activitySelectedViewController.activityDelegate = self
+                    activitySelectedViewController.activityInit = true
+                    self.present(activitySelectedViewController, animated: false)
+                }
+            }
+        }
+    }
+    
+    @objc private func archiveButtonTapped(_ sender: UIButton) {
+        // NOTE: 활동을 선택하지 않았을 때엔 알럿
+        self.isExistSelectedActivity { result in
+            if result {
+                DispatchQueue.main.async {
+                    let archiveListViewController = ArchiveListViewController()
+                    self.navigationController?.pushViewController(archiveListViewController, animated: true)
+                }
+            } else {
+                let alert = UIAlertController(title: nil, message: "활동을 선택하지 않았습니다.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .cancel)
+                alert.addAction(okAction)
+                self.present(alert, animated: false)
             }
         }
     }

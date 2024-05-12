@@ -12,6 +12,9 @@ final class ActivitySelectedView: UIView {
     private let activityList: [String] = ["음악", "카페", "명상", "독서", "음주", "패션"]
     private let activityImageList: [UIImage] = [DZImage.music01, DZImage.cafe02, DZImage.meditation03, DZImage.reading04, DZImage.drinking05, DZImage.fashion06]
     var activitys: [String] = []
+    var activityInit: Bool = true
+    var selectedActivitys: [String: Bool] = [:]
+    var selectedItemInit: Bool = true
     
     let containerView: UIView = {
         let view = UIView()
@@ -42,7 +45,7 @@ final class ActivitySelectedView: UIView {
         return label
     }()
     
-    private let subTitleLabel: UILabel = {
+    let subTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "활동은 2개까지 선택 가능해요."
         label.font = DZFont.subText12
@@ -156,6 +159,25 @@ final class ActivitySelectedView: UIView {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    func changeCatagotyName(name: String) -> String {
+        switch name {
+        case "음악":
+            return "music"
+        case "카페":
+            return "cafe"
+        case "명상":
+            return "meditation"
+        case "독서":
+            return "reading"
+        case "음주":
+            return "drinking"
+        case "패션":
+            return "fashion01"
+        default:
+            return ""
+        }
+    }
 }
 
 extension ActivitySelectedView: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -166,26 +188,57 @@ extension ActivitySelectedView: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActivityCell.identifier, for: indexPath) as! ActivityCell
         cell.configure(image: activityImageList[indexPath.item], title: activityList[indexPath.item])
+        
+        // NOTE: 활동 변경 시 선택되어 있는 활동 표시
+        if !activityInit {
+            let activityName = changeCatagotyName(name: activityList[indexPath.item])
+            if self.selectedItemInit {
+                if selectedActivitys["\(activityName)"] == false {
+                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+                    if self.activitys.contains(activityList[indexPath.item]) {
+                        
+                    } else {
+                        self.activitys.append(activityList[indexPath.item])
+                    }
+                    self.doneButton.isEnabled = true
+                }
+            } else {
+                if self.activitys.contains(activityName) {
+                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+                }
+            }
+        }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if activityInit {
+            subTitleLabel.isHidden = false
+        }
+        doneButton.isEnabled = true
+        return (collectionView.indexPathsForSelectedItems?.count ?? 0) < 2
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.activitys.append(activityList[indexPath.item])
     }
     
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        subTitleLabel.isHidden = false
-        doneButton.isEnabled = true
-        return collectionView.indexPathsForSelectedItems?.count ?? 0 <= 1
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if collectionView.indexPathsForSelectedItems?.count == 0 {
-            subTitleLabel.isHidden = true
+            if activityInit {
+                subTitleLabel.isHidden = true
+            } else {
+                self.selectedItemInit = false
+            }
             doneButton.isEnabled = false
         }
         if let index = activitys.firstIndex(of: activityList[indexPath.item]) {
             self.activitys.remove(at: index)
+            self.selectedItemInit = false
         }
     }
 }

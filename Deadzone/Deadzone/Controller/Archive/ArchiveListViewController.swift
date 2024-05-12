@@ -170,7 +170,7 @@ final class ArchiveListViewController: UIViewController {
         case "음주":
             return "drinking"
         case "패션":
-            return "fashion"
+            return "fashion01"
         default:
             break
         }
@@ -193,5 +193,5 @@ enum Activity: String {
     case meditation = "명상"
     case reading = "독서"
     case drinking = "음주"
-    case fashion = "패션"
+    case fashion01 = "패션"
 }

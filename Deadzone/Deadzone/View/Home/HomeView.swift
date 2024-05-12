@@ -27,6 +27,7 @@ final class HomeView: UIView {
         let button = UIButton()
         button.setImage(DZImage.cdplayer, for: .normal)
         button.isHidden = true
+        button.accessibilityIdentifier = "music"
         return button
     }()
     
@@ -34,6 +35,7 @@ final class HomeView: UIView {
         let button = UIButton()
         button.setImage(DZImage.wasted, for: .normal)
         button.isHidden = true
+        button.accessibilityIdentifier = "drinking"
         return button
     }()
     
@@ -41,6 +43,7 @@ final class HomeView: UIView {
         let button = UIButton()
         button.setImage(DZImage.meditation, for: .normal)
         button.isHidden = true
+        button.accessibilityIdentifier = "meditation"
         return button
     }()
     
@@ -55,6 +58,7 @@ final class HomeView: UIView {
         let button = UIButton()
         button.setImage(DZImage.iceCoffee, for: .normal)
         button.isHidden = true
+        button.accessibilityIdentifier = "cafe"
         return button
     }()
     
@@ -62,6 +66,7 @@ final class HomeView: UIView {
         let button = UIButton()
         button.setImage(DZImage.fashion01, for: .normal)
         button.isHidden = true
+        button.accessibilityIdentifier = "fashion01"
         return button
     }()
     
@@ -69,6 +74,7 @@ final class HomeView: UIView {
         let button = UIButton()
         button.setImage(DZImage.fashion02, for: .normal)
         button.isHidden = true
+        button.accessibilityIdentifier = "fashion01"
         return button
     }()
     
@@ -76,6 +82,7 @@ final class HomeView: UIView {
         let button = UIButton()
         button.setImage(DZImage.reading, for: .normal)
         button.isHidden = true
+        button.accessibilityIdentifier = "reading"
         return button
     }()
 
