@@ -45,4 +45,5 @@ enum DZImage {
     static var check: UIImage = UIImage(resource: .check)
     static var defaultCheck: UIImage = UIImage(resource: .defaultCheck)
     static var activeCheck: UIImage = UIImage(resource: .activeCheck)
+    static var xmark: UIImage = UIImage(resource: .xmark)
 }

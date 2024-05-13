@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol SettingDelegate {
+    func showDetailView(indexPath: IndexPath)
+}
+
 final class SettingView: UIView {
     
     private let settingList: [String] = ["개인정보 설정", "알림", "1:1 문의", "이용약관", "체크아웃"]
+    var delegate: SettingDelegate?
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -67,6 +72,6 @@ extension SettingView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        delegate?.showDetailView(indexPath: indexPath)
     }
 }

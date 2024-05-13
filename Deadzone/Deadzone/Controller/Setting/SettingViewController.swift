@@ -18,6 +18,11 @@ final class SettingViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : DZFont.subTitle]
+    }
+    
     private func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: DZImage.back, style: .plain, target: self, action: #selector(backButtonTapped))
         self.navigationItem.title = "SETTING"
@@ -32,9 +37,23 @@ final class SettingViewController: UIViewController {
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
         settingView.tableView.separatorStyle = .none
+        
+        settingView.delegate = self
     }
     
     @objc private func backButtonTapped(_ sender: UIButton) {
         self.navigationController?.popToRootViewController(animated: true)
+    }
+}
+
+extension SettingViewController: SettingDelegate {
+    func showDetailView(indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            let userInfoSettingViewController = UserInfoSettingViewController()
+            self.navigationController?.pushViewController(userInfoSettingViewController, animated: true)
+        default:
+            fatalError()
+        }
     }
 }
