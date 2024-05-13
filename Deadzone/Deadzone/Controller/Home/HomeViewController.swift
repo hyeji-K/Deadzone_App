@@ -30,6 +30,9 @@ final class HomeViewController: UIViewController {
     
     var selectedActivitys: [String: Bool] = [:]
     
+    private let tutorialView = TutorialView()
+    private var tapCount: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,6 +74,19 @@ final class HomeViewController: UIViewController {
         homeView.readingImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
         homeView.meditationImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
         homeView.wastedImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
+        
+        
+        // NOTE: 튜토리얼 - 회원가입 후 처음 한 번
+        if UserDefaults.standard.bool(forKey: "Tutorial") {
+            UserDefaults.standard.setValue(false, forKey: "Tutorial")
+            self.view.addSubview(tutorialView)
+            tutorialView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+        }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureTapped))
+        self.tutorialView.addGestureRecognizer(tapGesture)
     }
     
     // 업데이트 된 활동을 읽어와서 홈 화면에 반영
@@ -182,6 +198,37 @@ final class HomeViewController: UIViewController {
     @objc private func settingButtonTapped(_ sender: UIButton) {
         let settingViewController = SettingViewController()
         self.navigationController?.pushViewController(settingViewController, animated: true)
+    }
+    
+    @objc private func tapGestureTapped(_ tapGesture: UITapGestureRecognizer) {
+        tapGesture.isEnabled = false
+        if self.tapCount == 0 {
+            self.tutorialView.assetStackView.isHidden = true
+            self.tutorialView.sofaStackView.isHidden = false
+            tapGesture.isEnabled = true
+        } else if self.tapCount == 1 {
+            self.tutorialView.sofaStackView.isHidden = true
+            self.tutorialView.archiveStackView.isHidden = false
+            tapGesture.isEnabled = true
+        } else if self.tapCount == 2 {
+            self.tutorialView.archiveStackView.isHidden = true
+            self.tutorialView.arrowImageView.isHidden = false
+            self.tutorialView.arrowTitleLabel.isHidden = false
+            // 화살표 올라가는 애니메이션
+            UIView.animate(withDuration: 0.8) { [weak self] in
+                self?.tutorialView.arrowImageView.snp.updateConstraints { make in
+                    make.bottom.equalToSuperview().inset(172)
+                }
+                self?.tutorialView.arrowTitleLabel.snp.updateConstraints { make in
+                    make.bottom.equalToSuperview().inset(212)
+                }
+                self?.view.layoutIfNeeded()
+            }
+            tapGesture.isEnabled = true
+        } else {
+            self.tutorialView.isHidden = true
+        }
+        self.tapCount += 1
     }
 }
 
