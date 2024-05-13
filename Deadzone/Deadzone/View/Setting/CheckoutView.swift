@@ -75,7 +75,7 @@ final class CheckoutView: UIView {
             make.left.equalToSuperview().inset(30)
         }
         checkoutButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(102)
+            make.bottom.equalToSuperview().inset(70)
             make.left.right.equalToSuperview().inset(16)
         }
         underlineView.snp.makeConstraints { make in
