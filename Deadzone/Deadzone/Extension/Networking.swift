@@ -179,6 +179,12 @@ final class Networking {
         self.ref.child("Request").child(uid).child(UUID().uuidString).setValue(request)
     }
     
+    func postNewAsk(data: String) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        let request: [String: String] = ["ask": data, "createdAt": Date().stringFormat]
+        self.ref.child("Ask").child(uid).child(UUID().uuidString).setValue(request)
+    }
+    
     enum UserInformation {
         case nickname
         case feeling
