@@ -185,6 +185,12 @@ final class Networking {
         self.ref.child("Ask").child(uid).child(UUID().uuidString).setValue(request)
     }
     
+    func postLeaveReason(data: String) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        let request: [String: String] = ["reason": data, "createdAt": Date().stringFormat]
+        self.ref.child("LeaveReason").child(uid).child(UUID().uuidString).setValue(request)
+    }
+    
     enum UserInformation {
         case nickname
         case feeling

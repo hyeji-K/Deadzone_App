@@ -97,6 +97,10 @@ extension SettingViewController: SettingDelegate, MFMailComposeViewControllerDel
                 sendMailErrorAlert.addAction(cancleAction)
                 self.present(sendMailErrorAlert, animated: true, completion: nil)
             }
+        case 4:
+            // 체크아웃
+            let checkoutViewController = CheckoutViewController()
+            self.navigationController?.pushViewController(checkoutViewController, animated: true)
         default:
             fatalError()
         }

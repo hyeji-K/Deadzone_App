@@ -46,4 +46,7 @@ enum DZImage {
     static var defaultCheck: UIImage = UIImage(resource: .defaultCheck)
     static var activeCheck: UIImage = UIImage(resource: .activeCheck)
     static var xmark: UIImage = UIImage(resource: .xmark)
+    static var largeDoor: UIImage = UIImage(resource: .largeDoor)
+    static var mediumDoor: UIImage = UIImage(resource: .mediumDoor)
+    static var smallDoor: UIImage = UIImage(resource: .smallDoor)
 }
