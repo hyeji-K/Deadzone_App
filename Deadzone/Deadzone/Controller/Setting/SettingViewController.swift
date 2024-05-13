@@ -53,6 +53,10 @@ extension SettingViewController: SettingDelegate, MFMailComposeViewControllerDel
         case 0:
             let userInfoSettingViewController = UserInfoSettingViewController()
             self.navigationController?.pushViewController(userInfoSettingViewController, animated: true)
+        case 1:
+            // 알림
+            let alertSettingViewController = AlertSettingViewController()
+            self.navigationController?.pushViewController(alertSettingViewController, animated: true)
         case 2:
 //            let askViewController = AskViewController()
 //            self.navigationController?.pushViewController(askViewController, animated: true)
