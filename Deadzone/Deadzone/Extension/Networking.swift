@@ -254,7 +254,7 @@ final class Networking {
         }
     }
     
-    func getUserInfo(completion: @escaping (DataSnapshot) -> Void) {
+    func getUserInfo(completion: @escaping (User) -> Void) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         ref.child("users").child(uid).child("userInfo").getData { error, snapshot in
             guard error == nil else {
@@ -262,7 +262,18 @@ final class Networking {
                 return
             }
             guard let snapshot else { return }
-            completion(snapshot)
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
+                    let decoder = JSONDecoder()
+                    let userInfo: User = try decoder.decode(User.self, from: data)
+                    completion(userInfo)
+                    
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
     

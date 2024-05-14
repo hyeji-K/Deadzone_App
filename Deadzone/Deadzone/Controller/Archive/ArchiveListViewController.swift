@@ -89,27 +89,16 @@ final class ArchiveListViewController: UIViewController {
     
     private func fetch() {
         self.archiveListView.indicatorView.startAnimating()
-        Networking.shared.getUserInfo { snapshot in
-            if snapshot.exists() {
-                guard let snapshot = snapshot.value as? [String: Any] else { return }
-                do {
-                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
-                    let decoder = JSONDecoder()
-                    let userInfo: User = try decoder.decode(User.self, from: data)
-                    
-                    self.archiveListView.firstCatagoryTitleLabel.text = userInfo.archive.first ?? ""
-                    self.archiveListView.secondCatagoryTitleLabel.text = userInfo.archive.last ?? ""
-                    if self.archiveTitle == nil {
-                        self.archiveTitle = self.changeCatagotyName(name: self.archiveListView.firstCatagoryTitleLabel.text!)
-                    }
-                    guard let archiveTitle = self.archiveTitle else { return }
-                    self.getArchive(archiveName: archiveTitle)
+        Networking.shared.getUserInfo { userInfo in
+            self.archiveListView.firstCatagoryTitleLabel.text = userInfo.archive.first ?? ""
+            self.archiveListView.secondCatagoryTitleLabel.text = userInfo.archive.last ?? ""
+            if self.archiveTitle == nil {
+                self.archiveTitle = self.changeCatagotyName(name: self.archiveListView.firstCatagoryTitleLabel.text!)
+            }
+            guard let archiveTitle = self.archiveTitle else { return }
+            self.getArchive(archiveName: archiveTitle)
 //                    self.archiveListView.archiveTitleList = userInfo.archive
 //                    self.view.setNeedsDisplay()
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-            }
         }
     }
     

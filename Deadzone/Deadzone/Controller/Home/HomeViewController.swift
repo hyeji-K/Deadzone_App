@@ -111,24 +111,12 @@ final class HomeViewController: UIViewController {
     }
     
     private func isExistSelectedActivity(completion: @escaping (Bool) -> Void) {
-        Networking.shared.getUserInfo { snapshot in
-            if snapshot.exists() {
-                guard let snapshot = snapshot.value as? [String: Any] else { return }
-                do {
-                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
-                    let decoder = JSONDecoder()
-                    let userInfo: User = try decoder.decode(User.self, from: data)
-                    
-                    if userInfo.archive.first == "" {
-                        completion(false)
-                        
-                    } else {
-                        completion(true)
-                    }
-                    
-                } catch let error {
-                    print(error.localizedDescription)
-                }
+        Networking.shared.getUserInfo { userInfo in
+            if userInfo.archive.first == "" {
+                completion(false)
+                
+            } else {
+                completion(true)
             }
         }
     }

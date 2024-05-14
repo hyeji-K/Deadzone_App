@@ -64,23 +64,11 @@ final class UserInfoSettingViewController: UIViewController {
     }
     
     private func fetch() {
-        Networking.shared.getUserInfo { snapshot in
-            if snapshot.exists() {
-                guard let snapshot = snapshot.value as? [String: Any] else { return }
-                do {
-                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
-                    let decoder = JSONDecoder()
-                    let userInfo: User = try decoder.decode(User.self, from: data)
-                    
-                    self.userInfo = userInfo
-                    self.userInfoSettingView.nickNameTextField.text = userInfo.nickname
-                    self.userInfoSettingView.emailTextField.text = userInfo.email
-                    self.userInfoSettingView.visitReasonTextField.text = userInfo.feeling
-                    
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-            }
+        Networking.shared.getUserInfo { userInfo in
+            self.userInfo = userInfo
+            self.userInfoSettingView.nickNameTextField.text = userInfo.nickname
+            self.userInfoSettingView.emailTextField.text = userInfo.email
+            self.userInfoSettingView.visitReasonTextField.text = userInfo.feeling
         }
     }
     
