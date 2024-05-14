@@ -47,7 +47,7 @@ final class ArchiveListView: UIView {
     var secondCatagoryButton: UIButton = {
         let button = UIButton()
         button.setImage(DZImage.defaultBM, for: .normal)
-        button.setImage(DZImage.defaultBM, for: .highlighted)
+        button.setImage(DZImage.pointBM, for: .highlighted)
         button.isEnabled = true
         return button
     }()
