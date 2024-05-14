@@ -78,6 +78,8 @@ final class Networking {
             }
             // 로그인 성공 시
             guard let strongSelf = self else { return }
+            guard let userID = authResult?.user.uid else { return }
+            UserDefaults.standard.setValue(userID, forKey: "userId")
             completion(.success("성공"))
         }
     }

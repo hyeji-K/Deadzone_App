@@ -39,9 +39,9 @@ final class ViewController: UIViewController {
             guard let email, let password else { return }
             Networking.shared.signInApp(email: email, password: password) { [weak self] result in
                 switch result {
-                case .success(let str):
+                case .success(let result):
                     // 로그인 성공 시 홈 화면으로 전환
-                    print("로그인 성공!")
+                    print(result)
                     DispatchQueue.main.async {
                         let main = UIStoryboard.init(name: "Home", bundle: nil)
                         let homeViewController = main.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
@@ -50,6 +50,7 @@ final class ViewController: UIViewController {
                         self?.present(navigationController, animated: false)
                     }
                 case .failure(let error):
+                    print(error.localizedDescription)
                     self?.loginView.checkEmailAndPasswordLabel.isHidden = false
                 }
             }
