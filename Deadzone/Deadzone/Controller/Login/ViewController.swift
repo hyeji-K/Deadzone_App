@@ -81,4 +81,15 @@ extension ViewController: UITextFieldDelegate {
             password = textField.text
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if loginView.emailTextField.text != "", loginView.passwordTextField.text != "" {
+            loginView.passwordTextField.resignFirstResponder()
+            return true
+        } else if loginView.emailTextField.text != "" {
+            loginView.passwordTextField.becomeFirstResponder()
+            return true
+        }
+        return false
+    }
 }
