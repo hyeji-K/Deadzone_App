@@ -93,7 +93,11 @@ final class VisitReasonViewController: UIViewController, DataSendDelegate {
             self.originalPosition = view.center
         case .changed:
             let translation = panGesture.translation(in: view)
-            self.view.frame.origin = CGPoint(x: 0, y: translation.y)
+            if translation.y < 0 {
+                return
+            } else {
+                self.view.frame.origin = CGPoint(x: 0, y: translation.y)
+            }
         case .ended:
             guard let originalPosition = self.originalPosition else { return }
             let velocity = panGesture.velocity(in: view)

@@ -151,14 +151,17 @@ final class ActivitySelectedViewController: UIViewController {
     }
     
     // 바텀시트 밀어서 dismiss
-    // TODO: 위로 이동 안되도록 수정하기
     @objc private func panGestureAction(_ panGesture: UIPanGestureRecognizer) {
         switch panGesture.state {
         case .began:
             self.originalPosition = view.center
         case .changed:
             let translation = panGesture.translation(in: view)
-            self.view.frame.origin = CGPoint(x: 0, y: translation.y)
+            if translation.y < 0 {
+                return
+            } else {
+                self.view.frame.origin = CGPoint(x: 0, y: translation.y)
+            }
         case .ended:
             guard let originalPosition = self.originalPosition else { return }
             let velocity = panGesture.velocity(in: view)
