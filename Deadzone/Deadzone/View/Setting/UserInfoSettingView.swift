@@ -133,5 +133,6 @@ final class UserInfoSettingView: UIView {
     
     @objc private func nickNameClearButtonTapped(_ sender: UIButton) {
         nickNameTextField.text = ""
+        nickNameTextField.becomeFirstResponder()
     }
 }
