@@ -213,7 +213,7 @@ final class Networking {
             guard let archive = archive else { return }
             var childUpdates: [String: Any] = [:]
             if archive.count == 1 {
-                childUpdates = ["archive": archive.first!]
+                childUpdates = ["archive": [archive.first!]]
             } else {
                 childUpdates = ["archive": [archive.first!, archive.last!]]
             }

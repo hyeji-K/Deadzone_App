@@ -90,8 +90,16 @@ final class ArchiveListViewController: UIViewController {
     private func fetch() {
         self.archiveListView.indicatorView.startAnimating()
         Networking.shared.getUserInfo { userInfo in
-            self.archiveListView.firstCatagoryTitleLabel.text = userInfo.archive.first ?? ""
-            self.archiveListView.secondCatagoryTitleLabel.text = userInfo.archive.last ?? ""
+            if userInfo.archive.count == 2 {
+                self.archiveListView.firstCatagoryTitleLabel.text = userInfo.archive.first ?? ""
+                self.archiveListView.secondCatagoryTitleLabel.text = userInfo.archive.last ?? ""
+                self.archiveListView.secondCatagoryButton.isHidden = false
+                self.archiveListView.secondCatagoryTitleLabel.isHidden = false
+            } else {
+                self.archiveListView.firstCatagoryTitleLabel.text = userInfo.archive.first ?? ""
+                self.archiveListView.secondCatagoryButton.isHidden = true
+                self.archiveListView.secondCatagoryTitleLabel.isHidden = true
+            }
             if self.archiveTitle == nil {
                 self.archiveTitle = self.changeCatagotyName(name: self.archiveListView.firstCatagoryTitleLabel.text!)
             }
