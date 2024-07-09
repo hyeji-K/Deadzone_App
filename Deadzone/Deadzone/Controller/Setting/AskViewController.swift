@@ -10,6 +10,8 @@ import UIKit
 final class AskViewController: UIViewController {
     
     private let askView = AskView()
+    
+    private var history: String = "내역(2)"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,7 @@ final class AskViewController: UIViewController {
     
     private func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: DZImage.back, style: .plain, target: self, action: #selector(backButtonTapped))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: history, style: .plain, target: self, action: #selector(historyButtonTapped))
         self.navigationItem.title = "1:1 문의"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : DZFont.text16]
         self.navigationController?.navigationBar.tintColor = DZColor.grayColor100
@@ -37,6 +40,11 @@ final class AskViewController: UIViewController {
     
     @objc private func backButtonTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func historyButtonTapped(_ sender: UIButton) {
+        let historyViewController = AskHistroyViewController()
+        self.navigationController?.pushViewController(historyViewController, animated: true)
     }
     
     @objc private func doneButtonTapped(_ sender: UIButton) {
