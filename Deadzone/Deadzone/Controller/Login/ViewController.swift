@@ -72,6 +72,7 @@ final class ViewController: UIViewController {
                     print(error.localizedDescription)
                     self?.view.isUserInteractionEnabled = true
                     self?.loginView.checkEmailAndPasswordLabel.isHidden = false
+                    self?.indicatorView.stopAnimating()
                 }
             }
         }
