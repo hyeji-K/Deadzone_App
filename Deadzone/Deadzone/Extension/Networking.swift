@@ -235,7 +235,7 @@ final class Networking {
     
     func postNewAsk(data: String) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
-        let request: [String: String] = ["ask": data, "createdAt": Date().stringFormat]
+        let request: [String: String] = ["ask": data, "askCreatedAt": Date().stringFormat, "result": "", "resultCreatedAt": ""]
         self.ref.child("Ask").child(uid).child(UUID().uuidString).setValue(request)
     }
     
