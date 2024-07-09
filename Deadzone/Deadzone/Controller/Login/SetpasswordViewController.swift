@@ -47,7 +47,7 @@ final class SetpasswordViewController: UIViewController {
         guard let password else { return }
         if password.isValidPassword() {
             // MARK: This operation is sensitive and requires recent authentication. Log in again before retrying this request.
-            Networking.shared.setPassword() { result in
+            Networking.shared.setPassword(newPassword: password) { result in
                 switch result {
                 case .success(let data):
                     let main = UIStoryboard.init(name: "Main", bundle: nil)
