@@ -42,7 +42,7 @@ final class CheckoutViewController: UIViewController {
     
     @objc private func checkoutButtonTapped(_ sender: UIButton) {
         // 로그아웃하며 로그인 화면으로 화면전환
-        UserDefaults.standard.removeObject(forKey: "userId")
+        Networking.shared.signOut()
         let main = UIStoryboard.init(name: "Main", bundle: nil)
         let LoginViewController = main.instantiateViewController(identifier: "ViewController") as! ViewController
         LoginViewController.modalPresentationStyle = .fullScreen

@@ -10,6 +10,7 @@ import UIKit
 final class AccountCancellationViewController: UIViewController {
     
     private let accountCancellationView = AccountCancellationView()
+    private let leaveView = LeaveView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,16 +43,24 @@ final class AccountCancellationViewController: UIViewController {
     @objc private func doneButtonTapped(_ sender: UIButton) {
         // 탈퇴 후 로그인 화면으로 이동
         if let reasonText = accountCancellationView.writenTextView.text {
-            Networking.shared.postLeaveReason(data: reasonText)            
+            if reasonText != accountCancellationView.placeholder {
+                Networking.shared.postLeaveReason(data: reasonText)
+            }
         }
         // NOTE: 잠시동안 탈퇴완료 화면 보여주고 로그인 화면으로 화면전환
-//        UserDefaults.standard.removeObject(forKey: "userId")
-        let leaveViewController = LeaveViewController()
-        let navigationContoller = UINavigationController(rootViewController: leaveViewController)
-        navigationContoller.modalPresentationStyle = .fullScreen
-        self.present(navigationContoller, animated: false, completion: nil)
+        // TODO: 계정 및 데이터 모두 삭제
+        Networking.shared.deleteUserInfo()
+        self.view.addSubview(leaveView)
+        leaveView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        if #available(iOS 16.0, *) {
+            self.navigationItem.leftBarButtonItem?.isHidden = true
+        } else {
+            self.navigationItem.setLeftBarButton(nil, animated: false)
+//            self.navigationController?.setNavigationBarHidden(true, animated: false)
+        }
         
-        // TODO: 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             let main = UIStoryboard.init(name: "Main", bundle: nil)
             let LoginViewController = main.instantiateViewController(identifier: "ViewController") as! ViewController
