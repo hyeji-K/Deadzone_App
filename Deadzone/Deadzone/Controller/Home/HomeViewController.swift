@@ -228,7 +228,7 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: ActivityDelegate {
     func newActivityButtonTapped(_ activitySelectedVC: ActivitySelectedViewController) {
-        activitySelectedVC.dismiss(animated: true) {
+        activitySelectedVC.dismiss(animated: false) {
             let activitySelectedViewController = NewActivityRequestViewController()
             self.navigationController?.pushViewController(activitySelectedViewController, animated: true)
         }
