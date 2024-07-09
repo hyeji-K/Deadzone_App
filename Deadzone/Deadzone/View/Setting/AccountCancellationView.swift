@@ -9,7 +9,7 @@ import UIKit
 
 final class AccountCancellationView: UIView {
     
-    private let placeholder: String = "떠나시는 이유가 궁금합니다..."
+    let placeholder: String = "떠나시는 이유가 궁금합니다..."
     
     lazy var writenTextView: UITextView = {
         let textView = UITextView()

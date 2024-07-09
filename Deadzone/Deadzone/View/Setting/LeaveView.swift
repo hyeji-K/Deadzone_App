@@ -44,6 +44,7 @@ final class LeaveView: UIView {
     }
     
     private func setupView() {
+        backgroundColor = DZColor.backgroundColor
         addSubview(mainImageView)
         addSubview(titleLabel)
         addSubview(subTitleLabel)
