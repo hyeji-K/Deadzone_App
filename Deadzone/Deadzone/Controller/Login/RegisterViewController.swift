@@ -49,9 +49,9 @@ final class RegisterViewController: UIViewController {
             guard let email, let password else { return }
             Networking.shared.createUser(email: email, password: password) { result in
                 switch result {
-                case .success(let user):
+                case .success(let authEmail):
                     // 완료 시 사용자 생성 및 닉네임 입력 화면으로 이동
-                    Networking.shared.createUser(email: email)
+                    Networking.shared.createUserInfo(email: authEmail)
                     let onboardViewController = OnboardViewController()
                     onboardViewController.modalPresentationStyle = .fullScreen
                     self.present(onboardViewController, animated: false)

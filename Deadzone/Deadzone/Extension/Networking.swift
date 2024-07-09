@@ -55,17 +55,20 @@ final class Networking {
                 }
             }
             
-            // 신규 계정 생성 성공 시
-//            print(authResult?.additionalUserInfo?.description)
-            let currentUser = Auth.auth().currentUser
-            currentUser?.getIDTokenForcingRefresh(true, completion: { idToken, error in
-                if let error = error {
-                    return
-                }
-                print(idToken)
-            })
-            completion(.success("성공"))
+            // 신규 계정 생성 성공 시 - 키체인에 이메일과 비밀번호 저장
+            guard let authEmail = authResult?.user.email else { return }
+            KeyChain.shared.create(email: authEmail, password: password)
+            completion(.success(authEmail))
         }
+        
+            // 토큰 받아오기
+//            let currentUser = Auth.auth().currentUser
+//            currentUser?.getIDTokenForcingRefresh(true, completion: { idToken, error in
+//                if let error = error {
+//                    return
+//                }
+//                print(idToken)
+//            })
     }
     
     // MARK: 이메일 주소와 비밀번호로 사용자 로그인
@@ -80,18 +83,59 @@ final class Networking {
             guard let strongSelf = self else { return }
             guard let userID = authResult?.user.uid else { return }
             UserDefaults.standard.setValue(userID, forKey: "userId")
+            // NOTE: 기기변경과 같은 예외상황일때 KeyChain 값 설정
+            if KeyChain.shared.getUserData(email: email) == nil {
+                KeyChain.shared.create(email: email, password: password)
+            }
             completion(.success("성공"))
         }
     }
     
-    func isExistUser(email: String) {
+    // 사용자 재인증
+    func isExistUser(completion: @escaping (String) -> Void) {
+        var credential: AuthCredential
+        guard let email = firebaseAuth.currentUser?.email else { return }
+        guard let password = KeyChain.shared.getUserData(email: email) else { return }
+        credential = EmailAuthProvider.credential(withEmail: email, password: password)
         
+        firebaseAuth.currentUser?.reauthenticate(with: credential, completion: { result, error in
+            if let error = error {
+                // An error happened.
+                print(error.localizedDescription)
+                return
+            }
+            // User re-authenticated.
+            if let email = result?.user.email {
+                print("재인증이 완료되었습니다.")
+                completion(email)
+            } else {
+                print("재인증에 실패하였습니다.")
+                return
+            }
+            
+//            return true
+        })
     }
     
     // MARK: 비밀번호 설정하기
-    func setPassword(password: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func setPassword(newPassword: String, completion: @escaping (Result<String, Error>) -> Void) {
+        self.isExistUser { email in
+            // NOTE: 재인증 후 파이어베이스 비밀번호 업데이트
+            self.firebaseAuth.currentUser?.updatePassword(to: newPassword, completion: { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                    return
+                }
+                // NOTE: 키체인 비밀번호 업데이트
+                // 기존 키체인 삭제 후 재등록
+                KeyChain.shared.delete(email: email)
+                KeyChain.shared.create(email: email, password: newPassword)
+                completion(.success("비밀번호 변경에 성공하였습니다."))
+            })
+        }
         // 기존의 비밀번호 필요
-        var credential: AuthCredential
+//        var credential: AuthCredential
 //        credential = EmailAuthProvider.credential(withEmail: (firebaseAuth.currentUser?.email)!, password: <#T##String#>)
 //        firebaseAuth.currentUser?.reauthenticate(with: credential, completion: { result, error in
 //            if let error = error {
@@ -113,24 +157,32 @@ final class Networking {
     func signOut() {
         do {
             try firebaseAuth.signOut()
+            UserDefaults.standard.removeObject(forKey: "userId")
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
     }
     
     // MARK: 사용자 계정 삭제하기 (탈퇴하기)
-    func deleteUser() {
-        firebaseAuth.currentUser?.delete(completion: { error in
-            if let error = error {
-                // An error happened.
-            } else {
-                // Account deleted.
-            }
-        })
+    func deleteAccount() {
+        // NOTE: 최근 로그인(로그인 후 5분)이 지나면 사용자 재인증 필요
+        self.isExistUser { email in
+            self.firebaseAuth.currentUser?.delete(completion: { error in
+                if let error = error {
+                    // An error happened.
+                    print(error.localizedDescription)
+                } else {
+                    // NOTE: 키체인에 저장된 비밀번호 삭제 및 UserDefaults에 저장된 uid 삭제
+                    KeyChain.shared.delete(email: email)
+                    UserDefaults.standard.removeObject(forKey: "userId")
+                    print(KeyChain.shared.getUserData(email: email) ?? "이메일 없음")
+                }
+            })
+        }
     }
     
     // MARK: 데이터 쓰기
-    func createUser(email: String) {
+    func createUserInfo(email: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let user = User(email: email, nickname: "", feeling: "", archive: [""], createdAt: Date().stringFormat)
         UserDefaults.standard.setValue(userID, forKey: "userId")
@@ -323,6 +375,16 @@ final class Networking {
     }
     
     // MARK: 데이터 삭제
+    func deleteUserInfo() {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        // 1. 스토리지에 저장되어 있는 사진 데이터 삭제
+//        self.deleteArchiveData(firstArchiveName: <#T##String#>, secondArchiveName: <#T##String?#>)
+        // 2. 사용자 정보 데이터 삭제
+        self.ref.child("users").child(uid).removeValue()
+        // 3. 사용자 재인증 후 사용자 삭제
+        self.deleteAccount()
+    }
+    
     func deleteArchiveData(firstArchiveName: String, secondArchiveName: String? = nil) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         self.ref.child("users").child(uid).child("Archive").child(firstArchiveName).removeValue()
