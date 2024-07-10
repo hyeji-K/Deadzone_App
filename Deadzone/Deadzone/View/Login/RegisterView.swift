@@ -107,7 +107,7 @@ final class RegisterView: UIView {
         addSubview(doneButton)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(85)
+            make.top.equalToSuperview().inset(41)
             make.centerX.equalToSuperview()
         }
         emailLabel.snp.makeConstraints { make in

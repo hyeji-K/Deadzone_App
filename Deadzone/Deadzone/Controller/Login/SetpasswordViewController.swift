@@ -16,6 +16,7 @@ final class SetpasswordViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
+        setupNavigationBar()
     }
     
     private func setupView() {
@@ -29,6 +30,15 @@ final class SetpasswordViewController: UIViewController {
         
         setpasswordView.passwordEyeButton.addTarget(self, action: #selector(passwordEyeButtonTapped), for: .touchUpInside)
         setpasswordView.doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupNavigationBar() {
+        self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: DZImage.back, style: .plain, target: self, action: #selector(backButtonTapped))
+        self.navigationController?.navigationBar.tintColor = DZColor.grayColor100
+    }
+    
+    @objc private func backButtonTapped(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: false)
     }
     
     @objc private func passwordEyeButtonTapped(_ sender: UIButton) {

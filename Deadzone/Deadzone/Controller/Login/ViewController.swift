@@ -80,14 +80,12 @@ final class ViewController: UIViewController {
     
     @objc private func resetPasswordButtonTapped(_ sender: UIButton) {
         let repasswordViewController = RepasswordViewController()
-        repasswordViewController.modalPresentationStyle = .fullScreen
-        self.present(repasswordViewController, animated: false)
+        self.navigationController?.pushViewController(repasswordViewController, animated: false)
     }
 
     @objc private func registerButtonTapped(_ sender: UIButton) {
         let registerViewController = RegisterViewController()
-        registerViewController.modalPresentationStyle = .fullScreen
-        self.present(registerViewController, animated: false)
+        self.navigationController?.pushViewController(registerViewController, animated: false)
     }
 }
 

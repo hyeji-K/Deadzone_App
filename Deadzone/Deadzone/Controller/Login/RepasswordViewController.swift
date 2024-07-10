@@ -15,6 +15,7 @@ final class RepasswordViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
+        setupNavigationBar()
     }
     
     private func setupView() {
@@ -25,6 +26,15 @@ final class RepasswordViewController: UIViewController {
         }
         
         repasswordView.resettingButton.addTarget(self, action: #selector(resettingButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupNavigationBar() {
+        self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: DZImage.back, style: .plain, target: self, action: #selector(backButtonTapped))
+        self.navigationController?.navigationBar.tintColor = DZColor.grayColor100
+    }
+    
+    @objc private func backButtonTapped(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: false)
     }
     
     @objc private func resettingButtonTapped(_ sender: UIButton) {
@@ -38,8 +48,7 @@ final class RepasswordViewController: UIViewController {
                     self.repasswordView.emailTextField.isCorrecting(value: true)
                     self.repasswordView.checkEmailLabel.isHidden = true
                     let setpasswordViewController = SetpasswordViewController()
-                    setpasswordViewController.modalPresentationStyle = .fullScreen
-                    self.present(setpasswordViewController, animated: false)
+                    self.navigationController?.pushViewController(setpasswordViewController, animated: false)
                 } else {
                     self.repasswordView.emailTextField.isCorrecting(value: false)
                     self.repasswordView.checkEmailLabel.isHidden = false

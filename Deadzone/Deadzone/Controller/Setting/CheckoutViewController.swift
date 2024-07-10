@@ -44,9 +44,10 @@ final class CheckoutViewController: UIViewController {
         // 로그아웃하며 로그인 화면으로 화면전환
         Networking.shared.signOut()
         let main = UIStoryboard.init(name: "Main", bundle: nil)
-        let LoginViewController = main.instantiateViewController(identifier: "ViewController") as! ViewController
-        LoginViewController.modalPresentationStyle = .fullScreen
-        self.present(LoginViewController, animated: false)
+        let loginViewController = main.instantiateViewController(identifier: "ViewController") as! ViewController
+        let navigationController = UINavigationController(rootViewController: loginViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: false)
     }
     
     @objc private func accountCancellationButtonTapped(_ sender: UIButton) {

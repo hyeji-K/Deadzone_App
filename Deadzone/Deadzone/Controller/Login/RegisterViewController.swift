@@ -17,6 +17,7 @@ final class RegisterViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
+        setupNavigationBar()
     }
     
     private func setupView() {
@@ -30,6 +31,15 @@ final class RegisterViewController: UIViewController {
         registerView.doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         registerView.emailTextField.delegate = self
         registerView.passwordTextField.delegate = self
+    }
+    
+    private func setupNavigationBar() {
+        self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: DZImage.back, style: .plain, target: self, action: #selector(backButtonTapped))
+        self.navigationController?.navigationBar.tintColor = DZColor.grayColor100
+    }
+    
+    @objc private func backButtonTapped(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: false)
     }
     
     @objc private func passwordEyeButtonTapped(_ sender: UIButton) {

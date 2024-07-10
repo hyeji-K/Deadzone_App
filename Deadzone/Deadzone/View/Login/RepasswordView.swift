@@ -61,11 +61,11 @@ final class RepasswordView: UIView {
         addSubview(resettingButton)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(83)
+            make.top.equalToSuperview().inset(41)
             make.centerX.equalToSuperview()
         }
         emailTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(196)
+            make.top.equalTo(titleLabel.snp.bottom).offset(66)
             make.left.right.equalToSuperview().inset(16)
         }
         checkEmailLabel.snp.makeConstraints { make in
