@@ -7,6 +7,7 @@
 
 import UIKit
 import MessageUI
+import SafariServices
 
 final class SettingViewController: UIViewController {
     
@@ -99,7 +100,15 @@ extension SettingViewController: SettingDelegate, MFMailComposeViewControllerDel
 //            }
         case 3:
             // 이용약관
-            print()
+            guard let url = URL(string: "https://www.notion.so/deadzone/80aa3c9bc0ec4c8aa716920ef42cf19e?pvs=4") else { return }
+            let safari = SFSafariViewController(url: url)
+            safari.navigationItem.title = "이용약관"
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : DZFont.text16]
+            
+            self.navigationController?.navigationBar.backIndicatorImage = DZImage.back
+            self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = DZImage.back
+            self.navigationItem.backButtonDisplayMode = .minimal
+            self.navigationController?.pushViewController(safari, animated: true)
         case 4:
             // 체크아웃
             let checkoutViewController = CheckoutViewController()
