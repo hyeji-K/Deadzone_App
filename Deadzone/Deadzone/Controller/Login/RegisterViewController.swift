@@ -62,9 +62,8 @@ final class RegisterViewController: UIViewController {
                 case .success(let authEmail):
                     // 완료 시 사용자 생성 및 닉네임 입력 화면으로 이동
                     Networking.shared.createUserInfo(email: authEmail)
-                    let onboardViewController = OnboardViewController()
-                    onboardViewController.modalPresentationStyle = .fullScreen
-                    self.present(onboardViewController, animated: false)
+                    let termsOfUseViewController = TermsOfUseViewController()
+                    self.navigationController?.pushViewController(termsOfUseViewController, animated: false)
                 case .failure(.emailAlreadyInUse):
                     break
                 case .failure(.invalidEmail):

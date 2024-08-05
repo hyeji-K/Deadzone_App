@@ -102,6 +102,9 @@
 		108AA36D2C3A698700D1FBA8 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108AA36C2C3A698700D1FBA8 /* HistoryCell.swift */; };
 		108AA36F2C3D6A5C00D1FBA8 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108AA36E2C3D6A5C00D1FBA8 /* AnswerCell.swift */; };
 		108AA3712C3D73FB00D1FBA8 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108AA3702C3D73FB00D1FBA8 /* KeyChain.swift */; };
+		108AA3732C3E2EC300D1FBA8 /* TermsOfUseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108AA3722C3E2EC300D1FBA8 /* TermsOfUseView.swift */; };
+		108AA3752C3E55CA00D1FBA8 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108AA3742C3E55CA00D1FBA8 /* TermsOfUseViewController.swift */; };
+		108AA3772C410C3900D1FBA8 /* DetailsOfAgreeToTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108AA3762C410C3900D1FBA8 /* DetailsOfAgreeToTermsViewController.swift */; };
 		1092AE682BEC779400E65FF5 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092AE672BEC779400E65FF5 /* ImageCacheManager.swift */; };
 		1092AE6A2BECB87300E65FF5 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092AE692BECB87300E65FF5 /* Archive.swift */; };
 /* End PBXBuildFile section */
@@ -200,6 +203,9 @@
 		108AA36C2C3A698700D1FBA8 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		108AA36E2C3D6A5C00D1FBA8 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
 		108AA3702C3D73FB00D1FBA8 /* KeyChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
+		108AA3722C3E2EC300D1FBA8 /* TermsOfUseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseView.swift; sourceTree = "<group>"; };
+		108AA3742C3E55CA00D1FBA8 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
+		108AA3762C410C3900D1FBA8 /* DetailsOfAgreeToTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOfAgreeToTermsViewController.swift; sourceTree = "<group>"; };
 		1092AE672BEC779400E65FF5 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		1092AE692BECB87300E65FF5 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -396,6 +402,7 @@
 				1067F9562BC3B0C7007708E4 /* RepasswordView.swift */,
 				1067F9572BC3B0C7007708E4 /* SetpasswordView.swift */,
 				1067F9582BC3B0C7007708E4 /* RegisterView.swift */,
+				108AA3722C3E2EC300D1FBA8 /* TermsOfUseView.swift */,
 				1067F9542BC3B0C7007708E4 /* OnboardView.swift */,
 				1067F9532BC3B0C7007708E4 /* SecondOnboardView.swift */,
 				1067F9522BC3B0C7007708E4 /* ThirdOnboardView.swift */,
@@ -431,6 +438,8 @@
 			children = (
 				1067F8D72BBD85A8007708E4 /* ViewController.swift */,
 				1067F9972BCFAB79007708E4 /* RegisterViewController.swift */,
+				108AA3742C3E55CA00D1FBA8 /* TermsOfUseViewController.swift */,
+				108AA3762C410C3900D1FBA8 /* DetailsOfAgreeToTermsViewController.swift */,
 				1067F9962BCFAB79007708E4 /* OnboardViewController.swift */,
 				1067F9942BCFAB79007708E4 /* SecondOnboardViewController.swift */,
 				1067F9992BCFAB79007708E4 /* ThirdOnboardViewController.swift */,
@@ -601,6 +610,7 @@
 				1067F99E2BCFAB79007708E4 /* SetpasswordViewController.swift in Sources */,
 				1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */,
 				1067F9CA2BD20CF8007708E4 /* NewActivityRequestViewController.swift in Sources */,
+				108AA3732C3E2EC300D1FBA8 /* TermsOfUseView.swift in Sources */,
 				108AA36B2C3A686700D1FBA8 /* AskHistoryView.swift in Sources */,
 				1067F9C42BD12444007708E4 /* User.swift in Sources */,
 				1067FA002BE0C50E007708E4 /* DetailView.swift in Sources */,
@@ -608,8 +618,10 @@
 				108AA36D2C3A698700D1FBA8 /* HistoryCell.swift in Sources */,
 				1067F9A12BCFAB85007708E4 /* Networking.swift in Sources */,
 				1067F9602BC3B0C8007708E4 /* SetpasswordView.swift in Sources */,
+				108AA3772C410C3900D1FBA8 /* DetailsOfAgreeToTermsViewController.swift in Sources */,
 				1067F9F82BE0C4A2007708E4 /* PhotoViewController.swift in Sources */,
 				1067F99F2BCFAB79007708E4 /* ThirdOnboardViewController.swift in Sources */,
+				108AA3752C3E55CA00D1FBA8 /* TermsOfUseViewController.swift in Sources */,
 				100966642BF1AD8F00492A75 /* SecondVisitReasonView.swift in Sources */,
 				1067F9502BC3B065007708E4 /* Extensions.swift in Sources */,
 				1067F8D82BBD85A8007708E4 /* ViewController.swift in Sources */,

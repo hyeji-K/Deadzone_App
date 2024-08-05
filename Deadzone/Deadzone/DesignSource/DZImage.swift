@@ -50,4 +50,8 @@ enum DZImage {
     static var mediumDoor: UIImage = UIImage(resource: .mediumDoor)
     static var smallDoor: UIImage = UIImage(resource: .smallDoor)
     static var uparrow: UIImage = UIImage(resource: .uparrow)
+    static var profile: UIImage = UIImage(resource: .profile)
+    static var termsCheckOn: UIImage = UIImage(resource: .termsCheckOn)
+    static var termsCheckOff: UIImage = UIImage(resource: .termsCheckOff)
+    static var vector: UIImage = UIImage(resource: .vector)
 }
