@@ -181,7 +181,8 @@ final class Networking {
         }
     }
     
-    // MARK: 데이터 쓰기
+    // MARK: [Create, Post] 데이터 쓰기
+    // 사용자 생성
     func createUserInfo(email: String) {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         let user = User(email: email, nickname: "", feeling: "", archive: [""], createdAt: Date().stringFormat)
@@ -198,6 +199,7 @@ final class Networking {
         case fashion01
     }
     
+    // 사용자 활동 생성
     func createActivity(activityCount: Int, activitys: [String]) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         var room = MyRoom(music: false, drinking: false, meditation: false, table: false, cafe: false, reading: false, fashion01: false, fashion02: false)
@@ -227,18 +229,21 @@ final class Networking {
         self.ref.child("users").child(uid).child("myRoom").setValue(room.toDictionary)
     }
     
+    // 활동에 대한 요청
     func postNewActivityRequest(data: String) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         let request: [String: String] = ["request": data, "createdAt": Date().stringFormat]
         self.ref.child("Request").child(uid).child(UUID().uuidString).setValue(request)
     }
     
+    // 1:1 문의 생성
     func postNewAsk(data: String) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
-        let request: [String: String] = ["ask": data, "askCreatedAt": Date().stringFormat, "result": "", "resultCreatedAt": ""]
+        let request: [String: String] = ["ask": data, "askCreatedAt": Date().stringFormat, "answer": "", "answerCreatedAt": ""]
         self.ref.child("Ask").child(uid).child(UUID().uuidString).setValue(request)
     }
     
+    // 회원탈퇴에 대한 이유
     func postLeaveReason(data: String) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         let request: [String: String] = ["reason": data, "createdAt": Date().stringFormat]
@@ -252,6 +257,8 @@ final class Networking {
         case archiveName
     }
     
+    // MARK: [Update] 데이터 업데이트
+    // 사용자 정보 업데이트
     func updateUserInfo(dataName: UserInformation, data: String, archive: [String]? = nil) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         switch dataName {
@@ -279,6 +286,7 @@ final class Networking {
 //        self.ref.child("users").child(uid).child("Archive").child(name).setValue(dic)
 //    }
     
+    // 활동에 대한 사진 업데이트
     func updateArchive(name: String, imageUrl: String) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         let archive = Archive(imageUrl: imageUrl, content: "", createdAt: Date().stringFormat)
@@ -286,6 +294,7 @@ final class Networking {
         self.ref.child("users").child(uid).child("Archive").child(name).updateChildValues(data)
     }
     
+    // 활동에 올린 사진에 대한 글 업데이트
     func updateArchiveContent(name: String, archive: Archive, content: String) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         let updateArchive = Archive(id: archive.id, imageUrl: archive.imageUrl, content: content, createdAt: archive.createdAt)
@@ -293,7 +302,8 @@ final class Networking {
         self.ref.child("users").child(uid).child("Archive").child(name).updateChildValues(data)
     }
     
-    // MARK: 데이터 읽기
+    // MARK: [Read] 데이터 읽기
+    // 사용자의 email 가져오기
     func getUserEmail(completion: @escaping (DataSnapshot) -> Void) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         ref.child("users").child(uid).child("userInfo").getData { error, snapshot in
@@ -306,6 +316,7 @@ final class Networking {
         }
     }
     
+    // 사용자 정보 가져오기
     func getUserInfo(completion: @escaping (User) -> Void) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         ref.child("users").child(uid).child("userInfo").getData { error, snapshot in
@@ -329,6 +340,7 @@ final class Networking {
         }
     }
     
+    // 사용자의 활동 가져오기
     func getActivity(completion: @escaping (DataSnapshot) -> Void) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         ref.child("users").child(uid).child("myRoom").getData { error, snapshot in
@@ -341,6 +353,7 @@ final class Networking {
         }
     }
     
+    // 사용자의 활동에 대한 데이터 가져오기
     func getArchive(completion: @escaping (DataSnapshot) -> Void) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         ref.child("users").child(uid).child("Archive").observe(.value) { snapshot in
@@ -373,8 +386,8 @@ final class Networking {
             }
         }
     }
-    
-    // MARK: 데이터 삭제
+    // MARK: [Delete] 데이터 삭제
+    // 사용자 데이터 삭제
     func deleteUserInfo() {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         // 1. 스토리지에 저장되어 있는 사진 데이터 삭제
@@ -385,6 +398,7 @@ final class Networking {
         self.deleteAccount()
     }
     
+    // 활동 삭제
     func deleteArchiveData(firstArchiveName: String, secondArchiveName: String? = nil) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         self.ref.child("users").child(uid).child("Archive").child(firstArchiveName).removeValue()
@@ -395,6 +409,7 @@ final class Networking {
         deleteImageAndData(storageName: secondArchiveName)
     }
     
+    // 이미지 삭제
     private func deleteImageAndData(storageName: String) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         let imageRef = self.storage.child(uid).child(storageName)
