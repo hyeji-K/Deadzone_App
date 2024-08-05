@@ -34,7 +34,7 @@ final class HistoryCell: UITableViewCell {
     
     let extendButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "greaterthan"), for: .normal)
+        button.setImage(DZImage.askVector, for: .normal)
         return button
     }()
 
@@ -53,14 +53,8 @@ final class HistoryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
     func configure(title: String, date: String) {
-        titleLabel.text = "안녕하세요. 여쭤볼 것이 있습니다."
+        titleLabel.text = "안녕하세요. 여쭤볼 것이 있습니다.".shorted(to: 15)
         dateLabel.text = "2024. 03. 11 작성"
     }
     
@@ -75,10 +69,12 @@ final class HistoryCell: UITableViewCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(21)
             make.left.equalToSuperview().offset(13)
+            make.right.equalToSuperview().inset(120)
         }
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.left.equalTo(titleLabel.snp.left)
+            make.right.equalTo(titleLabel.snp.right)
         }
         extendButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

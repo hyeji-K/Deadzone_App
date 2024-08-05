@@ -26,6 +26,7 @@
 		100966762BF2116C00492A75 /* LeaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100966752BF2116C00492A75 /* LeaveViewController.swift */; };
 		100966782BF211AA00492A75 /* LeaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100966772BF211AA00492A75 /* LeaveView.swift */; };
 		1009667B2BF21C9100492A75 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1009667A2BF21C9100492A75 /* TutorialView.swift */; };
+		1043C24D2C6180D20007390A /* AskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C24C2C6180D20007390A /* AskCell.swift */; };
 		1067F8D42BBD85A8007708E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8D32BBD85A8007708E4 /* AppDelegate.swift */; };
 		1067F8D62BBD85A8007708E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8D52BBD85A8007708E4 /* SceneDelegate.swift */; };
 		1067F8D82BBD85A8007708E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8D72BBD85A8007708E4 /* ViewController.swift */; };
@@ -142,6 +143,7 @@
 		100966752BF2116C00492A75 /* LeaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveViewController.swift; sourceTree = "<group>"; };
 		100966772BF211AA00492A75 /* LeaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveView.swift; sourceTree = "<group>"; };
 		1009667A2BF21C9100492A75 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		1043C24C2C6180D20007390A /* AskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskCell.swift; sourceTree = "<group>"; };
 		1067F8D02BBD85A8007708E4 /* Deadzone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadzone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1067F8D32BBD85A8007708E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1067F8D52BBD85A8007708E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				1067FA042BE0C523007708E4 /* ArchiveCell.swift */,
 				1067FA062BE0C527007708E4 /* GallaryCell.swift */,
 				108AA36C2C3A698700D1FBA8 /* HistoryCell.swift */,
+				1043C24C2C6180D20007390A /* AskCell.swift */,
 				108AA36E2C3D6A5C00D1FBA8 /* AnswerCell.swift */,
 			);
 			path = Cell;
@@ -662,6 +665,7 @@
 				1067F9B62BD11896007708E4 /* ActivitySelectedViewController.swift in Sources */,
 				108AA3692C3A67A300D1FBA8 /* AskHistroyViewController.swift in Sources */,
 				1067F9C22BD12435007708E4 /* MyRoom.swift in Sources */,
+				1043C24D2C6180D20007390A /* AskCell.swift in Sources */,
 				1067F95E2BC3B0C8007708E4 /* LoginView.swift in Sources */,
 				1067F9612BC3B0C8007708E4 /* RegisterView.swift in Sources */,
 				1092AE6A2BECB87300E65FF5 /* Archive.swift in Sources */,

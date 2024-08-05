@@ -156,6 +156,13 @@ extension String {
         let predicate = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
         return predicate.evaluate(with: self)
     }
+    
+    func shorted(to symbols: Int) -> String {
+        guard self.count > symbols else {
+            return self
+        }
+        return self.prefix(symbols) + " ..."
+    }
 }
 
 extension Date {
