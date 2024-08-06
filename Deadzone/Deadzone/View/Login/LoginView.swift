@@ -107,7 +107,7 @@ final class LoginView: UIView {
         addSubview(helperStackView)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(85)
+            make.top.equalToSuperview().inset(41)
             make.centerX.equalToSuperview()
         }
         loginStackView.snp.makeConstraints { make in

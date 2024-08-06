@@ -18,7 +18,7 @@ final class FeelingCell: UITableViewCell {
         return view
     }()
     
-    private let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.font = DZFont.text14
         label.textColor = DZColor.grayColor100

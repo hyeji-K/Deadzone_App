@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol DataSendDelegate: AnyObject {
+    func sendData(data: String?)
+}
+
 final class SecondOnboardView: UIView {
     
     private let feelingList: [String] = ["부럽고 샘나는", "지치는", "우울한", "공허한", "화가 나는", "소외감이 드는"]
+    weak var dataDelegate: DataSendDelegate?
 
     private let pageControlImageView: UIImageView = {
         let imageView = UIImageView()
@@ -54,8 +59,8 @@ final class SecondOnboardView: UIView {
     private func setupView() {
         addSubview(pageControlImageView)
         addSubview(titleLabel)
-        addSubview(nextButton)
         addSubview(feelingTableView)
+        addSubview(nextButton)
         
         pageControlImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(41)
@@ -90,5 +95,9 @@ extension SecondOnboardView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dataDelegate?.sendData(data: feelingList[indexPath.row])
     }
 }

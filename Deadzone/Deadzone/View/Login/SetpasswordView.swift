@@ -69,11 +69,11 @@ final class SetpasswordView: UIView {
         addSubview(doneButton)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(93)
+            make.top.equalToSuperview().inset(49)
             make.centerX.equalToSuperview()
         }
         newPasswordTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(196)
+            make.top.equalToSuperview().offset(151)
             make.left.right.equalToSuperview().inset(16)
         }
         checkPasswordLabel.snp.makeConstraints { make in

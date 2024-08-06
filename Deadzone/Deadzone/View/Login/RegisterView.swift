@@ -55,6 +55,7 @@ final class RegisterView: UIView {
     lazy var passwordTextField: UITextField = {
         let textField = BasicTextField(placeholderText: "영문과 숫자 조합, 8자리 이상")
         textField.isSecureTextEntry = true
+        textField.textContentType = .oneTimeCode
         textField.rightViewMode = .always
         textField.rightView = passwordEyeButton
         return textField
@@ -106,7 +107,7 @@ final class RegisterView: UIView {
         addSubview(doneButton)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(85)
+            make.top.equalToSuperview().inset(41)
             make.centerX.equalToSuperview()
         }
         emailLabel.snp.makeConstraints { make in

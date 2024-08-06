@@ -33,6 +33,7 @@ final class BasicTextField: UITextField {
         self.autocapitalizationType = .none
         self.autocorrectionType = .no
         self.spellCheckingType = .no
+        self.isCorrecting(value: true)
         
         self.snp.makeConstraints { make in
             make.height.equalTo(38)

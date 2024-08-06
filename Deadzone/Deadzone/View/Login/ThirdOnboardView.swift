@@ -9,7 +9,7 @@ import UIKit
 
 final class ThirdOnboardView: UIView {
     
-    private let placeholder: String = "오로지 자신의 감정을 되돌아보기 위한 목적이며\n절대 타인에게 공유되지 않습니다:)"
+    let placeholder: String = "오로지 자신의 감정을 되돌아보기 위한 목적이며\n절대 타인에게 공유되지 않습니다:)"
 
     private let pageControlImageView: UIImageView = {
         let imageView = UIImageView()
@@ -27,11 +27,11 @@ final class ThirdOnboardView: UIView {
         return label
     }()
     
-    private lazy var writenTextView: UITextView = {
+    lazy var writenTextView: UITextView = {
         let textView = UITextView()
-        textView.attributedText = NSAttributedString.attributeFont(font: .subText12, text: placeholder, lineHeight: 16)
+        textView.text = placeholder
         textView.textColor = DZColor.grayColor100
-        textView.font = DZFont.subText12
+        textView.font = DZFont.text14
         textView.backgroundColor = DZColor.grayColor300
         textView.layer.cornerRadius = 8
         textView.textContainerInset = UIEdgeInsets(top: 24, left: 14, bottom: 16, right: 14)
@@ -105,6 +105,8 @@ extension ThirdOnboardView: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = nil
+        if textView.text == placeholder {
+            textView.text = nil
+        }
     }
 }

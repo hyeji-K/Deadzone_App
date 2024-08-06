@@ -8,6 +8,18 @@
 import UIKit
 
 extension UITextField {
+    func isCorrecting(value: Bool) {
+        if value {
+            self.layer.borderColor = DZColor.grayColor300.cgColor
+            self.layer.borderWidth = 1
+            self.backgroundColor = DZColor.grayColor300            
+        } else {
+            self.layer.borderColor = DZColor.red02.cgColor
+            self.layer.borderWidth = 1
+            self.backgroundColor = DZColor.red02
+        }
+    }
+    
     func addPadding(width: CGFloat) {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.height))
         self.leftView = paddingView
@@ -34,24 +46,45 @@ extension UILabel {
             self.attributedText = attrString
         }
     }
+    
+    func setLineSpacing(_ text: String?) {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 4
+        
+        let attributedString = NSMutableAttributedString(string: text ?? "")
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedString.length))
+        
+        self.attributedText = attributedString
+    }
 }
 
 extension UITextView {
     func setTextWithLineHeight(text: String?, lineHeight: CGFloat) {
         if let text = text {
             let style = NSMutableParagraphStyle()
+//        let fontSize: CGFloat = 14
+//        let lineheight = fontSize * 1.6  //font size * multiple
             style.maximumLineHeight = lineHeight
             style.minimumLineHeight = lineHeight
             
             let attributes: [NSAttributedString.Key: Any] = [
                 .paragraphStyle: style,
-                .baselineOffset: (lineHeight - 12) / 4
+                .baselineOffset: (lineHeight - 14) / 4
             ]
             
             let attrString = NSAttributedString(string: text,
                                                 attributes: attributes)
             self.attributedText = attrString
         }
+    }
+    func setLineSpacing(_ text: String) {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 4
+        
+        let attributedString = NSMutableAttributedString(string: self.text)
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedString.length))
+        
+        self.attributedText = attributedString
     }
 }
 enum DZFontType {
@@ -123,4 +156,67 @@ extension String {
         let predicate = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
         return predicate.evaluate(with: self)
     }
+    
+    func shorted(to symbols: Int) -> String {
+        guard self.count > symbols else {
+            return self
+        }
+        return self.prefix(symbols) + " ..."
+    }
+    
+    static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
+    var date: Date? {
+        return String.dateFormatter.date(from: self)
+    }
 }
+
+extension Date {
+    static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
+    var stringFormat: String {
+        return Date.dateFormatter.string(from: self)
+    }
+    
+    static var askDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko")
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter
+    }()
+    
+    var askDateStringFormat: String {
+        return Date.askDateFormatter.string(from: self)
+    }
+}
+
+extension Int {
+    var boolValue: Bool {
+        return self != 1
+    }
+}
+
+//extension UINavigationController {
+//    func popViewController(animated: Bool, completion:@escaping (()->())) -> UIViewController? {
+//        CATransaction.setCompletionBlock(completion)
+//        CATransaction.begin()
+//        let poppedViewController = self.popViewController(animated: animated)
+//        CATransaction.commit()
+//        return poppedViewController
+//    }
+//    
+//    func pushViewController(_ viewController: UIViewController, animated: Bool, completion:@escaping (()->())) {
+//        CATransaction.setCompletionBlock(completion)
+//        CATransaction.begin()
+//        self.pushViewController(viewController, animated: animated)
+//        CATransaction.commit()
+//    }
+//}
