@@ -52,7 +52,7 @@ final class HomeViewController: UIViewController {
     
     private func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: DZImage.settings, style: .plain, target: self, action: #selector(settingButtonTapped))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: DZImage.alarm, style: .plain, target: self, action: .none)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: DZImage.alarm, style: .plain, target: self, action: #selector(alarmButtonTapped))
         self.navigationController?.navigationBar.tintColor = DZColor.black
         self.navigationItem.title = "deadzone"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : DZFont.subTitle24]
@@ -192,6 +192,11 @@ final class HomeViewController: UIViewController {
     @objc private func settingButtonTapped(_ sender: UIButton) {
         let settingViewController = SettingViewController()
         self.navigationController?.pushViewController(settingViewController, animated: true)
+    }
+    
+    @objc private func alarmButtonTapped(_ sender: UIButton) {
+        let alarmViewController = AlarmViewController()
+        self.navigationController?.pushViewController(alarmViewController, animated: false)
     }
     
     @objc private func tapGestureTapped(_ tapGesture: UITapGestureRecognizer) {

@@ -28,6 +28,9 @@
 		1009667B2BF21C9100492A75 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1009667A2BF21C9100492A75 /* TutorialView.swift */; };
 		1043C24D2C6180D20007390A /* AskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C24C2C6180D20007390A /* AskCell.swift */; };
 		1043C24F2C618A3A0007390A /* Ask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C24E2C618A3A0007390A /* Ask.swift */; };
+		1043C2532C61B7ED0007390A /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2522C61B7ED0007390A /* AlarmViewController.swift */; };
+		1043C2552C61BBEC0007390A /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2542C61BBEC0007390A /* AlarmView.swift */; };
+		1043C2572C61BF7A0007390A /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2562C61BF7A0007390A /* AlarmCell.swift */; };
 		1067F8D42BBD85A8007708E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8D32BBD85A8007708E4 /* AppDelegate.swift */; };
 		1067F8D62BBD85A8007708E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8D52BBD85A8007708E4 /* SceneDelegate.swift */; };
 		1067F8D82BBD85A8007708E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8D72BBD85A8007708E4 /* ViewController.swift */; };
@@ -146,6 +149,9 @@
 		1009667A2BF21C9100492A75 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		1043C24C2C6180D20007390A /* AskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskCell.swift; sourceTree = "<group>"; };
 		1043C24E2C618A3A0007390A /* Ask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ask.swift; sourceTree = "<group>"; };
+		1043C2522C61B7ED0007390A /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
+		1043C2542C61BBEC0007390A /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
+		1043C2562C61BF7A0007390A /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
 		1067F8D02BBD85A8007708E4 /* Deadzone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadzone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1067F8D32BBD85A8007708E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1067F8D52BBD85A8007708E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -283,6 +289,22 @@
 			path = Tutorial;
 			sourceTree = "<group>";
 		};
+		1043C2502C61B7A50007390A /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				1043C2542C61BBEC0007390A /* AlarmView.swift */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
+		1043C2512C61B7D60007390A /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				1043C2522C61B7ED0007390A /* AlarmViewController.swift */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
 		1067F8C72BBD85A8007708E4 = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +383,7 @@
 				1067F9B72BD118A5007708E4 /* Home */,
 				1067F9FA2BE0C50E007708E4 /* Archive */,
 				1067F9FD2BE0C50E007708E4 /* Camera */,
+				1043C2502C61B7A50007390A /* Alarm */,
 				100966532BF07BA400492A75 /* Setting */,
 			);
 			path = View;
@@ -372,6 +395,7 @@
 				1067F9D02BD26F8D007708E4 /* Login */,
 				1067F9D12BD26F9C007708E4 /* Home */,
 				1067F9EE2BE0C496007708E4 /* Archive */,
+				1043C2512C61B7D60007390A /* Alarm */,
 				100966562BF07BD300492A75 /* Setting */,
 			);
 			path = Controller;
@@ -425,6 +449,7 @@
 				108AA36C2C3A698700D1FBA8 /* HistoryCell.swift */,
 				1043C24C2C6180D20007390A /* AskCell.swift */,
 				108AA36E2C3D6A5C00D1FBA8 /* AnswerCell.swift */,
+				1043C2562C61BF7A0007390A /* AlarmCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -616,6 +641,7 @@
 				1067F9B52BD11896007708E4 /* HomeViewController.swift in Sources */,
 				1067F99E2BCFAB79007708E4 /* SetpasswordViewController.swift in Sources */,
 				1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */,
+				1043C2572C61BF7A0007390A /* AlarmCell.swift in Sources */,
 				1067F9CA2BD20CF8007708E4 /* NewActivityRequestViewController.swift in Sources */,
 				108AA3732C3E2EC300D1FBA8 /* TermsOfUseView.swift in Sources */,
 				108AA36B2C3A686700D1FBA8 /* AskHistoryView.swift in Sources */,
@@ -629,6 +655,7 @@
 				1067F9F82BE0C4A2007708E4 /* PhotoViewController.swift in Sources */,
 				1067F99F2BCFAB79007708E4 /* ThirdOnboardViewController.swift in Sources */,
 				108AA3752C3E55CA00D1FBA8 /* TermsOfUseViewController.swift in Sources */,
+				1043C2532C61B7ED0007390A /* AlarmViewController.swift in Sources */,
 				100966642BF1AD8F00492A75 /* SecondVisitReasonView.swift in Sources */,
 				1067F9502BC3B065007708E4 /* Extensions.swift in Sources */,
 				1067F8D82BBD85A8007708E4 /* ViewController.swift in Sources */,
@@ -644,6 +671,7 @@
 				100966682BF1FF0000492A75 /* AskView.swift in Sources */,
 				1067F95D2BC3B0C8007708E4 /* OnboardView.swift in Sources */,
 				1067F99A2BCFAB79007708E4 /* SecondOnboardViewController.swift in Sources */,
+				1043C2552C61BBEC0007390A /* AlarmView.swift in Sources */,
 				1067F9F72BE0C4A2007708E4 /* CameraViewController.swift in Sources */,
 				1067F9BB2BD118A5007708E4 /* ActivitySelectedView.swift in Sources */,
 				1067F9F22BE0C496007708E4 /* ArchiveListViewController.swift in Sources */,

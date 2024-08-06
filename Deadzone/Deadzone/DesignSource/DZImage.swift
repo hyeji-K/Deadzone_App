@@ -56,4 +56,7 @@ enum DZImage {
     static var vector: UIImage = UIImage(resource: .vector)
     static var askVector: UIImage = UIImage(resource: .askVector)
     static var answerVector: UIImage = UIImage(resource: .answerVector)
+    static var journal: UIImage = UIImage(resource: .journal)
+    static var announcement: UIImage = UIImage(resource: .announcement)
+    static var knock: UIImage = UIImage(resource: .knock)
 }
