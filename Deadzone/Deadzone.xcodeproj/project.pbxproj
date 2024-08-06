@@ -31,6 +31,10 @@
 		1043C2532C61B7ED0007390A /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2522C61B7ED0007390A /* AlarmViewController.swift */; };
 		1043C2552C61BBEC0007390A /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2542C61BBEC0007390A /* AlarmView.swift */; };
 		1043C2572C61BF7A0007390A /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2562C61BF7A0007390A /* AlarmCell.swift */; };
+		1043C2592C61C8260007390A /* DetailsOfAgreeToTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2582C61C8260007390A /* DetailsOfAgreeToTermsView.swift */; };
+		1043C25B2C61D5320007390A /* TermsOfUseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C25A2C61D5320007390A /* TermsOfUseCell.swift */; };
+		1043C25D2C61D9810007390A /* ExtendTermsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C25C2C61D9810007390A /* ExtendTermsCell.swift */; };
+		1043C25F2C61DAC20007390A /* TermsOfUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C25E2C61DAC20007390A /* TermsOfUse.swift */; };
 		1067F8D42BBD85A8007708E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8D32BBD85A8007708E4 /* AppDelegate.swift */; };
 		1067F8D62BBD85A8007708E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8D52BBD85A8007708E4 /* SceneDelegate.swift */; };
 		1067F8D82BBD85A8007708E4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067F8D72BBD85A8007708E4 /* ViewController.swift */; };
@@ -152,6 +156,10 @@
 		1043C2522C61B7ED0007390A /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		1043C2542C61BBEC0007390A /* AlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
 		1043C2562C61BF7A0007390A /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
+		1043C2582C61C8260007390A /* DetailsOfAgreeToTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOfAgreeToTermsView.swift; sourceTree = "<group>"; };
+		1043C25A2C61D5320007390A /* TermsOfUseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseCell.swift; sourceTree = "<group>"; };
+		1043C25C2C61D9810007390A /* ExtendTermsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendTermsCell.swift; sourceTree = "<group>"; };
+		1043C25E2C61DAC20007390A /* TermsOfUse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUse.swift; sourceTree = "<group>"; };
 		1067F8D02BBD85A8007708E4 /* Deadzone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadzone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1067F8D32BBD85A8007708E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1067F8D52BBD85A8007708E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -420,6 +428,7 @@
 				108AA3702C3D73FB00D1FBA8 /* KeyChain.swift */,
 				1092AE672BEC779400E65FF5 /* ImageCacheManager.swift */,
 				100966512BEDF7C700492A75 /* EmptyView.swift */,
+				1043C25E2C61DAC20007390A /* TermsOfUse.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -432,6 +441,7 @@
 				1067F9572BC3B0C7007708E4 /* SetpasswordView.swift */,
 				1067F9582BC3B0C7007708E4 /* RegisterView.swift */,
 				108AA3722C3E2EC300D1FBA8 /* TermsOfUseView.swift */,
+				1043C2582C61C8260007390A /* DetailsOfAgreeToTermsView.swift */,
 				1067F9542BC3B0C7007708E4 /* OnboardView.swift */,
 				1067F9532BC3B0C7007708E4 /* SecondOnboardView.swift */,
 				1067F9522BC3B0C7007708E4 /* ThirdOnboardView.swift */,
@@ -450,6 +460,8 @@
 				1043C24C2C6180D20007390A /* AskCell.swift */,
 				108AA36E2C3D6A5C00D1FBA8 /* AnswerCell.swift */,
 				1043C2562C61BF7A0007390A /* AlarmCell.swift */,
+				1043C25A2C61D5320007390A /* TermsOfUseCell.swift */,
+				1043C25C2C61D9810007390A /* ExtendTermsCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -639,7 +651,9 @@
 				100966762BF2116C00492A75 /* LeaveViewController.swift in Sources */,
 				1067F9F12BE0C496007708E4 /* DetailViewController.swift in Sources */,
 				1067F9B52BD11896007708E4 /* HomeViewController.swift in Sources */,
+				1043C25D2C61D9810007390A /* ExtendTermsCell.swift in Sources */,
 				1067F99E2BCFAB79007708E4 /* SetpasswordViewController.swift in Sources */,
+				1043C2592C61C8260007390A /* DetailsOfAgreeToTermsView.swift in Sources */,
 				1067F8F92BBD9AC1007708E4 /* DZFont.swift in Sources */,
 				1043C2572C61BF7A0007390A /* AlarmCell.swift in Sources */,
 				1067F9CA2BD20CF8007708E4 /* NewActivityRequestViewController.swift in Sources */,
@@ -654,9 +668,11 @@
 				108AA3772C410C3900D1FBA8 /* DetailsOfAgreeToTermsViewController.swift in Sources */,
 				1067F9F82BE0C4A2007708E4 /* PhotoViewController.swift in Sources */,
 				1067F99F2BCFAB79007708E4 /* ThirdOnboardViewController.swift in Sources */,
+				1043C25F2C61DAC20007390A /* TermsOfUse.swift in Sources */,
 				108AA3752C3E55CA00D1FBA8 /* TermsOfUseViewController.swift in Sources */,
 				1043C2532C61B7ED0007390A /* AlarmViewController.swift in Sources */,
 				100966642BF1AD8F00492A75 /* SecondVisitReasonView.swift in Sources */,
+				1043C25B2C61D5320007390A /* TermsOfUseCell.swift in Sources */,
 				1067F9502BC3B065007708E4 /* Extensions.swift in Sources */,
 				1067F8D82BBD85A8007708E4 /* ViewController.swift in Sources */,
 				1067FA022BE0C50E007708E4 /* GallaryView.swift in Sources */,

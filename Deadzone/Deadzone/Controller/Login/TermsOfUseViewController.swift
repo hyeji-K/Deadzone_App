@@ -92,12 +92,8 @@ final class TermsOfUseViewController: UIViewController {
     }
     
     @objc private func detailsOfAgreeToTermsButtonTapped(_ sender: UITapGestureRecognizer) {
-        guard let url = URL(string: "https://www.notion.so/deadzone/80aa3c9bc0ec4c8aa716920ef42cf19e?pvs=4") else { return }
-        let safari = SFSafariViewController(url: url)
-        safari.navigationItem.title = "이용약관"
-        self.navigationController?.pushViewController(safari, animated: true)
-//        let detailsOfAgreeToTermsViewController = DetailsOfAgreeToTermsViewController()
-//        self.navigationController?.pushViewController(detailsOfAgreeToTermsViewController, animated: false)
+        let termsOfUseViewController = DetailsOfAgreeToTermsViewController()
+        self.navigationController?.pushViewController(termsOfUseViewController, animated: true)
     }
     
     @objc private func agreeToPrivacyButtonTapped(_ sender: UIButton) {
