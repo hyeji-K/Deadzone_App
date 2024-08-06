@@ -163,6 +163,16 @@ extension String {
         }
         return self.prefix(symbols) + " ..."
     }
+    
+    static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
+    var date: Date? {
+        return String.dateFormatter.date(from: self)
+    }
 }
 
 extension Date {
@@ -174,6 +184,17 @@ extension Date {
     
     var stringFormat: String {
         return Date.dateFormatter.string(from: self)
+    }
+    
+    static var askDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko")
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter
+    }()
+    
+    var askDateStringFormat: String {
+        return Date.askDateFormatter.string(from: self)
     }
 }
 

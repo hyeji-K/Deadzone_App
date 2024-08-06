@@ -239,8 +239,8 @@ final class Networking {
     // 1:1 문의 생성
     func postNewAsk(data: String) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
-        let request: [String: String] = ["ask": data, "askCreatedAt": Date().stringFormat, "answer": "", "answerCreatedAt": ""]
-        self.ref.child("Ask").child(uid).child(UUID().uuidString).setValue(request)
+        let ask: AskAndAnswer = AskAndAnswer(ask: data, askCreatedAt: Date().stringFormat, answer: "", answerCreatedAt: "")
+        self.ref.child("Ask").child(uid).child(UUID().uuidString).setValue(ask.toDictionary)
     }
     
     // 회원탈퇴에 대한 이유
@@ -358,6 +358,33 @@ final class Networking {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         ref.child("users").child(uid).child("Archive").observe(.value) { snapshot in
             completion(snapshot)
+        }
+    }
+    
+    func getAsk(completion: @escaping ([AskAndAnswer]) -> Void) {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        self.ref.child("Ask").child(uid).getData { error, snapshot in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let snapshot else { return }
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    var askList: [AskAndAnswer] = []
+                    for ask in snapshot.values {
+                        let data = try JSONSerialization.data(withJSONObject: ask, options: [])
+                        let decoder = JSONDecoder()
+                        let userInfo: AskAndAnswer = try decoder.decode(AskAndAnswer.self, from: data)
+                        askList.append(userInfo)
+                    }
+                    let sortedAskList = askList.sorted { $0.askCreatedAt < $1.askCreatedAt }
+                    completion(sortedAskList)
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
     

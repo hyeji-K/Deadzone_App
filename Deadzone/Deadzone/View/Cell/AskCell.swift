@@ -41,7 +41,7 @@ final class AskCell: UITableViewCell {
     }
     
     func configure(ask: String) {
-        askLabel.setLineSpacing("안녕하세요. 여쭤볼 것이 있습니다. 얼마 전에 새로운 활동을 요청했는데 혹시.. 언제쯤 업데이트가 되나요? 궁금해 미치겠어요.")
+        askLabel.setLineSpacing(ask)
     }
     
     private func setupCell() {

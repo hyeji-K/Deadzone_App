@@ -54,8 +54,9 @@ final class HistoryCell: UITableViewCell {
     }
     
     func configure(title: String, date: String) {
-        titleLabel.text = "안녕하세요. 여쭤볼 것이 있습니다.".shorted(to: 15)
-        dateLabel.text = "2024. 03. 11 작성"
+        titleLabel.text = title.shorted(to: 20)
+        guard let date = date.date else { return }
+        dateLabel.text = "\(date.askDateStringFormat) 작성"
     }
     
     private func setupCell() {

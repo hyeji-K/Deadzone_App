@@ -11,11 +11,14 @@ final class AskHistroyViewController: UIViewController {
     
     private let historyView = AskHistoryView()
     
+    var askList: [AskAndAnswer] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavigationBar()
         setupView()
+        getData()
     }
     
     private func setupNavigationBar() {
@@ -38,5 +41,14 @@ final class AskHistroyViewController: UIViewController {
     
     @objc private func backButtonTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func getData() {
+        var transAskList: [CellData] = []
+        for ask in askList {
+            let askData = CellData(ask: Ask(ask: ask.ask, date: ask.askCreatedAt), answer: Answer(answer: ask.answer, date: ask.answerCreatedAt))
+            transAskList.append(askData)
+        }
+        historyView.tableViewData = transAskList
     }
 }

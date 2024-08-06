@@ -11,11 +11,13 @@ final class AskViewController: UIViewController {
     
     private let askView = AskView()
     
-    private var history: String = "내역(2)"
+    private var history: String = "내역"
+    private var askList: [AskAndAnswer] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        getData()
         setupNavigationBar()
         setupView()
     }
@@ -44,6 +46,7 @@ final class AskViewController: UIViewController {
     
     @objc private func historyButtonTapped(_ sender: UIButton) {
         let historyViewController = AskHistroyViewController()
+        historyViewController.askList = askList
         self.navigationController?.pushViewController(historyViewController, animated: true)
     }
     
@@ -51,5 +54,14 @@ final class AskViewController: UIViewController {
         guard let askText = askView.writenTextView.text else { return }
         Networking.shared.postNewAsk(data: askText)
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func getData() {
+        Networking.shared.getAsk { snapshot in
+            self.history = self.history
+            self.history += "(\(snapshot.count))"
+            self.askList = snapshot
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: self.history, style: .plain, target: self, action: #selector(self.historyButtonTapped))
+        }
     }
 }

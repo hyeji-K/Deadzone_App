@@ -7,16 +7,15 @@
 
 import UIKit
 
-struct cellData {
-    var opened = Bool()
-    var ask = String()
-    var answer = [Answer]()
+struct CellData {
+    var opened: Bool = false
+    var ask: Ask
+    var answer: Answer
 }
 
 final class AskHistoryView: UIView {
     
-    private var tableViewData = [cellData(opened: false, ask: "일", answer: [Answer(answer: "", date: "")]),
-                                 cellData(opened: false, ask: "이", answer: [])]
+    var tableViewData: [CellData] = [CellData]()
     
     lazy var askTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -54,7 +53,7 @@ extension AskHistoryView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableViewData[section].opened == true {
-            if tableViewData[section].answer.isEmpty {
+            if tableViewData[section].answer.answer == "" {
                 return 2
             }
             return 3
@@ -67,17 +66,17 @@ extension AskHistoryView: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 0 {
             // NOTE: 히스토리
             let cell = tableView.dequeueReusableCell(withIdentifier: HistoryCell.identifier, for: indexPath) as! HistoryCell
-            cell.configure(title: "", date: "")
+            cell.configure(title: tableViewData[indexPath.section].ask.ask, date: tableViewData[indexPath.section].ask.date)
             return cell
         } else if indexPath.row == 1 {
             // NOTE: 사용자의 질문
             let cell = tableView.dequeueReusableCell(withIdentifier: AskCell.identifier, for: indexPath) as! AskCell
-            cell.configure(ask: "")
+            cell.configure(ask: tableViewData[indexPath.section].ask.ask)
             return cell
         } else {
             // NOTE: 운영자의 답변
             let cell = tableView.dequeueReusableCell(withIdentifier: AnswerCell.identifier, for: indexPath) as! AnswerCell
-            cell.configure(answer: "", date: "")
+            cell.configure(answer: tableViewData[indexPath.section].answer.answer, date: tableViewData[indexPath.section].answer.date)
             return cell
         }
     }
