@@ -48,8 +48,8 @@ final class AccountCancellationViewController: UIViewController {
             }
         }
         // NOTE: 잠시동안 탈퇴완료 화면 보여주고 로그인 화면으로 화면전환
-        // TODO: 계정 및 데이터 모두 삭제
-        Networking.shared.deleteUserInfo()
+        // 계정 삭제
+        Networking.shared.deleteAccount()
         self.view.addSubview(leaveView)
         leaveView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)

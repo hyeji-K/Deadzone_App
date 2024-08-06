@@ -105,7 +105,8 @@ final class Networking {
                 return
             }
             // User re-authenticated.
-            if let email = result?.user.email {
+            if let user = result?.user.email {
+                print(result?.user)
                 print("재인증이 완료되었습니다.")
                 completion(email)
             } else {
@@ -165,7 +166,12 @@ final class Networking {
     
     // MARK: 사용자 계정 삭제하기 (탈퇴하기)
     func deleteAccount() {
+        // NOTE: 탈퇴하는 사용자 uid와 날짜 저장
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        let deleteUser = ["uid": uid, "deletedAt": Date().stringFormat]
+        self.ref.child("RecentDeleteAccountUsers").child(UUID().uuidString).updateChildValues(deleteUser)
         // NOTE: 최근 로그인(로그인 후 5분)이 지나면 사용자 재인증 필요
+        // 1. 사용자 재인증
         self.isExistUser { email in
             self.firebaseAuth.currentUser?.delete(completion: { error in
                 if let error = error {
@@ -174,6 +180,11 @@ final class Networking {
                 } else {
                     // NOTE: 키체인에 저장된 비밀번호 삭제 및 UserDefaults에 저장된 uid 삭제
                     KeyChain.shared.delete(email: email)
+                    // 2. 사용자 정보 데이터 삭제
+//                    self.deleteUserInfo()
+                    // 3. 스토리지에 저장되어 있는 사진 데이터 삭제
+//                    self.deleteArchiveData(firstArchiveName: <#T##String#>, secondArchiveName: <#T##String?#>)
+                    // 4. 폰에 저장되어 있는 uid/email/pw 삭제
                     UserDefaults.standard.removeObject(forKey: "userId")
                     print(KeyChain.shared.getUserData(email: email) ?? "이메일 없음")
                 }
@@ -417,12 +428,11 @@ final class Networking {
     // 사용자 데이터 삭제
     func deleteUserInfo() {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
+        self.ref.child("users").child(uid).removeAllObservers()
         // 1. 스토리지에 저장되어 있는 사진 데이터 삭제
 //        self.deleteArchiveData(firstArchiveName: <#T##String#>, secondArchiveName: <#T##String?#>)
         // 2. 사용자 정보 데이터 삭제
-        self.ref.child("users").child(uid).removeValue()
         // 3. 사용자 재인증 후 사용자 삭제
-        self.deleteAccount()
     }
     
     // 활동 삭제
