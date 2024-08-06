@@ -64,8 +64,13 @@ final class AccountCancellationViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             let main = UIStoryboard.init(name: "Main", bundle: nil)
             let LoginViewController = main.instantiateViewController(identifier: "ViewController") as! ViewController
-            LoginViewController.modalPresentationStyle = .fullScreen
-            self.present(LoginViewController, animated: false)
+            let navigationController = UINavigationController(rootViewController: LoginViewController)
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                window.rootViewController = navigationController
+                window.makeKeyAndVisible()
+            }
         }
     }
 }
