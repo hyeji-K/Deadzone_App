@@ -117,15 +117,21 @@ final class ActivitySelectedViewController: UIViewController {
             let okAction = UIAlertAction(title: "확인", style: .default) { action in
                 // NOTE: 기존 기록 삭제하고 새롭게 업데이트
                 let newActivitys = self.activitySelectedView.activitys
+                var changeNewActivitys: [String] = []
+                for new in newActivitys {
+                    changeNewActivitys.append(self.changeCatagotyName(name: new))
+                }
                 // 0. 변경될 것과 기존 기록 비교해서 변경된 것은 기록 삭제
+                var removePrevious = self.activitys
                 for i in 0..<self.activitys.count {
-                    if newActivitys.contains(self.activitys[i]) {
-                        self.activitys.remove(at: i)
+                    if changeNewActivitys.contains(self.activitys[i]) {
+                        guard let index = removePrevious.firstIndex(of: self.activitys[i]) else { return }
+                        removePrevious.remove(at: index)
                     }
                 }
                 // 1. 기존 기록 삭제
-                if self.activitys.count > 0 {
-                    Networking.shared.deleteArchiveData(firstArchiveName: self.activitys.first!, secondArchiveName: self.activitys.last ?? nil)
+                if removePrevious.count > 0 {
+                    Networking.shared.deleteArchiveData(firstArchiveName: removePrevious.first!, secondArchiveName: removePrevious.last ?? nil)
                     // 2. 새롭게 업데이트
                     Networking.shared.createActivity(activityCount: newActivitys.count, activitys: newActivitys)
                     Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: newActivitys)

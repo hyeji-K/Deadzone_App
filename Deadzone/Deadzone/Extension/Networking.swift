@@ -437,45 +437,39 @@ final class Networking {
     
     // 활동 삭제
     func deleteArchiveData(firstArchiveName: String, secondArchiveName: String? = nil) {
+        // NOTE: 변경되지 않은 활동은 이름 비교하여 삭제하지 말아야함
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         self.ref.child("users").child(uid).child("Archive").child(firstArchiveName).removeValue()
-        deleteImageAndData(storageName: firstArchiveName)
+        deleteAllOfImageData(storageName: firstArchiveName)
         
         guard let secondArchiveName else { return }
         self.ref.child("users").child(uid).child("Archive").child(secondArchiveName).removeValue()
-        deleteImageAndData(storageName: secondArchiveName)
+        deleteAllOfImageData(storageName: secondArchiveName)
     }
     
-    // 이미지 삭제
-    private func deleteImageAndData(storageName: String) {
+    // 이미지 전체 삭제
+    private func deleteAllOfImageData(storageName: String) {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
         let imageRef = self.storage.child(uid).child(storageName)
         
         // 이미지가 있을 경우 전체 삭제
         imageRef.listAll(completion: { result, error in
-            // NOTE: 파일 전체 삭제 안됨 > 파일 이름을 입력하여 하나하나 삭제해야함
+            // NOTE: 파일 전체 한번에 삭제 안됨 > 파일 이름을 입력하여 하나하나 삭제해야함
             if let error = error {
                 print(error)
             }
             guard let result = result else { return }
             if result.items.count > 0 {
-                imageRef.delete { error in
-                    if let error = error {
-                        print(error.localizedDescription)
+                for item in result.items {
+                    imageRef.child(item.name).delete { error in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            print("삭제되었습니다.")
+                        }
                     }
                 }
             }
-//            for item in result.items {
-//                if item.name == imageName {
-//                    imageRef.child(imageName).delete { error in
-//                        if let error = error {
-//                            print(error)
-//                        } else {
-//                            print("삭제되었습니다.")
-//                        }
-//                    }
-//                }
-//            }
         })
     }
 }
