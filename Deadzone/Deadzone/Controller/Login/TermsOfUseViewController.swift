@@ -113,7 +113,7 @@ final class TermsOfUseViewController: UIViewController {
     }
     
     @objc private func detailsOfAgreeToPrivacyButtonTapped(_ sender: UITapGestureRecognizer) {
-        guard let url = URL(string: "https://www.notion.so/deadzone/920d1a40c4214dfd8d70319d31da14a8?pvs=4") else { return }
+        guard let url = URL(string: "https://deadzone.notion.site/920d1a40c4214dfd8d70319d31da14a8") else { return }
         let safari = SFSafariViewController(url: url)
         safari.navigationItem.title = "개인정보처리 방침"
         self.navigationController?.pushViewController(safari, animated: true)

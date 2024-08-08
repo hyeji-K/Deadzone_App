@@ -9,10 +9,10 @@ import UIKit
 
 final class ActivitySelectedView: UIView {
     
-    private let activityList: [String] = ["음악", "카페", "명상", "독서", "음주", "패션"]
-    private let activityImageList: [UIImage] = [DZImage.music01, DZImage.cafe02, DZImage.meditation03, DZImage.reading04, DZImage.drinking05, DZImage.fashion06]
+    private let activityList: [ActivityList] = ActivityList.list
+    
     var activitys: [String] = []
-    var activityInit: Bool = true
+    var activityInit: Bool = true // 활동선택이 처음일때/아닐때
     var selectedActivitys: [String: Bool] = [:]
     var selectedItemInit: Bool = true
     
@@ -182,24 +182,24 @@ final class ActivitySelectedView: UIView {
 
 extension ActivitySelectedView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return activityImageList.count
+        return activityList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActivityCell.identifier, for: indexPath) as! ActivityCell
-        cell.configure(image: activityImageList[indexPath.item], title: activityList[indexPath.item])
+        cell.configure(image: activityList[indexPath.item].image, title: activityList[indexPath.item].title)
         
         // NOTE: 활동 변경 시 선택되어 있는 활동 표시
         if !activityInit {
-            let activityName = changeCatagotyName(name: activityList[indexPath.item])
+            let activityName = changeCatagotyName(name: activityList[indexPath.item].title)
             if self.selectedItemInit {
                 if selectedActivitys["\(activityName)"] == false {
                     collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
-                    if self.activitys.contains(activityList[indexPath.item]) {
-                        
-                    } else {
-                        self.activitys.append(activityList[indexPath.item])
-                    }
+//                    if self.activitys.contains(activityList[indexPath.item].title) {
+//                        
+//                    } else {
+//                        self.activitys.append(activityList[indexPath.item].title)
+//                    }
                     self.doneButton.isEnabled = true
                 }
             } else {
@@ -216,11 +216,14 @@ extension ActivitySelectedView: UICollectionViewDataSource, UICollectionViewDele
             subTitleLabel.isHidden = false
         }
         doneButton.isEnabled = true
-        return (collectionView.indexPathsForSelectedItems?.count ?? 0) < 2
+//        return (collectionView.indexPathsForSelectedItems?.count ?? 0) < 2
+        return self.activitys.count < 2
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.activitys.append(activityList[indexPath.item])
+        if self.activitys.count < 2 {
+            self.activitys.append(self.changeCatagotyName(name: activityList[indexPath.item].title))
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
@@ -236,7 +239,7 @@ extension ActivitySelectedView: UICollectionViewDataSource, UICollectionViewDele
             }
             doneButton.isEnabled = false
         }
-        if let index = activitys.firstIndex(of: activityList[indexPath.item]) {
+        if let index = activitys.firstIndex(of: self.changeCatagotyName(name: activityList[indexPath.item].title)) {
             self.activitys.remove(at: index)
             self.selectedItemInit = false
         }
