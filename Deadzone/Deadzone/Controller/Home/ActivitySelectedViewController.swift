@@ -65,6 +65,8 @@ final class ActivitySelectedViewController: UIViewController {
             self.activitySelectedView.subTitleLabel.text = "활동을 변경하면, 기존에 선택한 활동은 저장되지 않아요."
             self.activitySelectedView.subTitleLabel.isHidden = false
             self.activitySelectedView.selectedActivitys = self.selectedActivitys
+            self.activitySelectedView.activitys = self.activitys
+            print(" 컨트롤러에서 가져올떄 \(self.activitys)")
         }
         
         activitySelectedView.doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
@@ -117,25 +119,33 @@ final class ActivitySelectedViewController: UIViewController {
             let okAction = UIAlertAction(title: "확인", style: .default) { action in
                 // NOTE: 기존 기록 삭제하고 새롭게 업데이트
                 let newActivitys = self.activitySelectedView.activitys
-                var changeNewActivitys: [String] = []
-                for new in newActivitys {
-                    changeNewActivitys.append(self.changeCatagotyName(name: new))
-                }
+//                var changeNewActivitys: [String] = []
+//                for new in newActivitys {
+//                    changeNewActivitys.append(self.changeCatagotyName(name: new))
+//                }
                 // 0. 변경될 것과 기존 기록 비교해서 변경된 것은 기록 삭제
                 var removePrevious = self.activitys
                 for i in 0..<self.activitys.count {
-                    if changeNewActivitys.contains(self.activitys[i]) {
+                    if newActivitys.contains(self.activitys[i]) {
                         guard let index = removePrevious.firstIndex(of: self.activitys[i]) else { return }
                         removePrevious.remove(at: index)
                     }
                 }
                 // 1. 기존 기록 삭제
-                if removePrevious.count > 0 {
-                    Networking.shared.deleteArchiveData(firstArchiveName: removePrevious.first!, secondArchiveName: removePrevious.last ?? nil)
+                var changeRemoveActivitys: [String] = []
+                for new in removePrevious {
+                    changeRemoveActivitys.append(self.changeCatagotyName(name: new))
+                }
+                var changeNewActivitys: [String] = []
+                for c in newActivitys {
+                    changeNewActivitys.append(self.changeCatagotyName(name: c))
+                }
+                if changeRemoveActivitys.count > 0 {
+                    Networking.shared.deleteArchiveData(firstArchiveName: changeRemoveActivitys.first!, secondArchiveName: changeRemoveActivitys.last ?? nil)
                     // 2. 새롭게 업데이트
-                    Networking.shared.createActivity(activityCount: newActivitys.count, activitys: newActivitys)
-                    Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: newActivitys)
-                    self.activitys = newActivitys
+                    Networking.shared.createActivity(activityCount: changeNewActivitys.count, activitys: changeNewActivitys)
+                    Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: changeNewActivitys)
+                    self.activitys = changeNewActivitys
                 }
                 self.dimissViewController()
             }
@@ -198,18 +208,18 @@ final class ActivitySelectedViewController: UIViewController {
     
     func changeCatagotyName(name: String) -> String {
         switch name {
-        case "음악":
-            return "music"
-        case "카페":
-            return "cafe"
-        case "명상":
-            return "meditation"
-        case "독서":
-            return "reading"
-        case "음주":
-            return "drinking"
-        case "패션":
-            return "fashion01"
+        case "music":
+            return "음악"
+        case "cafe":
+            return "카페"
+        case "meditation":
+            return "명상"
+        case "reading":
+            return "독서"
+        case "drinking":
+            return "음주"
+        case "fashion01":
+            return "패션"
         default:
             return ""
         }
