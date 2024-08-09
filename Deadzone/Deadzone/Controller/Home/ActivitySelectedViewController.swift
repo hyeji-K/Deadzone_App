@@ -145,7 +145,7 @@ final class ActivitySelectedViewController: UIViewController {
                     changeNewActivitys.append(self.changeCatagotyName(name: c))
                 }
                 if changeRemoveActivitys.count > 0 {
-                    Networking.shared.deleteArchiveData(firstArchiveName: changeRemoveActivitys.first!, secondArchiveName: changeRemoveActivitys.last ?? nil)
+                    Networking.shared.deleteArchiveData(firstArchiveName: removePrevious.first!, secondArchiveName: removePrevious.last ?? nil)
                     // 2. 새롭게 업데이트
                     Networking.shared.createActivity(activityCount: changeNewActivitys.count, activitys: changeNewActivitys)
                     Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: changeNewActivitys)
