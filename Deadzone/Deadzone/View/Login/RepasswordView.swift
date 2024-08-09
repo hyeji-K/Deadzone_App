@@ -22,6 +22,7 @@ final class RepasswordView: UIView {
     let emailTextField: UITextField = {
         let textField = BasicTextField(placeholderText: "이메일주소")
         textField.keyboardType = .emailAddress
+        textField.returnKeyType = .done
         return textField
     }()
     

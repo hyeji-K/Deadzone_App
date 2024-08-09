@@ -26,6 +26,7 @@ final class RepasswordViewController: UIViewController {
         }
         
         repasswordView.resettingButton.addTarget(self, action: #selector(resettingButtonTapped), for: .touchUpInside)
+        repasswordView.emailTextField.delegate = self
     }
     
     private func setupNavigationBar() {
@@ -50,10 +51,37 @@ final class RepasswordViewController: UIViewController {
                     let setpasswordViewController = SetpasswordViewController()
                     self.navigationController?.pushViewController(setpasswordViewController, animated: false)
                 } else {
+                    // TODO: 존재하지 않는 이메일입니다.와 같은 문구 추가
                     self.repasswordView.emailTextField.isCorrecting(value: false)
                     self.repasswordView.checkEmailLabel.isHidden = false
                 }
             }
         }
+    }
+}
+
+extension RepasswordViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        repasswordView.checkEmailLabel.isHidden = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+            // 이메일 형식 확인
+        if text.isValidEmail() {
+            repasswordView.checkEmailLabel.isHidden = true
+            repasswordView.emailTextField.isCorrecting(value: true)
+        } else {
+            repasswordView.checkEmailLabel.isHidden = false
+            repasswordView.emailTextField.isCorrecting(value: false)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if repasswordView.emailTextField.text != "" {
+            repasswordView.emailTextField.resignFirstResponder()
+            return true
+        }
+        return false
     }
 }

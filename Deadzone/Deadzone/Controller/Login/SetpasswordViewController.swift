@@ -90,4 +90,12 @@ extension SetpasswordViewController: UITextFieldDelegate {
             setpasswordView.checkPasswordLabel.isHidden = false
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if setpasswordView.newPasswordTextField.text != "" {
+            setpasswordView.newPasswordTextField.resignFirstResponder()
+            return true
+        }
+        return false
+    }
 }

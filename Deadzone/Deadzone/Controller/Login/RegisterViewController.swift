@@ -116,4 +116,15 @@ extension RegisterViewController: UITextFieldDelegate {
 //        print(textField.text)
         return true
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if registerView.emailTextField.text != "", registerView.passwordTextField.text != "" {
+            registerView.passwordTextField.resignFirstResponder()
+            return true
+        } else if registerView.emailTextField.text != "" {
+            registerView.passwordTextField.becomeFirstResponder()
+            return true
+        }
+        return false
+    }
 }
