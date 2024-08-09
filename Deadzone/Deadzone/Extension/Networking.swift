@@ -158,7 +158,7 @@ final class Networking {
     func signOut() {
         do {
             try firebaseAuth.signOut()
-            UserDefaults.standard.removeObject(forKey: "userId")
+//            UserDefaults.standard.removeObject(forKey: "userId")
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
