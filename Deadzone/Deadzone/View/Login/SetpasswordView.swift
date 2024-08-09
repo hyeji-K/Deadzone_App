@@ -24,6 +24,7 @@ final class SetpasswordView: UIView {
         textField.isSecureTextEntry = true
         textField.rightViewMode = .always
         textField.rightView = passwordEyeButton
+        textField.returnKeyType = .done
         return textField
     }()
     

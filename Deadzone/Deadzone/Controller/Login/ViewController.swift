@@ -50,10 +50,13 @@ final class ViewController: UIViewController {
     }
     
     @objc private func doneButtonTapped(_ sender: UIButton) {
-        self.indicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         if loginView.emailTextField.text != nil && loginView.passwordTextField.text != nil {
-            guard let email, let password else { return }
+            guard let email, let password else {
+                self.view.isUserInteractionEnabled = true
+                return
+            }
+            self.indicatorView.startAnimating()
             Networking.shared.signInApp(email: email, password: password) { [weak self] result in
                 switch result {
                 case .success(let result):
