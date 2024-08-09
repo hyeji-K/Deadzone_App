@@ -108,7 +108,11 @@ final class ActivitySelectedViewController: UIViewController {
         guard let activityInit = activityInit else { return }
         if activityInit {
             // 활동을 처음 선택할 때
-            self.activitys = activitySelectedView.activitys
+            var changeNewActivitys: [String] = []
+            for c in activitySelectedView.activitys {
+                changeNewActivitys.append(self.changeCatagotyName(name: c))
+            }
+            self.activitys = changeNewActivitys
 //            guard let activitys = self.activitys else { return }
             Networking.shared.createActivity(activityCount: activitys.count, activitys: activitys)
             Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: activitys)
@@ -141,7 +145,7 @@ final class ActivitySelectedViewController: UIViewController {
                     changeNewActivitys.append(self.changeCatagotyName(name: c))
                 }
                 if changeRemoveActivitys.count > 0 {
-                    Networking.shared.deleteArchiveData(firstArchiveName: changeRemoveActivitys.first!, secondArchiveName: changeRemoveActivitys.last ?? nil)
+                    Networking.shared.deleteArchiveData(firstArchiveName: removePrevious.first!, secondArchiveName: removePrevious.last ?? nil)
                     // 2. 새롭게 업데이트
                     Networking.shared.createActivity(activityCount: changeNewActivitys.count, activitys: changeNewActivitys)
                     Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: changeNewActivitys)

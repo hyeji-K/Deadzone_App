@@ -41,6 +41,11 @@ final class ArchiveCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.photoImageView.image = nil
+    }
+    
     func configure(archive: Archive) {
 //        guard let url = URL(string: archive.imageUrl) else { return }
 //        if let data = try? Data(contentsOf: url) {
