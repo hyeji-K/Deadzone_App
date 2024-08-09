@@ -108,7 +108,11 @@ final class ActivitySelectedViewController: UIViewController {
         guard let activityInit = activityInit else { return }
         if activityInit {
             // 활동을 처음 선택할 때
-            self.activitys = activitySelectedView.activitys
+            var changeNewActivitys: [String] = []
+            for c in activitySelectedView.activitys {
+                changeNewActivitys.append(self.changeCatagotyName(name: c))
+            }
+            self.activitys = changeNewActivitys
 //            guard let activitys = self.activitys else { return }
             Networking.shared.createActivity(activityCount: activitys.count, activitys: activitys)
             Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: activitys)
