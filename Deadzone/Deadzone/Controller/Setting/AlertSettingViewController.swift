@@ -31,9 +31,30 @@ final class AlertSettingViewController: UIViewController {
         alertSettingView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
+        
+        alertSettingView.alertButton.addTarget(self, action: #selector(alertButtonTapped), for: .touchUpInside)
     }
     
     @objc private func backButtonTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func alertButtonTapped(_ sender: UIButton) {
+        UNUserNotificationCenter.current().requestAuthorization { didAllow, error in
+            if didAllow {
+                print("알림이 허용되었습니다.")
+            } else {
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "기기 알림이 꺼져있어 알림을 켤 수 없습니다.", message: "알림을 받으시려면\n기기 설정에서 알림을 허용해주세요.", preferredStyle: .alert)
+                    let alertAction = UIAlertAction(title: "기기 설정", style: .default) { _ in
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                    }
+                    let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                    alert.addAction(cancelAction)
+                    alert.addAction(alertAction)
+                    self.present(alert, animated: true)
+                }
+            }
+        }
     }
 }

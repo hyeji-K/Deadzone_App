@@ -17,6 +17,8 @@ final class ArchiveListViewController: UIViewController {
 
         setupNavigationBar()
         setupView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showToastMessage), name: Notification.Name(rawValue: "SaveText"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -151,6 +153,31 @@ final class ArchiveListViewController: UIViewController {
                 self.archiveListView.isUserInteractionEnabled = true
                 self.archiveListView.updateSnapshot()
             }
+        }
+    }
+    
+    @objc private func showToastMessage(_ notification: Notification) {
+        let toastLabel = UILabel()
+        toastLabel.backgroundColor = .systemGray.withAlphaComponent(0.8)
+        toastLabel.textColor = .white
+        toastLabel.font = DZFont.subText12
+        toastLabel.textAlignment = .center
+        toastLabel.text = "저장되었습니다."
+        toastLabel.layer.cornerRadius = 8
+        toastLabel.clipsToBounds = true
+        
+        self.view.addSubview(toastLabel)
+        toastLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(100)
+            make.width.equalTo(160)
+            make.height.equalTo(30)
+        }
+        
+        UIView.animate(withDuration: 2, delay: 1.5, options: .curveEaseOut) {
+            toastLabel.alpha = 0.0
+        } completion: { isCompleted in
+            toastLabel.removeFromSuperview()
         }
     }
     

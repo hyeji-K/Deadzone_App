@@ -11,6 +11,8 @@ import SnapKit
 final class HomeViewController: UIViewController {
     
     private let homeView = HomeView()
+    private var journal: Journal?
+    
     private var addAssetButton: UIButton = {
         let button = UIButton()
         button.setImage(DZImage.addasset, for: .normal)
@@ -39,6 +41,7 @@ final class HomeViewController: UIViewController {
         setupNavigationBar()
         setupView()
         reloadView()
+        getImage()
         
         // 1. ActivitySelectedViewController에서 활동 선택 후 홈 화면에 반영
         NotificationCenter.default.addObserver(self, selector: #selector(didDismissNotification), name: NSNotification.Name("ActivitySelectedViewController"), object: nil)
@@ -93,6 +96,11 @@ final class HomeViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureTapped))
         self.tutorialView.addGestureRecognizer(tapGesture)
+        
+        // 격일간지 스와이프 버전
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeGestureTapped))
+        swipeUp.direction = UISwipeGestureRecognizer.Direction.up
+        self.view.addGestureRecognizer(swipeUp)
     }
     
     // 업데이트 된 활동을 읽어와서 홈 화면에 반영
@@ -228,6 +236,24 @@ final class HomeViewController: UIViewController {
             self.tutorialView.isHidden = true
         }
         self.tapCount += 1
+    }
+    
+    // 격일간지 스와이프 버전
+    @objc private func swipeGestureTapped(_ swipeGesture: UISwipeGestureRecognizer) {
+        if swipeGesture.direction == .up {
+            let journalViewController = JournalViewController()
+            guard let journal else { return }
+            journalViewController.mainImage = journal.mainImageUrl
+            journalViewController.subImage = journal.subImageUrl
+            journalViewController.modalPresentationStyle = .overCurrentContext
+            self.present(journalViewController, animated: false)
+        }
+    }
+    
+    private func getImage() {
+        Networking.shared.getJournal { journal in
+            self.journal = journal
+        }
     }
 }
 
