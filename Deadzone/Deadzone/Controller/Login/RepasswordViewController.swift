@@ -48,14 +48,43 @@ final class RepasswordViewController: UIViewController {
                 if self.repasswordView.emailTextField.text == email {
                     self.repasswordView.emailTextField.isCorrecting(value: true)
                     self.repasswordView.checkEmailLabel.isHidden = true
-                    let setpasswordViewController = SetpasswordViewController()
-                    self.navigationController?.pushViewController(setpasswordViewController, animated: false)
+                    // NOTE: 패스워드 재설정 메일 보내기
+                    Networking.shared.sendEmailSetPassword { result in
+                        self.showToastMessage()
+                    }
+                    
+//                    let setpasswordViewController = SetpasswordViewController()
+//                    self.navigationController?.pushViewController(setpasswordViewController, animated: false)
                 } else {
                     // TODO: 존재하지 않는 이메일입니다.와 같은 문구 추가
                     self.repasswordView.emailTextField.isCorrecting(value: false)
                     self.repasswordView.checkEmailLabel.isHidden = false
                 }
             }
+        }
+    }
+    private func showToastMessage() {
+        let toastLabel = UILabel()
+        toastLabel.backgroundColor = .systemGray.withAlphaComponent(0.8)
+        toastLabel.textColor = .white
+        toastLabel.font = DZFont.subText12
+        toastLabel.textAlignment = .center
+        toastLabel.text = "메일을 보냈습니다."
+        toastLabel.layer.cornerRadius = 8
+        toastLabel.clipsToBounds = true
+        
+        self.view.addSubview(toastLabel)
+        toastLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(100)
+            make.width.equalTo(160)
+            make.height.equalTo(30)
+        }
+        
+        UIView.animate(withDuration: 2, delay: 1.5, options: .curveEaseOut) {
+            toastLabel.alpha = 0.0
+        } completion: { isCompleted in
+            toastLabel.removeFromSuperview()
         }
     }
 }
