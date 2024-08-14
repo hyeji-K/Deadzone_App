@@ -86,5 +86,17 @@ final class AlertSettingView: UIView {
             make.left.right.equalToSuperview().inset(18)
             make.height.equalTo(32)
         }
+        
+        UNUserNotificationCenter.current().requestAuthorization { didAllow, error in
+            if didAllow {
+                DispatchQueue.main.async {
+                    self.alertButton.setImage(DZImage.on, for: .normal)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.alertButton.setImage(DZImage.off, for: .normal)
+                }
+            }
+        }
     }
 }

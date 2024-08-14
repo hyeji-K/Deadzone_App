@@ -85,5 +85,7 @@ class DetailViewController: UIViewController {
         guard let archiveTitle = archiveTitle else { return }
         guard let archive = archive else { return }
         Networking.shared.updateArchiveContent(name: archiveTitle, archive: archive, content: self.detailView.writenTextView.text)
+        NotificationCenter.default.post(name: NSNotification.Name("SaveText"), object: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 }

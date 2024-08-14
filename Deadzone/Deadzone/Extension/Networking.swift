@@ -36,23 +36,23 @@ final class Networking {
     func createUser(email: String, password: String, completion: @escaping (Result<String, NetworkError>) -> Void) {
         firebaseAuth.createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                switch error {
-                case AuthErrorCode.invalidEmail:
-                    print("이메일 형식이 잘못되었습니다.")
-                    completion(.failure(NetworkError.invalidEmail))
-                    return
-                case AuthErrorCode.emailAlreadyInUse:
-                    print("이미 사용중인 이메일입니다.")
-                    completion(.failure(NetworkError.emailAlreadyInUse))
-                    return
-                case AuthErrorCode.weakPassword:
-                    print("암호는 6글자 이상이어야 합니다.")
-                    completion(.failure(NetworkError.weakPassword))
-                    return
-                default:
-                    print(error.localizedDescription)
-                    return
-                }
+//                switch error {
+//                case AuthErrorCode.invalidEmail:
+//                    print("이메일 형식이 잘못되었습니다.")
+//                    completion(.failure(NetworkError.invalidEmail))
+//                    return
+//                case AuthErrorCode.emailAlreadyInUse:
+//                    print("이미 사용중인 이메일입니다.")
+//                    completion(.failure(NetworkError.emailAlreadyInUse))
+//                    return
+//                case AuthErrorCode.weakPassword:
+//                    print("암호는 6글자 이상이어야 합니다.")
+//                    completion(.failure(NetworkError.weakPassword))
+//                    return
+//                default:
+//                    print(error.localizedDescription)
+//                    return
+//                }
             }
             
             // 신규 계정 생성 성공 시 - 키체인에 이메일과 비밀번호 저장
@@ -392,6 +392,28 @@ final class Networking {
                     }
                     let sortedAskList = askList.sorted { $0.askCreatedAt < $1.askCreatedAt }
                     completion(sortedAskList)
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func getJournal(completion: @escaping (Journal) -> Void) {
+        self.ref.child("Journal").getData { error, snapshot in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let snapshot else { return }
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
+                    let decoder = JSONDecoder()
+                    let userInfo: Journal = try decoder.decode(Journal.self, from: data)
+                    
+                    completion(userInfo)
                 } catch let error {
                     print(error.localizedDescription)
                 }
