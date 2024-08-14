@@ -44,7 +44,7 @@ final class SettingViewController: UIViewController {
     }
     
     @objc private func backButtonTapped(_ sender: UIButton) {
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: false)
     }
 }
 

@@ -199,7 +199,7 @@ final class HomeViewController: UIViewController {
     
     @objc private func settingButtonTapped(_ sender: UIButton) {
         let settingViewController = SettingViewController()
-        self.navigationController?.pushViewController(settingViewController, animated: true)
+        self.navigationController?.pushViewController(settingViewController, animated: false)
     }
     
     @objc private func alarmButtonTapped(_ sender: UIButton) {
