@@ -35,6 +35,7 @@ final class ThirdOnboardView: UIView {
         textView.backgroundColor = DZColor.grayColor300
         textView.layer.cornerRadius = 8
         textView.textContainerInset = UIEdgeInsets(top: 24, left: 14, bottom: 16, right: 14)
+        textView.returnKeyType = .done
         textView.delegate = self
         return textView
     }()
@@ -108,5 +109,13 @@ extension ThirdOnboardView: UITextViewDelegate {
         if textView.text == placeholder {
             textView.text = nil
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }

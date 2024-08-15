@@ -192,18 +192,30 @@ final class Networking {
         // NOTE: 최근 로그인(로그인 후 5분)이 지나면 사용자 재인증 필요
         // 1. 사용자 재인증
         self.isExistUser { email in
+            // 2. 스토리지에 저장되어 있는 사진 데이터 삭제
+            self.getUserInfo { user in
+                let archive = user.archive
+                var removeArchive: [String] = []
+                for i in archive {
+                    removeArchive.append(self.changeCatagotyName(name: i))
+                }
+                if removeArchive.count == 1 {
+                    Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!)
+                } else if removeArchive.count == 2 {
+                    Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!, secondArchiveName: removeArchive.last!)
+                }
+            }
+            // 3. 사용자 정보 데이터 삭제
+            self.deleteUserInfo()
+            // 4. 탈퇴 진행
             self.firebaseAuth.currentUser?.delete(completion: { error in
                 if let error = error {
                     // An error happened.
                     print(error.localizedDescription)
                 } else {
+                    // 5. 폰에 저장되어 있는 uid/email/pw 삭제
                     // NOTE: 키체인에 저장된 비밀번호 삭제 및 UserDefaults에 저장된 uid 삭제
                     KeyChain.shared.delete(email: email)
-                    // 2. 사용자 정보 데이터 삭제
-//                    self.deleteUserInfo()
-                    // 3. 스토리지에 저장되어 있는 사진 데이터 삭제
-//                    self.deleteArchiveData(firstArchiveName: <#T##String#>, secondArchiveName: <#T##String?#>)
-                    // 4. 폰에 저장되어 있는 uid/email/pw 삭제
                     UserDefaults.standard.removeObject(forKey: "userId")
                     print(KeyChain.shared.getUserData(email: email) ?? "이메일 없음")
                 }
@@ -502,11 +514,9 @@ final class Networking {
     // 사용자 데이터 삭제
     func deleteUserInfo() {
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
-        self.ref.child("users").child(uid).removeAllObservers()
-        // 1. 스토리지에 저장되어 있는 사진 데이터 삭제
+        self.ref.child("users").child(uid).removeValue()
+        // 스토리지에 저장되어 있는 사진 데이터 삭제
 //        self.deleteArchiveData(firstArchiveName: <#T##String#>, secondArchiveName: <#T##String?#>)
-        // 2. 사용자 정보 데이터 삭제
-        // 3. 사용자 재인증 후 사용자 삭제
     }
     
     // 활동 삭제
@@ -545,5 +555,24 @@ final class Networking {
                 }
             }
         })
+    }
+    
+    func changeCatagotyName(name: String) -> String {
+        switch name {
+        case "음악":
+            return "music"
+        case "카페":
+            return "cafe"
+        case "명상":
+            return "meditation"
+        case "독서":
+            return "reading"
+        case "음주":
+            return "drinking"
+        case "패션":
+            return "fashion01"
+        default:
+            return ""
+        }
     }
 }
