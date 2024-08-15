@@ -116,11 +116,7 @@ final class ActivitySelectedViewController: UIViewController {
 //            guard let activitys = self.activitys else { return }
             Networking.shared.createActivity(activityCount: activitys.count, activitys: activitys)
             Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: activitys)
-            if self.activitys.count == 1 {
-                Networking.shared.updateIncreaseActivityReport(firstArchiveName: self.activitys.first!)
-            } else {
-                Networking.shared.updateIncreaseActivityReport(firstArchiveName: self.activitys.first!, secondArchiveName: self.activitys.last!)
-            }
+            Networking.shared.updateActivityReport(increaseActivity: self.activitys, decreaseActivity: [])
             self.dimissViewController()
         } else {
             // 활동을 변경할 때
