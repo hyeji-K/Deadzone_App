@@ -11,12 +11,29 @@ final class CheckoutView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.setLineSpacing("처음 체크아웃을 하는 그대에게는 무료로\n활동 기록을 저장해드려요. 힘들면 언제든 찾아오세요!")
-        label.numberOfLines = 2
+//        label.setLineSpacing("처음 체크아웃을 하는 그대에게는 무료로\n활동 기록을 저장해드려요. 힘들면 언제든 찾아오세요!")
+        label.setLineSpacing("힘들 때는 언제든 deadzone을 찾아오세요!")
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.font = DZFont.subText12
+        label.textColor = DZColor.black
+        return label
+    }()
+    
+    private let subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.setLineSpacing("체크아웃을 하면 활동기록은 저장되지 않습니다")
         label.textAlignment = .center
         label.font = DZFont.subText12
         label.textColor = DZColor.subGrayColor100
         return label
+    }()
+    
+    private lazy var titleStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 4
+        return stackView
     }()
     
     private let mainImageView: UIImageView = {
@@ -61,17 +78,17 @@ final class CheckoutView: UIView {
     }
     
     private func setupView() {
-        addSubview(titleLabel)
+        addSubview(titleStackView)
         addSubview(mainImageView)
         addSubview(checkoutButton)
         addSubview(accountCancellationStackView)
         
-        titleLabel.snp.makeConstraints { make in
+        titleStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(35)
         }
         mainImageView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(24)
+            make.top.equalTo(titleStackView.snp.bottom).offset(24)
             make.left.equalToSuperview().inset(30)
         }
         checkoutButton.snp.makeConstraints { make in

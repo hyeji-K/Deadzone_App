@@ -43,6 +43,18 @@ final class CheckoutViewController: UIViewController {
     @objc private func checkoutButtonTapped(_ sender: UIButton) {
         // 로그아웃하며 로그인 화면으로 화면전환
         Networking.shared.signOut()
+        Networking.shared.getUserInfo { user in
+            let archive = user.archive
+            var removeArchive: [String] = []
+            for i in archive {
+                removeArchive.append(self.changeCatagotyName(name: i))
+            }
+            if removeArchive.count == 1 {
+                Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!)
+            } else if removeArchive.count == 2 {
+                Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!, secondArchiveName: removeArchive.last!)
+            }
+        }
         let main = UIStoryboard.init(name: "Main", bundle: nil)
         let loginViewController = main.instantiateViewController(identifier: "ViewController") as! ViewController
         let navigationController = UINavigationController(rootViewController: loginViewController)
@@ -54,5 +66,24 @@ final class CheckoutViewController: UIViewController {
         // 탈퇴 화면으로 전환
         let accountCancellationVC = AccountCancellationViewController()
         self.navigationController?.pushViewController(accountCancellationVC, animated: true)
+    }
+    
+    func changeCatagotyName(name: String) -> String {
+        switch name {
+        case "음악":
+            return "music"
+        case "카페":
+            return "cafe"
+        case "명상":
+            return "meditation"
+        case "독서":
+            return "reading"
+        case "음주":
+            return "drinking"
+        case "패션":
+            return "fashion01"
+        default:
+            return ""
+        }
     }
 }
