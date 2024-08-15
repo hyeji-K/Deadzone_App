@@ -116,6 +116,11 @@ final class ActivitySelectedViewController: UIViewController {
 //            guard let activitys = self.activitys else { return }
             Networking.shared.createActivity(activityCount: activitys.count, activitys: activitys)
             Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: activitys)
+            if self.activitys.count == 1 {
+                Networking.shared.updateIncreaseActivityReport(firstArchiveName: self.activitys.first!)
+            } else {
+                Networking.shared.updateIncreaseActivityReport(firstArchiveName: self.activitys.first!, secondArchiveName: self.activitys.last!)
+            }
             self.dimissViewController()
         } else {
             // 활동을 변경할 때
@@ -129,12 +134,16 @@ final class ActivitySelectedViewController: UIViewController {
 //                }
                 // 0. 변경될 것과 기존 기록 비교해서 변경된 것은 기록 삭제
                 var removePrevious = self.activitys
+                var increActivitys = newActivitys
                 for i in 0..<self.activitys.count {
                     if newActivitys.contains(self.activitys[i]) {
                         guard let index = removePrevious.firstIndex(of: self.activitys[i]) else { return }
+                        guard let indexIncre = increActivitys.firstIndex(of: self.activitys[i]) else { return }
                         removePrevious.remove(at: index)
+                        increActivitys.remove(at: indexIncre)
                     }
                 }
+                
                 // 1. 기존 기록 삭제
                 var changeRemoveActivitys: [String] = []
                 for new in removePrevious {
@@ -144,12 +153,17 @@ final class ActivitySelectedViewController: UIViewController {
                 for c in newActivitys {
                     changeNewActivitys.append(self.changeCatagotyName(name: c))
                 }
-                if changeRemoveActivitys.count > 0 {
-                    Networking.shared.deleteArchiveData(firstArchiveName: removePrevious.first!, secondArchiveName: removePrevious.last ?? nil)
+                if changeRemoveActivitys.count >= 0 {
+                    if changeRemoveActivitys.count == 1 {
+                        Networking.shared.deleteArchiveData(firstArchiveName: removePrevious.first!)
+                    } else if changeRemoveActivitys.count == 2 {
+                        Networking.shared.deleteArchiveData(firstArchiveName: removePrevious.first!, secondArchiveName: removePrevious.last!)
+                    }
                     // 2. 새롭게 업데이트
                     Networking.shared.createActivity(activityCount: changeNewActivitys.count, activitys: changeNewActivitys)
                     Networking.shared.updateUserInfo(dataName: .archiveName, data: "", archive: changeNewActivitys)
                     self.activitys = changeNewActivitys
+                    Networking.shared.updateActivityReport(increaseActivity: increActivitys, decreaseActivity: removePrevious)
                 }
                 self.dimissViewController()
             }

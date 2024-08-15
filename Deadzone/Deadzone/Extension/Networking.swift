@@ -332,6 +332,39 @@ final class Networking {
         self.ref.child("users").child(uid).child("Archive").child(name).updateChildValues(data)
     }
     
+    // 격일간지를 위한 사용자의 활동 업데이트
+    func updateActivityReport(increaseActivity: [String], decreaseActivity: [String]) {
+        ref.child("ActivityReport").getData { error, snapshot in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            guard let snapshot else { return }
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Int] else { return }
+                do {
+                    let data = try JSONSerialization.data(withJSONObject: snapshot, options: [])
+                    let decoder = JSONDecoder()
+                    let activityReport: ActivityReport = try decoder.decode(ActivityReport.self, from: data)
+                    
+                    var originReport = activityReport.toDictionary
+                    for incre in 0..<increaseActivity.count {
+                        originReport[increaseActivity[incre]] = originReport[increaseActivity[incre]] as! Int + 1
+                    }
+                    for decre in 0..<decreaseActivity.count {
+                        originReport[decreaseActivity[decre]] = originReport[decreaseActivity[decre]] as! Int - 1
+                    }
+                    
+                    let changeReport = ActivityReport(cafe: originReport["cafe"] as! Int, drinking: originReport["drinking"] as! Int, meditation: originReport["meditation"] as! Int, music: originReport["music"] as! Int, reading: originReport["reading"] as! Int, fashion01: originReport["fashion01"] as! Int)
+                    self.ref.child("ActivityReport").updateChildValues(changeReport.toDictionary)
+                    
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     // MARK: [Read] 데이터 읽기
     // 사용자의 email 가져오기
     func getUserEmail(completion: @escaping (DataSnapshot) -> Void) {

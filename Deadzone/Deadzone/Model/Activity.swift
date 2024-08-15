@@ -40,3 +40,16 @@ extension ActivityList {
     }
 }
 
+struct ActivityReport: Codable {
+    let cafe: Int
+    let drinking: Int
+    let meditation: Int
+    let music: Int
+    let reading: Int
+    let fashion01: Int
+    
+    var toDictionary: [String: Any] {
+        let activityReport: [String: Any] = ["cafe": cafe, "drinking": drinking, "meditation": meditation, "music": music, "reading": reading, "fashion01": fashion01]
+        return activityReport
+    }
+}
