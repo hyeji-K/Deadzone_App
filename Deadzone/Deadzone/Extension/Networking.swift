@@ -118,6 +118,25 @@ final class Networking {
         })
     }
     
+    // MARK: 비밀번호 재설정 이메일 보내기
+    func sendEmailSetPassword(completion: @escaping (String) -> Void) {
+        self.getUserEmail { snapshot in
+            if snapshot.exists() {
+                guard let snapshot = snapshot.value as? [String: Any] else { return }
+                guard let email = snapshot["email"] as? String else { return }
+                
+                Auth.auth().sendPasswordReset(withEmail: email) { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        return
+                    }
+                    
+                    completion("메일 보내기 성공")
+                }
+            }
+        }
+    }
+    
     // MARK: 비밀번호 설정하기
     func setPassword(newPassword: String, completion: @escaping (Result<String, Error>) -> Void) {
         self.isExistUser { email in
