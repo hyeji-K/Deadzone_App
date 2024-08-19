@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Messaging.messaging().delegate = self
         
+        UserDefaults.standard.setValue(false, forKey: "knockingButtonSelected")
+        
         return true
     }
 

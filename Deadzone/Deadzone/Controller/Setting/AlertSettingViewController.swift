@@ -33,6 +33,7 @@ final class AlertSettingViewController: UIViewController {
         }
         
         alertSettingView.alertButton.addTarget(self, action: #selector(alertButtonTapped), for: .touchUpInside)
+        alertSettingView.knockingButton.addTarget(self, action: #selector(knockingButtonTapped), for: .touchUpInside)
     }
     
     @objc private func backButtonTapped(_ sender: UIButton) {
@@ -55,6 +56,17 @@ final class AlertSettingViewController: UIViewController {
                     self.present(alert, animated: true)
                 }
             }
+        }
+    }
+    
+    @objc private func knockingButtonTapped(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        if sender.isSelected {
+            sender.setImage(DZImage.on, for: .normal)
+            UserDefaults.standard.setValue(true, forKey: "knockingButtonSelected")
+        } else {
+            sender.setImage(DZImage.off, for: .normal)
+            UserDefaults.standard.setValue(false, forKey: "knockingButtonSelected")
         }
     }
 }
