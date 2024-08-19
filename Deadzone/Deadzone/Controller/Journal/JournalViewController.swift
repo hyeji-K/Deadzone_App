@@ -76,7 +76,7 @@ final class JournalViewController: UIViewController {
         case .ended:
             guard let originalPosition = self.originalPosition else { return }
             let velocity = panGesture.velocity(in: view)
-            guard velocity.y >= 2000 else {
+            guard velocity.y >= 1000 else {
                 UIView.animate(withDuration: 1, animations: {
                     self.view.center = originalPosition
                 })

@@ -119,11 +119,11 @@ final class JournalView: UIView {
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalTo(945)
+            make.height.equalTo(863)
         }
         mainImageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(573)
+            make.height.equalTo(509)
         }
         subView.snp.makeConstraints { make in
             make.top.equalTo(mainImageView.snp.bottom).offset(15)
