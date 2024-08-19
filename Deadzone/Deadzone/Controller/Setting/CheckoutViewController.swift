@@ -45,14 +45,16 @@ final class CheckoutViewController: UIViewController {
         Networking.shared.signOut()
         Networking.shared.getUserInfo { user in
             let archive = user.archive
-            var removeArchive: [String] = []
-            for i in archive {
-                removeArchive.append(self.changeCatagotyName(name: i))
-            }
-            if removeArchive.count == 1 {
-                Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!)
-            } else if removeArchive.count == 2 {
-                Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!, secondArchiveName: removeArchive.last!)
+            if archive.first != "" {
+                var removeArchive: [String] = []
+                for i in archive {
+                    removeArchive.append(self.changeCatagotyName(name: i))
+                }
+                if removeArchive.count == 1 {
+                    Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!)
+                } else if removeArchive.count == 2 {
+                    Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!, secondArchiveName: removeArchive.last!)
+                }                
             }
         }
         let main = UIStoryboard.init(name: "Main", bundle: nil)
