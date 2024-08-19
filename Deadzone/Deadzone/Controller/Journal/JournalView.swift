@@ -66,6 +66,7 @@ final class JournalView: UIView {
         let view = UIView()
         view.backgroundColor = DZColor.pointColor
         view.layer.cornerRadius = 8
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -75,12 +76,14 @@ final class JournalView: UIView {
         label.textAlignment = .center
         label.text = "같은 이유로 방문한 이웃에게 노크로 위로 전하기"
         label.textColor = DZColor.black
+        label.isUserInteractionEnabled = false
         return label
     }()
     
     private let knockImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.journalIcon
+        imageView.isUserInteractionEnabled = false
         return imageView
     }()
     

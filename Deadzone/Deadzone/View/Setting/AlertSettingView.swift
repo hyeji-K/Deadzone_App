@@ -19,7 +19,7 @@ final class AlertSettingView: UIView {
     
     var knockingButton: UIButton = {
         let button = UIButton()
-        button.setImage(DZImage.off, for: .normal)
+//        button.setImage(DZImage.off, for: .normal)
         return button
     }()
     
@@ -97,6 +97,12 @@ final class AlertSettingView: UIView {
                     self.alertButton.setImage(DZImage.off, for: .normal)
                 }
             }
+        }
+        
+        if UserDefaults.standard.bool(forKey: "knockingButtonSelected") {
+            self.knockingButton.setImage(DZImage.on, for: .normal)
+        } else {
+            self.knockingButton.setImage(DZImage.off, for: .normal)
         }
     }
 }
