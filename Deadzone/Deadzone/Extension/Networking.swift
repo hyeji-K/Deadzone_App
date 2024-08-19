@@ -217,6 +217,7 @@ final class Networking {
                     // NOTE: 키체인에 저장된 비밀번호 삭제 및 UserDefaults에 저장된 uid 삭제
                     KeyChain.shared.delete(email: email)
                     UserDefaults.standard.removeObject(forKey: "userId")
+                    UserDefaults.standard.removeObject(forKey: "knockingButtonSelected")
                     print(KeyChain.shared.getUserData(email: email) ?? "이메일 없음")
                 }
             })
