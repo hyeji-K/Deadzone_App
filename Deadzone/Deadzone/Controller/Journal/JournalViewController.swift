@@ -50,6 +50,9 @@ final class JournalViewController: UIViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureTapped))
         panGesture.delegate = self
         self.view.addGestureRecognizer(panGesture)
+        
+        let termsTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(detailsOfAgreeToTermsButtonTapped))
+        self.journalView.knockView.addGestureRecognizer(termsTapGestureRecognizer)
     }
     
     private func updateView() {
@@ -99,6 +102,10 @@ final class JournalViewController: UIViewController {
         default:
             return
         }
+    }
+    
+    @objc private func detailsOfAgreeToTermsButtonTapped(_ sender: UITapGestureRecognizer) {
+        
     }
 }
 
