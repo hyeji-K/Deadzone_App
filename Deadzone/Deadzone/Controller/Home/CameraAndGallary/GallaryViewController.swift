@@ -151,7 +151,7 @@ extension GallaryViewController: UICollectionViewDataSource, UICollectionViewDel
 //        }
         
         cell.representedAssetIdentifier = asset.localIdentifier
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: cellWidth, height: cellWidth), contentMode: .aspectFill, options: nil) { image, _ in
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: 1000, height: 1000), contentMode: .aspectFill, options: nil) { image, _ in
             if cell.representedAssetIdentifier == asset.localIdentifier {
                 guard let image else { return }
                 let data = image.pngData()! as NSData
