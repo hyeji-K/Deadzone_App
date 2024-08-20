@@ -901,10 +901,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Deadzone/Deadzone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Deadzone/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = deadzone;
 				INFOPLIST_KEY_NSCameraUsageDescription = "사진을 촬영하기 위해서 카메라 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "갤러리의 사진을 이용하기 위해서 사진 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -937,10 +938,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Deadzone/Deadzone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Deadzone/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = deadzone;
 				INFOPLIST_KEY_NSCameraUsageDescription = "사진을 촬영하기 위해서 카메라 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "갤러리의 사진을 이용하기 위해서 사진 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
