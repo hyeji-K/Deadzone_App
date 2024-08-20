@@ -193,20 +193,20 @@ final class Networking {
         // 1. 사용자 재인증
         self.isExistUser { email in
             // 2. 스토리지에 저장되어 있는 사진 데이터 삭제
-            self.getUserInfo { user in
-                let archive = user.archive
-                var removeArchive: [String] = []
-                for i in archive {
-                    removeArchive.append(self.changeCatagotyName(name: i))
-                }
-                if removeArchive.count == 1 {
-                    Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!)
-                } else if removeArchive.count == 2 {
-                    Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!, secondArchiveName: removeArchive.last!)
-                }
-            }
+//            self.getUserInfo { user in
+//                let archive = user.archive
+//                var removeArchive: [String] = []
+//                for i in archive {
+//                    removeArchive.append(self.changeCatagotyName(name: i))
+//                }
+//                if removeArchive.count == 1 {
+//                    Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!)
+//                } else if removeArchive.count == 2 {
+//                    Networking.shared.deleteArchiveData(firstArchiveName: removeArchive.first!, secondArchiveName: removeArchive.last!)
+//                }
+//            }
             // 3. 사용자 정보 데이터 삭제
-            self.deleteUserInfo()
+//            self.deleteUserInfo()
             // 4. 탈퇴 진행
             self.firebaseAuth.currentUser?.delete(completion: { error in
                 if let error = error {
