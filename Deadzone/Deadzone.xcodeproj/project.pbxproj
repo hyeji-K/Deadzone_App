@@ -906,8 +906,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Deadzone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = deadzone;
-				INFOPLIST_KEY_NSCameraUsageDescription = "사진을 촬영하기 위해서 카메라 권한이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "갤러리의 사진을 이용하기 위해서 사진 권한이 필요합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "앱의 아카이브에 업로드 할 사진을 찍기 위해서는 카메라 권한이 필요합니다. 허락하시겠습니까? ";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앱의 아카이브에 사진을 업로드 하기 위해서는 사진 권한이 필요합니다. 허락하시겠습니까? ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -943,8 +943,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Deadzone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = deadzone;
-				INFOPLIST_KEY_NSCameraUsageDescription = "사진을 촬영하기 위해서 카메라 권한이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "갤러리의 사진을 이용하기 위해서 사진 권한이 필요합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "앱의 아카이브에 업로드 할 사진을 찍기 위해서는 카메라 권한이 필요합니다. 허락하시겠습니까? ";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앱의 아카이브에 사진을 업로드 하기 위해서는 사진 권한이 필요합니다. 허락하시겠습니까? ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

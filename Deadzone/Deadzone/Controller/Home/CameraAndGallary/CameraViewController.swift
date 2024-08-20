@@ -43,7 +43,8 @@ final class CameraViewController: UIViewController {
 
         setupNavigationBar()
         setupView()
-        configure()
+        requestCameraAuthorization()
+//        configure()
     }
     
     private func setupNavigationBar() {
@@ -139,7 +140,7 @@ final class CameraViewController: UIViewController {
         // 사용자 갤러리에 읽고 쓸 수 있는 .readWrite와 삭제가 불가능한 .addOnly가 있습니다
         let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         switch status {
-        case .notDetermined:
+        case .notDetermined, .limited:
             print("1")
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { status in
                 switch status {
@@ -155,7 +156,7 @@ final class CameraViewController: UIViewController {
                 case .denied:
                     print("권한이 거부 됬습니다. 앨범 사용 불가합니다.")
                     DispatchQueue.main.async {
-                        self.moveToSetting()
+                        self.moveToSetting(message: "앨범 접근이 거부 되었습니다. 앱의 일부 기능을 사용할 수 없어요")
                     }
                 default:
                     print("그 밖의 권한이 부여 되었습니다.")
@@ -166,9 +167,9 @@ final class CameraViewController: UIViewController {
         case .denied:
             print("3")
             DispatchQueue.main.async {
-                self.moveToSetting()
+                self.moveToSetting(message: "앨범 접근이 거부 되었습니다. 앱의 일부 기능을 사용할 수 없어요")
             }
-        case .authorized, .limited:
+        case .authorized:
             print("4")
             let gallaryViewContoller = GallaryViewController()
             gallaryViewContoller.modalPresentationStyle = .fullScreen
@@ -181,8 +182,8 @@ final class CameraViewController: UIViewController {
         
     }
 
-    private func moveToSetting() {
-        let alertController = UIAlertController(title: "권한 거부됨", message: "앨범 접근이 거부 되었습니다. 앱의 일부 기능을 사용할 수 없어요", preferredStyle: UIAlertController.Style.alert)
+    private func moveToSetting(message: String) {
+        let alertController = UIAlertController(title: "권한 거부됨", message: message, preferredStyle: UIAlertController.Style.alert)
         
         let okAction = UIAlertAction(title: "권한 설정으로 이동하기", style: .default) { (action) in
             
@@ -202,6 +203,41 @@ final class CameraViewController: UIViewController {
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: false, completion: nil)
+    }
+    
+    private func requestCameraAuthorization() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { result in
+                switch result {
+                case true:
+                    DispatchQueue.main.async {
+                        self.configure()
+                    }
+                case false:
+                    print("권한이 거부되었습니다.")
+                }
+            }
+        case .authorized:
+            print("권한이 부여됐습니다.")
+            configure()
+        case .denied:
+            AVCaptureDevice.requestAccess(for: .video) { result in
+                switch result {
+                case true:
+                    print("권한이 부여됐습니다.")
+                case false:
+                    DispatchQueue.main.async {
+                        self.moveToSetting(message: "카메라 접근이 거부 되었습니다. 앱의 일부 기능을 사용할 수 없어요")
+                    }
+                }
+            }
+        case .restricted:
+            print("3")
+        @unknown default:
+            fatalError()
+        }   
     }
 }
 
