@@ -61,4 +61,5 @@ enum DZImage {
     static var announcement: UIImage = UIImage(resource: .announcement)
     static var knock: UIImage = UIImage(resource: .knock)
     static var journalIcon: UIImage = UIImage(resource: .journalIcon)
+    static var journalTester: UIImage = UIImage(resource: .journalTester)
 }

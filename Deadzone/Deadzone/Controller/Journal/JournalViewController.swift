@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 struct Journal: Decodable {
     let mainImageUrl: String
@@ -52,7 +53,8 @@ final class JournalViewController: UIViewController {
         self.view.addGestureRecognizer(panGesture)
         
         let termsTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(detailsOfAgreeToTermsButtonTapped))
-        self.journalView.knockView.addGestureRecognizer(termsTapGestureRecognizer)
+//        self.journalView.knockView.addGestureRecognizer(termsTapGestureRecognizer)
+        self.journalView.openChatLinkView.addGestureRecognizer(termsTapGestureRecognizer)
     }
     
     private func updateView() {
@@ -105,7 +107,11 @@ final class JournalViewController: UIViewController {
     }
     
     @objc private func detailsOfAgreeToTermsButtonTapped(_ sender: UITapGestureRecognizer) {
-        
+        // 오픈채팅링크를 통해 오픈채팅방 접속
+        // https://open.kakao.com/o/gOWhJAMg
+        guard let url = URL(string: "https://open.kakao.com/o/gOWhJAMg") else { return }
+        let safari = SFSafariViewController(url: url)
+        self.present(safari, animated: false)
     }
 }
 
