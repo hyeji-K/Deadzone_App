@@ -63,8 +63,8 @@ final class AnswerCell: UITableViewCell {
     }
     
     func configure(answer: String, date: String) {
-        answerLabel.setLineSpacing(answer)
-//        안녕하세요, 이미죽은존씨입니다.\n\n그대가 요청하신 활동은 현재 검토 중으로 빠르면 2주 안에 업데이트가 될 예정입니다. 새로운 활동을 요청해주셔서 감사합니다.
+        let transAnswer = answer.replacingOccurrences(of: "\\\\n", with: "\n")
+        answerLabel.setLineSpacing(transAnswer)
         guard let date = date.date else { return }
         dateLabel.text = "\(date.askDateStringFormat) 답변"
     }

@@ -62,6 +62,36 @@ final class JournalView: UIView {
         return imageView
     }()
     
+    // MEMO: 테스터 모집용 버튼
+    // 노크 기능을 구현 중입니다! 해당 기능을 미리 경험해보고 싶다면 오픈채팅으로 들어와주세요.” + 링크 연동된 버튼
+    let openChatLinkView: UIView = {
+        let view = UIView()
+        view.backgroundColor = DZColor.pointColor
+        view.layer.cornerRadius = 8
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
+    private let openChatTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = DZFont.subText12
+        label.setLineSpacing("노크 기능을 구현 중입니다!\n해당 기능을 미리 경험해보고 싶다면 오픈채팅으로 들어와주세요.")
+        label.textAlignment = .center
+        label.textColor = DZColor.black
+        label.numberOfLines = 2
+        label.isUserInteractionEnabled = false
+        return label
+    }()
+    
+    private let openChatLinkImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "message")
+        imageView.tintColor = DZColor.black
+        imageView.isUserInteractionEnabled = false
+        return imageView
+    }()
+    
+    
     let knockView: UIView = {
         let view = UIView()
         view.backgroundColor = DZColor.pointColor
@@ -97,7 +127,8 @@ final class JournalView: UIView {
     }
     
     func configure(mainImageUrl: String, subImageUrl: String) {
-        self.mainImageView.setImageURL(mainImageUrl)
+//        self.mainImageView.setImageURL(mainImageUrl)
+        self.mainImageView.image = DZImage.journalTester
         self.subImageView.setImageURL(subImageUrl)
     }
     
@@ -108,13 +139,16 @@ final class JournalView: UIView {
         
         contentView.addSubview(mainImageView)
         contentView.addSubview(subView)
-        contentView.addSubview(knockView)
+//        contentView.addSubview(knockView)
+        contentView.addSubview(openChatLinkView)
         
         subView.addSubview(subTitleLabel)
         subView.addSubview(titleLabel)
         subView.addSubview(subImageView)
-        knockView.addSubview(knockTitleLabel)
-        knockView.addSubview(knockImageView)
+//        knockView.addSubview(knockTitleLabel)
+//        knockView.addSubview(knockImageView)
+        openChatLinkView.addSubview(openChatTitleLabel)
+        openChatLinkView.addSubview(openChatLinkImageView)
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -122,11 +156,13 @@ final class JournalView: UIView {
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalTo(863)
+//            make.height.equalTo(863)
+            make.height.equalTo(663)
         }
         mainImageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(509)
+//            make.height.equalTo(509)
+            make.height.equalTo(309)
         }
         subView.snp.makeConstraints { make in
             make.top.equalTo(mainImageView.snp.bottom).offset(15)
@@ -145,19 +181,33 @@ final class JournalView: UIView {
             make.top.bottom.right.equalToSuperview()
             make.width.equalTo(148)
         }
-        knockView.snp.makeConstraints { make in
+//        knockView.snp.makeConstraints { make in
+//            make.top.equalTo(subView.snp.bottom).offset(37)
+//            make.left.right.equalToSuperview().inset(20)
+//            make.height.equalTo(70)
+//        }
+//        knockTitleLabel.snp.makeConstraints { make in
+//            make.centerX.equalToSuperview()
+//            make.top.equalToSuperview().offset(10)
+//        }
+//        knockImageView.snp.makeConstraints { make in
+//            make.height.width.equalTo(35)
+//            make.centerX.equalToSuperview()
+//            make.top.equalTo(knockTitleLabel.snp.bottom).offset(2)
+//        }
+        openChatLinkView.snp.makeConstraints { make in
             make.top.equalTo(subView.snp.bottom).offset(37)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(70)
         }
-        knockTitleLabel.snp.makeConstraints { make in
+        openChatTitleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(10)
         }
-        knockImageView.snp.makeConstraints { make in
-            make.height.width.equalTo(35)
+        openChatLinkImageView.snp.makeConstraints { make in
+            make.height.width.equalTo(16)
             make.centerX.equalToSuperview()
-            make.top.equalTo(knockTitleLabel.snp.bottom).offset(2)
+            make.top.equalTo(openChatTitleLabel.snp.bottom).offset(2)
         }
     }
 }
