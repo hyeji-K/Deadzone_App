@@ -45,6 +45,9 @@ final class CameraViewController: UIViewController {
         setupView()
         requestCameraAuthorization()
 //        configure()
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchCamera))
+        self.view.addGestureRecognizer(pinch)
     }
     
     private func setupNavigationBar() {
@@ -238,6 +241,39 @@ final class CameraViewController: UIViewController {
         @unknown default:
             fatalError()
         }   
+    }
+    
+    @objc private func handlePinchCamera(_ pinch: UIPinchGestureRecognizer) {
+        guard let device = backFacingCamera else { return }
+        
+        var initialScale: CGFloat = device.videoZoomFactor
+        let minAvailableZoomScale = 1.0
+        let maxAvailableZoomScale = 4.0 // device.maxAvailableVideoZoomFactor
+        
+        do {
+            try device.lockForConfiguration()
+            if pinch.state == UIPinchGestureRecognizer.State.began {
+                initialScale = device.videoZoomFactor
+                cameraButtonView.zoomSlider.value = Float(initialScale)
+            } else {
+                if initialScale * pinch.scale < minAvailableZoomScale {
+                    device.videoZoomFactor = minAvailableZoomScale
+                    cameraButtonView.zoomSlider.value = Float(minAvailableZoomScale)
+                } else if initialScale * pinch.scale > maxAvailableZoomScale {
+                    device.videoZoomFactor = maxAvailableZoomScale
+                    cameraButtonView.zoomSlider.value = Float(maxAvailableZoomScale)
+                } else {
+                    device.videoZoomFactor = initialScale * pinch.scale
+                    cameraButtonView.zoomSlider.value = Float(initialScale * pinch.scale)
+                }
+            }
+            pinch.scale = 1.0
+            
+        } catch {
+            return
+        }
+        
+        device.unlockForConfiguration()
     }
 }
 
