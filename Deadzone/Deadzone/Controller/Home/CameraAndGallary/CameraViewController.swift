@@ -248,19 +248,23 @@ final class CameraViewController: UIViewController {
         
         var initialScale: CGFloat = device.videoZoomFactor
         let minAvailableZoomScale = 1.0
-        let maxAvailableZoomScale = device.maxAvailableVideoZoomFactor
+        let maxAvailableZoomScale = 4.0 // device.maxAvailableVideoZoomFactor
         
         do {
             try device.lockForConfiguration()
             if pinch.state == UIPinchGestureRecognizer.State.began {
                 initialScale = device.videoZoomFactor
+                cameraButtonView.zoomSlider.value = Float(initialScale)
             } else {
                 if initialScale * pinch.scale < minAvailableZoomScale {
                     device.videoZoomFactor = minAvailableZoomScale
+                    cameraButtonView.zoomSlider.value = Float(minAvailableZoomScale)
                 } else if initialScale * pinch.scale > maxAvailableZoomScale {
                     device.videoZoomFactor = maxAvailableZoomScale
+                    cameraButtonView.zoomSlider.value = Float(maxAvailableZoomScale)
                 } else {
                     device.videoZoomFactor = initialScale * pinch.scale
+                    cameraButtonView.zoomSlider.value = Float(initialScale * pinch.scale)
                 }
             }
             pinch.scale = 1.0

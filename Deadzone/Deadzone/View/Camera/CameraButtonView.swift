@@ -33,6 +33,17 @@ final class CameraButtonView: UIView {
         return button
     }()
     
+    var zoomSlider: UISlider = {
+        let slider = UISlider()
+        slider.value = 1.0
+        slider.minimumValueImage = UIImage(systemName: "minus")
+        slider.maximumValueImage = UIImage(systemName: "plus")
+        slider.tintColor = DZColor.backgroundColor
+        slider.maximumValue = 4.0
+        slider.minimumValue = 1.0
+        return slider
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -47,6 +58,7 @@ final class CameraButtonView: UIView {
         addSubview(cameraButton)
         addSubview(albumButton)
         addSubview(reversalButton)
+        addSubview(zoomSlider)
         
         cameraButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -60,6 +72,11 @@ final class CameraButtonView: UIView {
         reversalButton.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(20)
             make.centerY.equalTo(cameraButton.snp.centerY)
+        }
+        zoomSlider.snp.makeConstraints { make in
+            make.bottom.equalTo(cameraButton.snp.top).inset(-30)
+            make.left.right.equalToSuperview().inset(16)
+            make.height.equalTo(30)
         }
     }
 }
