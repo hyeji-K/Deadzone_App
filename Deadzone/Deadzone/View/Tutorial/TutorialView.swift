@@ -9,6 +9,9 @@ import UIKit
 
 final class TutorialView: UIView {
     
+    private let tutorialManager = TutorialManager()
+    private var tapCount: Int = 0
+    
     private let floorView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -127,11 +130,74 @@ final class TutorialView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        setupTutorialIfNeeded()
+        setupGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupTutorialIfNeeded() {
+        if tutorialManager.isTutorialNeeded {
+            setupUI()
+        } else {
+            isHidden = true
+        }
+    }
+    
+    private func setupUI() {
+        setupView()
+    }
+    
+    private func setupGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(tutorialTapGestureTapped))
+        self.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func tutorialTapGestureTapped(_ tapGesture: UITapGestureRecognizer) {
+        
+        switch tapCount {
+        case 0:
+            updateTutorialView(hiddenViews: [assetStackView],
+                               visibleViews: [sofaStackView])
+        case 1:
+            updateTutorialView(hiddenViews: [sofaStackView],
+                               visibleViews: [archiveStackView])
+        case 2:
+            updateTutorialView(hiddenViews: [archiveStackView],
+                               visibleViews: [arrowImageView, arrowTitleLabel])
+            animateArrow() // 화살표 올라가는 애니메이션
+        default:
+            isHidden = true
+            tutorialManager.markTutorialAsShown()
+        }
+        
+        self.tapCount += 1
+    }
+    
+    private func updateTutorialView(hiddenViews: [UIView], visibleViews: [UIView]) {
+        hiddenViews.forEach { $0.isHidden = true }
+        visibleViews.forEach { $0.isHidden = false }
+    }
+    
+    private func animateArrow() {
+        UIView.animate(withDuration: 0.8) { [weak self] in
+            guard let self = self else { return }
+            
+            self.updateArrowConstraints()
+            self.layoutIfNeeded()
+        }
+    }
+    
+    private func updateArrowConstraints() {
+        arrowImageView.snp.updateConstraints { make in
+            make.bottom.equalToSuperview().inset(172)
+        }
+        arrowTitleLabel.snp.updateConstraints { make in
+            make.bottom.equalToSuperview().inset(212)
+        }
     }
     
     private func setupView() {
