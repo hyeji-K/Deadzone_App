@@ -26,6 +26,7 @@
 		100966762BF2116C00492A75 /* LeaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100966752BF2116C00492A75 /* LeaveViewController.swift */; };
 		100966782BF211AA00492A75 /* LeaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100966772BF211AA00492A75 /* LeaveView.swift */; };
 		1009667B2BF21C9100492A75 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1009667A2BF21C9100492A75 /* TutorialView.swift */; };
+		1025D7672D38854600D7028F /* TutorialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025D7662D38854600D7028F /* TutorialManager.swift */; };
 		1043C24D2C6180D20007390A /* AskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C24C2C6180D20007390A /* AskCell.swift */; };
 		1043C24F2C618A3A0007390A /* Ask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C24E2C618A3A0007390A /* Ask.swift */; };
 		1043C2532C61B7ED0007390A /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2522C61B7ED0007390A /* AlarmViewController.swift */; };
@@ -150,6 +151,7 @@
 		100966752BF2116C00492A75 /* LeaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveViewController.swift; sourceTree = "<group>"; };
 		100966772BF211AA00492A75 /* LeaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveView.swift; sourceTree = "<group>"; };
 		1009667A2BF21C9100492A75 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		1025D7662D38854600D7028F /* TutorialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialManager.swift; sourceTree = "<group>"; };
 		1043C24C2C6180D20007390A /* AskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskCell.swift; sourceTree = "<group>"; };
 		1043C24E2C618A3A0007390A /* Ask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ask.swift; sourceTree = "<group>"; };
 		1043C2522C61B7ED0007390A /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				1009667A2BF21C9100492A75 /* TutorialView.swift */,
+				1025D7662D38854600D7028F /* TutorialManager.swift */,
 			);
 			path = Tutorial;
 			sourceTree = "<group>";
@@ -696,6 +699,7 @@
 				1067F8F22BBD982F007708E4 /* DZImage.swift in Sources */,
 				1067F9F92BE0C4A2007708E4 /* GallaryViewController.swift in Sources */,
 				1009666A2BF2045500492A75 /* AlertSettingViewController.swift in Sources */,
+				1025D7672D38854600D7028F /* TutorialManager.swift in Sources */,
 				100966622BF1A7A100492A75 /* VisitReasonView.swift in Sources */,
 				1009665C2BF0C04A00492A75 /* UserInfoSettingView.swift in Sources */,
 				1067F95F2BC3B0C8007708E4 /* RepasswordView.swift in Sources */,
