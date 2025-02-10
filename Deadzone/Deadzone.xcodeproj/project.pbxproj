@@ -27,6 +27,7 @@
 		100966782BF211AA00492A75 /* LeaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100966772BF211AA00492A75 /* LeaveView.swift */; };
 		1009667B2BF21C9100492A75 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1009667A2BF21C9100492A75 /* TutorialView.swift */; };
 		1025D7672D38854600D7028F /* TutorialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025D7662D38854600D7028F /* TutorialManager.swift */; };
+		1025D7A72D38A5B900D7028F /* HomeButtonSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025D7A62D38A5B900D7028F /* HomeButtonSetView.swift */; };
 		1043C24D2C6180D20007390A /* AskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C24C2C6180D20007390A /* AskCell.swift */; };
 		1043C24F2C618A3A0007390A /* Ask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C24E2C618A3A0007390A /* Ask.swift */; };
 		1043C2532C61B7ED0007390A /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2522C61B7ED0007390A /* AlarmViewController.swift */; };
@@ -152,6 +153,7 @@
 		100966772BF211AA00492A75 /* LeaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveView.swift; sourceTree = "<group>"; };
 		1009667A2BF21C9100492A75 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		1025D7662D38854600D7028F /* TutorialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialManager.swift; sourceTree = "<group>"; };
+		1025D7A62D38A5B900D7028F /* HomeButtonSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButtonSetView.swift; sourceTree = "<group>"; };
 		1043C24C2C6180D20007390A /* AskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskCell.swift; sourceTree = "<group>"; };
 		1043C24E2C618A3A0007390A /* Ask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ask.swift; sourceTree = "<group>"; };
 		1043C2522C61B7ED0007390A /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				1067F9B82BD118A5007708E4 /* HomeView.swift */,
+				1025D7A62D38A5B900D7028F /* HomeButtonSetView.swift */,
 				1067F9B92BD118A5007708E4 /* ActivitySelectedView.swift */,
 				1067F9C72BD20CE3007708E4 /* NewActivityRequestView.swift */,
 			);
@@ -711,6 +714,7 @@
 				1043C2552C61BBEC0007390A /* AlarmView.swift in Sources */,
 				1067F9F72BE0C4A2007708E4 /* CameraViewController.swift in Sources */,
 				1067F9BB2BD118A5007708E4 /* ActivitySelectedView.swift in Sources */,
+				1025D7A72D38A5B900D7028F /* HomeButtonSetView.swift in Sources */,
 				1067F9F22BE0C496007708E4 /* ArchiveListViewController.swift in Sources */,
 				100966742BF20FD600492A75 /* AccountCancellationView.swift in Sources */,
 				108AA36F2C3D6A5C00D1FBA8 /* AnswerCell.swift in Sources */,

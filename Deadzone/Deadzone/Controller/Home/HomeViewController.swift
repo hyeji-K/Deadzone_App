@@ -12,26 +12,11 @@ final class HomeViewController: UIViewController {
     
     private let homeView = HomeView()
     private let tutorialView = TutorialView()
+    private let buttonSetView = HomeButtonSetView()
     private var journal: Journal?
     
-    private var addAssetButton: UIButton = {
-        let button = UIButton()
-        button.setImage(DZImage.addasset, for: .normal)
-        return button
-    }()
-    private var archiveButton: UIButton = {
-        let button = UIButton()
-        button.setImage(DZImage.archive, for: .normal)
-        return button
-    }()
-    private lazy var buttonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [addAssetButton, archiveButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 6
-        return stackView
-    }()
-    
     var selectedActivitys: [String: Bool] = [:]
+    var selectedActivities: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +27,7 @@ final class HomeViewController: UIViewController {
         setupActions()
         reloadView()
         getImage()
+        setupGestureRecognizer()
         
         // 1. ActivitySelectedViewController에서 활동 선택 후 홈 화면에 반영
         NotificationCenter.default.addObserver(self, selector: #selector(didDismissNotification), name: NSNotification.Name("ActivitySelectedViewController"), object: nil)
@@ -66,20 +52,16 @@ final class HomeViewController: UIViewController {
     private func setupView() {
         self.view.backgroundColor = DZColor.backgroundColor
         self.view.addSubview(homeView)
-        self.view.addSubview(buttonStackView)
+        self.view.addSubview(buttonSetView)
+        
         homeView.snp.makeConstraints { make in
             make.left.right.top.equalTo(self.view.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
-        buttonStackView.snp.makeConstraints { make in
+        buttonSetView.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(19)
             make.bottom.equalToSuperview().inset(39)
         }
-        
-        // 격일간지 스와이프 버전
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeGestureTapped))
-        swipeUp.direction = UISwipeGestureRecognizer.Direction.up
-        self.view.addGestureRecognizer(swipeUp)
     }
     
     private func setupTutorialView() {
@@ -104,8 +86,19 @@ final class HomeViewController: UIViewController {
             button.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
         }
         
-        addAssetButton.addTarget(self, action: #selector(addAssetButtonTapped), for: .touchUpInside)
-        archiveButton.addTarget(self, action: #selector(archiveButtonTapped), for: .touchUpInside)
+        buttonSetView.addAssetButton.addTarget(self,
+                                               action: #selector(addAssetButtonTapped),
+                                               for: .touchUpInside)
+        buttonSetView.archiveButton.addTarget(self,
+                                              action: #selector(archiveButtonTapped),
+                                              for: .touchUpInside)
+    }
+    
+    // 격일간지 스와이프 제스처
+    private func setupGestureRecognizer() {
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeGestureTapped))
+        swipeUp.direction = UISwipeGestureRecognizer.Direction.up
+        self.view.addGestureRecognizer(swipeUp)
     }
     
     // 업데이트 된 활동을 읽어와서 홈 화면에 반영
@@ -116,60 +109,71 @@ final class HomeViewController: UIViewController {
                 for (key, value) in snapshot {
                     self.selectedActivitys.updateValue((value as! Int).boolValue, forKey: key)
                 }
-                self.homeView.cdplayerImageButton.isHidden = self.selectedActivitys["music"]!
-                self.homeView.fashion01ImageButton.isHidden = self.selectedActivitys["fashion01"]!
-                self.homeView.fashion02ImageButton.isHidden = self.selectedActivitys["fashion02"]!
-                self.homeView.tableImageView.isHidden = self.selectedActivitys["table"]!
-                self.homeView.iceCoffeeImageButton.isHidden = self.selectedActivitys["cafe"]!
-                self.homeView.readingImageButton.isHidden = self.selectedActivitys["reading"]!
-                self.homeView.meditationImageButton.isHidden = self.selectedActivitys["meditation"]!
-                self.homeView.wastedImageButton.isHidden = self.selectedActivitys["drinking"]!
-                self.view.setNeedsDisplay()
+                self.updateUI(selectedActivitys: self.selectedActivitys)
             }
         }
     }
     
-    private func isExistSelectedActivity(completion: @escaping (Bool) -> Void) {
+    private func updateUI(selectedActivitys: [String: Bool]) {
+        // 버튼 또는 다른 뷰에 따라 분리된 매핑
+        let buttonVisibilityMap: [String: UIButton] = [
+            "music": homeView.cdplayerImageButton,
+            "fashion01": homeView.fashion01ImageButton,
+            "fashion02": homeView.fashion02ImageButton,
+            "cafe": homeView.iceCoffeeImageButton,
+            "reading": homeView.readingImageButton,
+            "meditation": homeView.meditationImageButton,
+            "drinking": homeView.wastedImageButton
+        ]
+        
+        let imageViewVisibilityMap: [String: UIImageView] = [
+            "table": homeView.tableImageView
+        ]
+        
+        // 버튼 가시성 업데이트
+        for (key, button) in buttonVisibilityMap {
+            if let isHidden = selectedActivitys[key] {
+                button.isHidden = isHidden
+            }
+        }
+        
+        // 이미지 뷰 가시성 업데이트
+        for (key, imageView) in imageViewVisibilityMap {
+            if let isHidden = selectedActivitys[key] {
+                imageView.isHidden = isHidden
+            }
+        }
+        
+        self.view.setNeedsDisplay()
+    }
+    
+    private func loadSelectedActivity(completion: @escaping ([String]) -> Void) {
         Networking.shared.getUserInfo { userInfo in
-            if userInfo.archive.first == "" {
-                completion(false)
-                
+            if userInfo.archive == [""] {
+                completion([])
             } else {
-                completion(true)
+                completion(userInfo.archive)
             }
         }
     }
 
     @objc private func addAssetButtonTapped(_ sender: UIButton) {
         // NOTE: 활동 선택이 처음인지 아닌지 확인하기 위하여 유저 정보 불러오기
-        self.isExistSelectedActivity { result in
-            if result {
-                // 선택한 활동이 있을 때
-                DispatchQueue.main.async {
-                    let activitySelectedViewController = ActivitySelectedViewController()
-                    activitySelectedViewController.modalPresentationStyle = .overCurrentContext
-                    activitySelectedViewController.activityDelegate = self
-                    activitySelectedViewController.activityInit = false
-                    activitySelectedViewController.selectedActivitys = self.selectedActivitys
-                    self.present(activitySelectedViewController, animated: false)
-                }
-            } else {
-                // 선택한 활동이 없을 때
-                DispatchQueue.main.async {
-                    let activitySelectedViewController = ActivitySelectedViewController()
-                    activitySelectedViewController.modalPresentationStyle = .overCurrentContext
-                    activitySelectedViewController.activityDelegate = self
-                    activitySelectedViewController.activityInit = true
-                    self.present(activitySelectedViewController, animated: false)
-                }
+        self.loadSelectedActivity { result in
+            DispatchQueue.main.async {
+                let activitySelectedViewController = ActivitySelectedViewController()
+                activitySelectedViewController.modalPresentationStyle = .overCurrentContext
+                activitySelectedViewController.activityDelegate = self
+                activitySelectedViewController.selectedActivities = result
+                self.present(activitySelectedViewController, animated: false)
             }
         }
     }
     
     @objc private func archiveButtonTapped(_ sender: UIButton) {
         // NOTE: 활동을 선택하지 않았을 때엔 알럿
-        self.isExistSelectedActivity { result in
-            if result {
+        self.loadSelectedActivity { result in
+            if !result.isEmpty {
                 DispatchQueue.main.async {
                     let archiveListViewController = ArchiveListViewController()
                     self.navigationController?.pushViewController(archiveListViewController, animated: true)
