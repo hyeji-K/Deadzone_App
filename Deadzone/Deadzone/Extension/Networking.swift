@@ -347,6 +347,19 @@ final class Networking {
     
     // 격일간지를 위한 사용자의 활동 업데이트
     func updateActivityReport(increaseActivity: [String], decreaseActivity: [String]) {
+        // 한글명 -> 영어명으로 변경
+        var translatedToEnglishIncreaseActivities: [String] = []
+        for activity in increaseActivity {
+            let translated = ActivityTranslator.toEnglish(activity)
+            translatedToEnglishIncreaseActivities.append(translated)
+        }
+        
+        var translatedToEnglishDecreaseActivities: [String] = []
+        for activity in decreaseActivity {
+            let translated = ActivityTranslator.toEnglish(activity)
+            translatedToEnglishDecreaseActivities.append(translated)
+        }
+        
         ref.child("ActivityReport").getData { error, snapshot in
             guard error == nil else {
                 print(error!.localizedDescription)
@@ -361,11 +374,11 @@ final class Networking {
                     let activityReport: ActivityReport = try decoder.decode(ActivityReport.self, from: data)
                     
                     var originReport = activityReport.toDictionary
-                    for incre in 0..<increaseActivity.count {
-                        originReport[increaseActivity[incre]] = originReport[increaseActivity[incre]] as! Int + 1
+                    for incre in 0..<translatedToEnglishIncreaseActivities.count {
+                        originReport[translatedToEnglishIncreaseActivities[incre]] = originReport[translatedToEnglishIncreaseActivities[incre]] as! Int + 1
                     }
-                    for decre in 0..<decreaseActivity.count {
-                        originReport[decreaseActivity[decre]] = originReport[decreaseActivity[decre]] as! Int - 1
+                    for decre in 0..<translatedToEnglishDecreaseActivities.count {
+                        originReport[translatedToEnglishDecreaseActivities[decre]] = originReport[translatedToEnglishDecreaseActivities[decre]] as! Int - 1
                     }
                     
                     let changeReport = ActivityReport(cafe: originReport["cafe"] as! Int, drinking: originReport["drinking"] as! Int, meditation: originReport["meditation"] as! Int, music: originReport["music"] as! Int, reading: originReport["reading"] as! Int, fashion01: originReport["fashion01"] as! Int)
@@ -523,13 +536,16 @@ final class Networking {
     // 활동 삭제
     func deleteArchiveData(firstArchiveName: String, secondArchiveName: String? = nil) {
         // NOTE: 변경되지 않은 활동은 이름 비교하여 삭제하지 말아야함
+        // 한글명 -> 영어명 변경
         guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
-        self.ref.child("users").child(uid).child("Archive").child(firstArchiveName).removeValue()
-        deleteAllOfImageData(storageName: firstArchiveName)
+        let translatedFirstArchiveName = ActivityTranslator.toEnglish(firstArchiveName)
+        self.ref.child("users").child(uid).child("Archive").child(translatedFirstArchiveName).removeValue()
+        deleteAllOfImageData(storageName: translatedFirstArchiveName)
         
         guard let secondArchiveName else { return }
-        self.ref.child("users").child(uid).child("Archive").child(secondArchiveName).removeValue()
-        deleteAllOfImageData(storageName: secondArchiveName)
+        let translatedSecondArchiveName = ActivityTranslator.toEnglish(secondArchiveName)
+        self.ref.child("users").child(uid).child("Archive").child(translatedSecondArchiveName).removeValue()
+        deleteAllOfImageData(storageName: translatedSecondArchiveName)
     }
     
     // 이미지 전체 삭제
