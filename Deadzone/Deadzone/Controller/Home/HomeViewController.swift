@@ -40,6 +40,7 @@ final class HomeViewController: UIViewController {
 
         setupNavigationBar()
         setupView()
+        setupActions()
         reloadView()
         getImage()
         
@@ -53,6 +54,7 @@ final class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = DZColor.black
     }
     
+    // 네비게이션바 세팅
     private func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: DZImage.settings, style: .plain, target: self, action: #selector(settingButtonTapped))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: DZImage.alarm, style: .plain, target: self, action: #selector(alarmButtonTapped))
@@ -61,6 +63,7 @@ final class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : DZFont.subTitle24]
     }
     
+    // 뷰 세팅
     private func setupView() {
         self.view.backgroundColor = DZColor.backgroundColor
         self.view.addSubview(homeView)
@@ -73,19 +76,10 @@ final class HomeViewController: UIViewController {
             make.right.equalToSuperview().inset(19)
             make.bottom.equalToSuperview().inset(39)
         }
-        addAssetButton.addTarget(self, action: #selector(addAssetButtonTapped), for: .touchUpInside)
-        archiveButton.addTarget(self, action: #selector(archiveButtonTapped), for: .touchUpInside)
-        
-        homeView.cdplayerImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.fashion01ImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.fashion02ImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.iceCoffeeImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.readingImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.meditationImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.wastedImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
         
         
-        // NOTE: 튜토리얼 - 회원가입 후 처음 한 번
+        
+        // NOTE: 튜토리얼 - 회원가입 후 처음 한 번 -> scene delegate
         if UserDefaults.standard.bool(forKey: "Tutorial") {
             UserDefaults.standard.setValue(false, forKey: "Tutorial")
             self.view.addSubview(tutorialView)
@@ -101,6 +95,25 @@ final class HomeViewController: UIViewController {
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeGestureTapped))
         swipeUp.direction = UISwipeGestureRecognizer.Direction.up
         self.view.addGestureRecognizer(swipeUp)
+    }
+    
+    private func setupActions() {
+        let buttons = [
+            homeView.cdplayerImageButton,
+            homeView.fashion01ImageButton,
+            homeView.fashion02ImageButton,
+            homeView.iceCoffeeImageButton,
+            homeView.readingImageButton,
+            homeView.meditationImageButton,
+            homeView.wastedImageButton
+        ]
+        
+        buttons.forEach { button in
+            button.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
+        }
+        
+        addAssetButton.addTarget(self, action: #selector(addAssetButtonTapped), for: .touchUpInside)
+        archiveButton.addTarget(self, action: #selector(archiveButtonTapped), for: .touchUpInside)
     }
     
     // 업데이트 된 활동을 읽어와서 홈 화면에 반영
@@ -197,11 +210,13 @@ final class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(cameraViewController, animated: false)
     }
     
+    // 설정 버튼 클릭 시 설정 화면으로 전환
     @objc private func settingButtonTapped(_ sender: UIButton) {
         let settingViewController = SettingViewController()
         self.navigationController?.pushViewController(settingViewController, animated: false)
     }
     
+    // 알림 버튼 클릭 시 알림 화면으로 전환
     @objc private func alarmButtonTapped(_ sender: UIButton) {
         let alarmViewController = AlarmViewController()
         self.navigationController?.pushViewController(alarmViewController, animated: false)
