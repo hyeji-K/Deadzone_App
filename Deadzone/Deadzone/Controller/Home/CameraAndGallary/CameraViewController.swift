@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import Photos
+import SnapKit
 
 final class CameraViewController: UIViewController {
     
@@ -43,11 +44,10 @@ final class CameraViewController: UIViewController {
 
         setupNavigationBar()
         setupView()
+        setupGestureRecognizer()
+        setupActions()
         requestCameraAuthorization()
 //        configure()
-        
-        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchCamera))
-        self.view.addGestureRecognizer(pinch)
     }
     
     private func setupNavigationBar() {
@@ -63,22 +63,40 @@ final class CameraViewController: UIViewController {
             make.bottom.equalToSuperview()
             make.height.equalTo(100)
         }
-        
-        cameraButtonView.albumButton.addTarget(self, action: #selector(albumButtonTapped), for: .touchUpInside)
-        cameraButtonView.cameraButton.addTarget(self, action: #selector(cameraButtonTapped), for: .touchUpInside)
-        cameraButtonView.reversalButton.addTarget(self, action: #selector(switchCameraButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupGestureRecognizer() {
+        let pinchGesture = UIPinchGestureRecognizer(target: self,
+                                                    action: #selector(handlePinchGesture))
+        self.view.addGestureRecognizer(pinchGesture)
+    }
+    
+    private func setupActions() {
+        cameraButtonView.albumButton.addTarget(self,
+                                               action: #selector(albumButtonTapped),
+                                               for: .touchUpInside)
+        cameraButtonView.cameraButton.addTarget(self,
+                                                action: #selector(cameraButtonTapped),
+                                                for: .touchUpInside)
+        cameraButtonView.reversalButton.addTarget(self,
+                                                  action: #selector(switchCameraButtonTapped),
+                                                  for: .touchUpInside)
     }
     
     private func configure() {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
         
-        if let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
+        if let device = AVCaptureDevice.default(.builtInWideAngleCamera,
+                                                for: .video,
+                                                position: .back) {
             backFacingCamera = device
         } else {
             fatalError("후면 카메라가 없어요.")
         }
         
-        if let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) {
+        if let device = AVCaptureDevice.default(.builtInWideAngleCamera,
+                                                for: .video,
+                                                position: .front) {
             frontFacingCamera = device
         } else {
             fatalError("전면 카메라가 없어요.")
@@ -186,7 +204,9 @@ final class CameraViewController: UIViewController {
     }
 
     private func moveToSetting(message: String) {
-        let alertController = UIAlertController(title: "권한 거부됨", message: message, preferredStyle: UIAlertController.Style.alert)
+        let alertController = UIAlertController(title: "권한 거부됨",
+                                                message: message,
+                                                preferredStyle: UIAlertController.Style.alert)
         
         let okAction = UIAlertAction(title: "권한 설정으로 이동하기", style: .default) { (action) in
             
@@ -243,7 +263,7 @@ final class CameraViewController: UIViewController {
         }   
     }
     
-    @objc private func handlePinchCamera(_ pinch: UIPinchGestureRecognizer) {
+    @objc private func handlePinchGesture(_ pinch: UIPinchGestureRecognizer) {
         guard let device = backFacingCamera else { return }
         
         var initialScale: CGFloat = device.videoZoomFactor
@@ -278,7 +298,9 @@ final class CameraViewController: UIViewController {
 }
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+    func photoOutput(_ output: AVCapturePhotoOutput,
+                     didFinishProcessingPhoto photo: AVCapturePhoto,
+                     error: Error?) {
         
         if let error {
             print("Error processing photo: \(error.localizedDescription)")
