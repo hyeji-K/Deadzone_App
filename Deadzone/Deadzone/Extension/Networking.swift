@@ -500,30 +500,31 @@ final class Networking {
     }
     
     // MARK: 이미지 업로드
-    func imageUpload(storageName: String, id: String, imageData: Data, completion: @escaping (String) -> Void) {
-        // TODO: 활동에 따른 이미지 폴더 만들기
-        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return }
-        let imageRef = self.storage.child(uid).child(storageName)
+    func imageUpload(storageName: String, id: String, imageData: Data) async throws -> URL {
+        guard let uid = UserDefaults.standard.string(forKey: "userId") else { return URL(string: "")! }
+        let imageRef = self.storage.child(uid).child(storageName) // 활동에 따른 이미지 폴더
         let imageName = "\(id).jpg"
         let imagefileRef = imageRef.child(imageName)
+        
+        // metadata
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         
-        imagefileRef.putData(imageData, metadata: metadata) { metadata, error in
-            if let error = error {
-                print("이미지 올리기 실패! \(error)")
-            } else {
-                imagefileRef.downloadURL { url, error in
-                    if let error = error {
-                        print("이미지 다운로드 실패! \(error)")
-                    } else {
-                        guard let url = url else { return }
-                        completion("\(url)")
+        return try await withCheckedThrowingContinuation { continuation in
+            let uploadTask = imagefileRef.putData(imageData, metadata: metadata)
+            uploadTask.observe(.success) { _ in
+                Task {
+                    do {
+                        let downloadURL = try await imagefileRef.downloadURL()
+                        continuation.resume(returning: downloadURL)
+                    } catch {
+                        continuation.resume(throwing: error)
                     }
                 }
             }
         }
     }
+    
     // MARK: [Delete] 데이터 삭제
     // 사용자 데이터 삭제
     func deleteUserInfo() {

@@ -6,8 +6,17 @@
 //
 
 import UIKit
+import SnapKit
 
 final class GallaryView: UIView {
+    
+    let closeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.tintColor = DZColor.backgroundColor
+        button.setPreferredSymbolConfiguration(.init(pointSize: 20), forImageIn: .normal)
+        return button
+    }()
     
     let recentsButton: UIButton = {
         let button = UIButton()
@@ -65,6 +74,7 @@ final class GallaryView: UIView {
         
         let button = UIButton(configuration: configuration)
         button.contentHorizontalAlignment = .trailing
+        button.isEnabled = false
         return button
     }()
     
@@ -85,8 +95,15 @@ final class GallaryView: UIView {
     }
     
     private func setupView() {
+        addSubview(closeButton)
         addSubview(albumTitleStackView)
         addSubview(doneButton)
+        
+        closeButton.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview().inset(16)
+            make.width.height.equalTo(30)
+        }
         
         recentsUnderlineView.snp.makeConstraints { make in
             make.height.equalTo(1)

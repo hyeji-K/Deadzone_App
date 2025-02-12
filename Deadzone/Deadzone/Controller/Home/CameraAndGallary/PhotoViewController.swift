@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class PhotoViewController: UIViewController {
     
@@ -23,24 +24,32 @@ final class PhotoViewController: UIViewController {
     
     private let indicatorView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.color = DZColor.grayColor100
+        indicator.color = DZColor.backgroundColor
         indicator.style = .large
         indicator.hidesWhenStopped = true
         indicator.stopAnimating()
         return indicator
     }()
     
-    var photoImageView: UIImage?
+    var photoImageView: UIImage? {
+        didSet {
+            selectedImageView.image = photoImageView
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavigationBar()
         setupView()
+        setupActions()
     }
     
     private func setupNavigationBar() {
-        self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(closeButtonTapped))
+        self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "xmark"),
+                                                                 style: .plain,
+                                                                 target: self,
+                                                                 action: #selector(closeButtonTapped))
         self.navigationController?.navigationBar.tintColor = DZColor.backgroundColor
     }
     
@@ -61,8 +70,9 @@ final class PhotoViewController: UIViewController {
             make.center.equalToSuperview()
         }
         self.view.bringSubviewToFront(indicatorView)
-        
-        selectedImageView.image = photoImageView
+    }
+    
+    private func setupActions() {
         addPhotoButton.addTarget(self, action: #selector(addPhotoButtonTapped), for: .touchUpInside)
     }
     
@@ -72,27 +82,29 @@ final class PhotoViewController: UIViewController {
     
     @objc private func addPhotoButtonTapped(_ sender: UIButton) {
         indicatorView.startAnimating()
+        sender.isEnabled = false
         guard let image = photoImageView else { return }
-        let imageData = image.jpegData(compressionQuality: 0.1)!
-//        let imageData = image.pngData()! as NSData
+        let imageData = image.jpegData(compressionQuality: 0.6)!
         
         guard let archiveName = UserDefaults.standard.string(forKey: "archiveName") else { return }
-        Networking.shared.imageUpload(storageName: archiveName, id: UUID().uuidString, imageData: imageData as Data) { url in
-            Networking.shared.updateArchive(name: archiveName, imageUrl: url)
-            
-            self.indicatorView.stopAnimating()
-            DispatchQueue.main.async {
-                // pop 완료 후 아카이브 화면 띄우기
-//                self.navigationController?.popToRootViewController(animated: false)
-                let archiveListViewController = ArchiveListViewController()
-                self.navigationController?.pushViewController(archiveListViewController, animated: false)
+        
+        Task {
+            do {
+                let url = try await Networking.shared.imageUpload(storageName: archiveName,
+                                                                  id: UUID().uuidString,
+                                                                  imageData: imageData)
+                Networking.shared.updateArchive(name: archiveName, imageUrl: "\(url)")
+                
+                // 화면 전환
+                DispatchQueue.main.async {
+                    self.indicatorView.stopAnimating()
+                    let archiveListViewController = ArchiveListViewController()
+                    self.navigationController?.pushViewController(archiveListViewController,
+                                                                  animated: false)
+                }
+            } catch {
+                print("업로드 실패: \(error.localizedDescription)")
             }
         }
-//        guard let presentingViewController = self.presentingViewController as? UINavigationController else { return }
-//        self.navigationController?.popToRootViewController(animated: false)
-        // pop 완료 후 아카이브 화면 띄우기
-//        let archiveListViewController = ArchiveListViewController()
-//        presentingViewController.pushViewController(archiveListViewController, animated: true)
     }
-
 }
