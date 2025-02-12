@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import SnapKit
 
 final class JournalView: UIView {
+    
+    private let animationDuration: TimeInterval = 1
     
     // 스크롤뷰 추가
     lazy var scrollView: UIScrollView = {
@@ -62,36 +65,6 @@ final class JournalView: UIView {
         return imageView
     }()
     
-    // MEMO: 테스터 모집용 버튼
-    // 노크 기능을 구현 중입니다! 해당 기능을 미리 경험해보고 싶다면 오픈채팅으로 들어와주세요.” + 링크 연동된 버튼
-    let openChatLinkView: UIView = {
-        let view = UIView()
-        view.backgroundColor = DZColor.pointColor
-        view.layer.cornerRadius = 8
-        view.isUserInteractionEnabled = true
-        return view
-    }()
-    
-    private let openChatTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = DZFont.subText12
-        label.setLineSpacing("노크 기능을 구현 중입니다!\n해당 기능을 미리 경험해보고 싶다면 오픈채팅으로 들어와주세요.")
-        label.textAlignment = .center
-        label.textColor = DZColor.black
-        label.numberOfLines = 2
-        label.isUserInteractionEnabled = false
-        return label
-    }()
-    
-    private let openChatLinkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "message")
-        imageView.tintColor = DZColor.black
-        imageView.isUserInteractionEnabled = false
-        return imageView
-    }()
-    
-    
     let knockView: UIView = {
         let view = UIView()
         view.backgroundColor = DZColor.pointColor
@@ -139,16 +112,13 @@ final class JournalView: UIView {
         
         contentView.addSubview(mainImageView)
         contentView.addSubview(subView)
-//        contentView.addSubview(knockView)
-        contentView.addSubview(openChatLinkView)
+        contentView.addSubview(knockView)
         
         subView.addSubview(subTitleLabel)
         subView.addSubview(titleLabel)
         subView.addSubview(subImageView)
-//        knockView.addSubview(knockTitleLabel)
-//        knockView.addSubview(knockImageView)
-        openChatLinkView.addSubview(openChatTitleLabel)
-        openChatLinkView.addSubview(openChatLinkImageView)
+        knockView.addSubview(knockTitleLabel)
+        knockView.addSubview(knockImageView)
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -181,33 +151,39 @@ final class JournalView: UIView {
             make.top.bottom.right.equalToSuperview()
             make.width.equalTo(148)
         }
-//        knockView.snp.makeConstraints { make in
-//            make.top.equalTo(subView.snp.bottom).offset(37)
-//            make.left.right.equalToSuperview().inset(20)
-//            make.height.equalTo(70)
-//        }
-//        knockTitleLabel.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview()
-//            make.top.equalToSuperview().offset(10)
-//        }
-//        knockImageView.snp.makeConstraints { make in
-//            make.height.width.equalTo(35)
-//            make.centerX.equalToSuperview()
-//            make.top.equalTo(knockTitleLabel.snp.bottom).offset(2)
-//        }
-        openChatLinkView.snp.makeConstraints { make in
+        knockView.snp.makeConstraints { make in
             make.top.equalTo(subView.snp.bottom).offset(37)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(70)
         }
-        openChatTitleLabel.snp.makeConstraints { make in
+        knockTitleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(10)
         }
-        openChatLinkImageView.snp.makeConstraints { make in
-            make.height.width.equalTo(16)
+        knockImageView.snp.makeConstraints { make in
+            make.height.width.equalTo(35)
             make.centerX.equalToSuperview()
-            make.top.equalTo(openChatTitleLabel.snp.bottom).offset(2)
+            make.top.equalTo(knockTitleLabel.snp.bottom).offset(2)
         }
+    }
+    
+    func dismissBottomSheet(completion: (() -> Void)? = nil) {
+        guard let superview = self.superview else { return }
+        
+        UIView.animate(
+            withDuration: animationDuration,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                self.frame.origin = CGPoint(
+                    x: superview.frame.origin.x,
+                    y: superview.frame.size.height
+                )
+            },
+            completion: { isCompleted in
+                if isCompleted {
+                    completion?()
+                }
+            }
+        )
     }
 }
