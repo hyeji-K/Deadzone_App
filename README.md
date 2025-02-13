@@ -7,7 +7,7 @@
 
 ## 주요 기능
 
-| <img width="200" src="https://github.com/dong-jib-sa/dongjibsa_frontend/blob/main/images/onboardingview.gif"> | <img width="200" src="https://github.com/dong-jib-sa/dongjibsa_frontend/blob/main/images/locationview.gif"> | <img width="200" src="https://github.com/dong-jib-sa/dongjibsa_frontend/blob/main/images/homeview.gif"> |
+| <img width="200" src="images/홈이미지.gif"> | <img width="200" src="images/에셋변경이미지.gif"> | <img width="200" src="images/사진업로드이미지.gif"> |
 | :-:| :-: | :-: |
 | `홈 화면` | `활동 선택` | `활동 기록` |
 
@@ -18,3 +18,4 @@
 - 의존성 관리: SPM
 - 서버: Firebase 
 
+<img width="200" src="images/firebase.png">
