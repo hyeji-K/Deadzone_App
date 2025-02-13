@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class HomeView: UIView {
     
@@ -17,7 +18,7 @@ final class HomeView: UIView {
         return view
     }()
     
-    var sofaImageView: UIImageView = {
+    private var sofaImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = DZImage.sofa
         return imageView

@@ -6,11 +6,7 @@
 //
 
 import UIKit
-
-struct Journal: Decodable {
-    let mainImageUrl: String
-    let subImageUrl: String
-}
+import SnapKit
 
 final class JournalViewController: UIViewController {
     
@@ -18,11 +14,14 @@ final class JournalViewController: UIViewController {
     var mainImage: String?
     var subImage: String?
     private var originalPosition: CGPoint?
+    private let dismissVelocityThreshold: CGFloat = 1000
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
+        loadImage()
+        setupGestureRecognizer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,17 +41,6 @@ final class JournalViewController: UIViewController {
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(0)
         }
-        
-        guard let mainImage, let subImage else { return }
-        self.journalView.configure(mainImageUrl: mainImage, subImageUrl: subImage)
-        
-        // dismiss
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureTapped))
-        panGesture.delegate = self
-        self.view.addGestureRecognizer(panGesture)
-        
-        let termsTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(detailsOfAgreeToTermsButtonTapped))
-        self.journalView.knockView.addGestureRecognizer(termsTapGestureRecognizer)
     }
     
     private func updateView() {
@@ -62,50 +50,60 @@ final class JournalViewController: UIViewController {
         }
     }
     
-    // 격일간지 pan 버전
+    private func loadImage() {
+        guard let mainImage, let subImage else { return }
+        self.journalView.configure(mainImageUrl: mainImage, subImageUrl: subImage)
+    }
+    
+    private func setupGestureRecognizer() {
+        // 격일간지 dismiss
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureTapped))
+        panGesture.delegate = self
+        self.view.addGestureRecognizer(panGesture)
+        
+        // 노크 기능
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(knockViewTapped))
+        self.journalView.knockView.addGestureRecognizer(tapGesture)
+    }
+    
+    private func dismissViewController() {
+        journalView.dismissBottomSheet {
+            self.dismiss(animated: false)
+        }
+    }
+    
+    // 격일간지 pan을 이용하여 dismiss
     @objc private func panGestureTapped(_ panGesture: UIPanGestureRecognizer) {
+        let translation = panGesture.translation(in: view)
+        let velocity = panGesture.velocity(in: view)
+        
         switch panGesture.state {
         case .began:
             self.originalPosition = view.center
-            print()
+            
         case .changed:
-            print()
-            let translation = panGesture.translation(in: view)
-            if translation.y < 0 {
-                return
-            } else {
-//                self.view.frame.origin = CGPoint(x: 0, y: translation.y)
+            if translation.y >= 0 {
+                self.view.frame.origin = CGPoint(x: 0, y: translation.y)
             }
         case .ended:
             guard let originalPosition = self.originalPosition else { return }
-            let velocity = panGesture.velocity(in: view)
-            guard velocity.y >= 1000 else {
+            
+            if velocity.y >= dismissVelocityThreshold {
+                dismissViewController()
+            } else {
                 UIView.animate(withDuration: 1, animations: {
                     self.view.center = originalPosition
                 })
-                return
             }
             
-            UIView.animate(withDuration: 1,
-                animations: {
-                    self.view.frame.origin = CGPoint(
-                        x: self.view.frame.origin.x,
-                        y: self.view.frame.size.height
-                    )
-                },
-                completion: { (isCompleted) in
-                    if isCompleted {
-                        self.dismiss(animated: false, completion: nil)
-                    }
-                }
-            )
         default:
             return
         }
     }
     
-    @objc private func detailsOfAgreeToTermsButtonTapped(_ sender: UITapGestureRecognizer) {
-        
+    @objc private func knockViewTapped(_ sender: UITapGestureRecognizer) {
+        // 노크로 동일한 이유를 구독하고 있는 사용자에게 푸시 보내기
+        // 하루 1회 허용
     }
 }
 

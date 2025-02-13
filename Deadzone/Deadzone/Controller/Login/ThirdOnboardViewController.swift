@@ -10,6 +10,7 @@ import UIKit
 final class ThirdOnboardViewController: UIViewController {
     
     private let thirdOnboardView = ThirdOnboardView()
+    private let tutorialManager = TutorialManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,7 @@ final class ThirdOnboardViewController: UIViewController {
         guard let reason = thirdOnboardView.writenTextView.text else { return }
         if reason != thirdOnboardView.placeholder {
             // 이유 DB에 저장 후 홈 화면으로 화면 전환 --> 삭제
-            UserDefaults.standard.setValue(true, forKey: "Tutorial")
+            tutorialManager.resetTutorial() // 회원 가입 시 튜토리얼 초기화
             let main = UIStoryboard.init(name: "Home", bundle: nil)
             let homeViewController = main.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
             let navigationController = UINavigationController(rootViewController: homeViewController)

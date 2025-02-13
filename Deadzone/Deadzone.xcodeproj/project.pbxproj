@@ -26,6 +26,8 @@
 		100966762BF2116C00492A75 /* LeaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100966752BF2116C00492A75 /* LeaveViewController.swift */; };
 		100966782BF211AA00492A75 /* LeaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100966772BF211AA00492A75 /* LeaveView.swift */; };
 		1009667B2BF21C9100492A75 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1009667A2BF21C9100492A75 /* TutorialView.swift */; };
+		1025D7672D38854600D7028F /* TutorialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025D7662D38854600D7028F /* TutorialManager.swift */; };
+		1025D7A72D38A5B900D7028F /* HomeButtonSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1025D7A62D38A5B900D7028F /* HomeButtonSetView.swift */; };
 		1043C24D2C6180D20007390A /* AskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C24C2C6180D20007390A /* AskCell.swift */; };
 		1043C24F2C618A3A0007390A /* Ask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C24E2C618A3A0007390A /* Ask.swift */; };
 		1043C2532C61B7ED0007390A /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1043C2522C61B7ED0007390A /* AlarmViewController.swift */; };
@@ -115,6 +117,7 @@
 		108AA3772C410C3900D1FBA8 /* DetailsOfAgreeToTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108AA3762C410C3900D1FBA8 /* DetailsOfAgreeToTermsViewController.swift */; };
 		1092AE682BEC779400E65FF5 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092AE672BEC779400E65FF5 /* ImageCacheManager.swift */; };
 		1092AE6A2BECB87300E65FF5 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1092AE692BECB87300E65FF5 /* Archive.swift */; };
+		10C26ED22D59D354007F99B1 /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C26ED12D59D354007F99B1 /* Journal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -150,6 +153,8 @@
 		100966752BF2116C00492A75 /* LeaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveViewController.swift; sourceTree = "<group>"; };
 		100966772BF211AA00492A75 /* LeaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveView.swift; sourceTree = "<group>"; };
 		1009667A2BF21C9100492A75 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		1025D7662D38854600D7028F /* TutorialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialManager.swift; sourceTree = "<group>"; };
+		1025D7A62D38A5B900D7028F /* HomeButtonSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButtonSetView.swift; sourceTree = "<group>"; };
 		1043C24C2C6180D20007390A /* AskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskCell.swift; sourceTree = "<group>"; };
 		1043C24E2C618A3A0007390A /* Ask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ask.swift; sourceTree = "<group>"; };
 		1043C2522C61B7ED0007390A /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +234,7 @@
 		108AA3762C410C3900D1FBA8 /* DetailsOfAgreeToTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsOfAgreeToTermsViewController.swift; sourceTree = "<group>"; };
 		1092AE672BEC779400E65FF5 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		1092AE692BECB87300E65FF5 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
+		10C26ED12D59D354007F99B1 /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				1009667A2BF21C9100492A75 /* TutorialView.swift */,
+				1025D7662D38854600D7028F /* TutorialManager.swift */,
 			);
 			path = Tutorial;
 			sourceTree = "<group>";
@@ -323,7 +330,6 @@
 			isa = PBXGroup;
 			children = (
 				105E2AFF2C6749FB006FF565 /* JournalViewController.swift */,
-				105E2B012C674B71006FF565 /* JournalView.swift */,
 			);
 			path = Journal;
 			sourceTree = "<group>";
@@ -396,6 +402,7 @@
 				1043C2602C6483240007390A /* Activity.swift */,
 				1092AE692BECB87300E65FF5 /* Archive.swift */,
 				1043C24E2C618A3A0007390A /* Ask.swift */,
+				10C26ED12D59D354007F99B1 /* Journal.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -407,8 +414,9 @@
 				100966792BF21C6F00492A75 /* Tutorial */,
 				1067F9512BC3B0C7007708E4 /* Login */,
 				1067F9B72BD118A5007708E4 /* Home */,
-				1067F9FA2BE0C50E007708E4 /* Archive */,
 				1067F9FD2BE0C50E007708E4 /* Camera */,
+				10C26ED02D59D26D007F99B1 /* Journal */,
+				1067F9FA2BE0C50E007708E4 /* Archive */,
 				1043C2502C61B7A50007390A /* Alarm */,
 				100966532BF07BA400492A75 /* Setting */,
 			);
@@ -489,6 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				1067F9B82BD118A5007708E4 /* HomeView.swift */,
+				1025D7A62D38A5B900D7028F /* HomeButtonSetView.swift */,
 				1067F9B92BD118A5007708E4 /* ActivitySelectedView.swift */,
 				1067F9C72BD20CE3007708E4 /* NewActivityRequestView.swift */,
 			);
@@ -557,6 +566,14 @@
 				1067F9FF2BE0C50E007708E4 /* CameraButtonView.swift */,
 			);
 			path = Camera;
+			sourceTree = "<group>";
+		};
+		10C26ED02D59D26D007F99B1 /* Journal */ = {
+			isa = PBXGroup;
+			children = (
+				105E2B012C674B71006FF565 /* JournalView.swift */,
+			);
+			path = Journal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -696,6 +713,7 @@
 				1067F8F22BBD982F007708E4 /* DZImage.swift in Sources */,
 				1067F9F92BE0C4A2007708E4 /* GallaryViewController.swift in Sources */,
 				1009666A2BF2045500492A75 /* AlertSettingViewController.swift in Sources */,
+				1025D7672D38854600D7028F /* TutorialManager.swift in Sources */,
 				100966622BF1A7A100492A75 /* VisitReasonView.swift in Sources */,
 				1009665C2BF0C04A00492A75 /* UserInfoSettingView.swift in Sources */,
 				1067F95F2BC3B0C8007708E4 /* RepasswordView.swift in Sources */,
@@ -707,6 +725,8 @@
 				1043C2552C61BBEC0007390A /* AlarmView.swift in Sources */,
 				1067F9F72BE0C4A2007708E4 /* CameraViewController.swift in Sources */,
 				1067F9BB2BD118A5007708E4 /* ActivitySelectedView.swift in Sources */,
+				10C26ED22D59D354007F99B1 /* Journal.swift in Sources */,
+				1025D7A72D38A5B900D7028F /* HomeButtonSetView.swift in Sources */,
 				1067F9F22BE0C496007708E4 /* ArchiveListViewController.swift in Sources */,
 				100966742BF20FD600492A75 /* AccountCancellationView.swift in Sources */,
 				108AA36F2C3D6A5C00D1FBA8 /* AnswerCell.swift in Sources */,
@@ -901,11 +921,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Deadzone/Deadzone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Deadzone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = deadzone;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSCameraUsageDescription = "앱의 아카이브에 업로드 할 사진을 찍기 위해서는 카메라 권한이 필요합니다. 허락하시겠습니까? ";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앱의 아카이브에 사진을 업로드 하기 위해서는 사진 권한이 필요합니다. 허락하시겠습니까? ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -919,7 +940,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyeji.alreadyzone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -938,11 +959,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Deadzone/Deadzone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CZ4858BW64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Deadzone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = deadzone;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSCameraUsageDescription = "앱의 아카이브에 업로드 할 사진을 찍기 위해서는 카메라 권한이 필요합니다. 허락하시겠습니까? ";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "앱의 아카이브에 사진을 업로드 하기 위해서는 사진 권한이 필요합니다. 허락하시겠습니까? ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -956,7 +978,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyeji.alreadyzone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

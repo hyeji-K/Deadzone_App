@@ -7,14 +7,24 @@
 
 import UIKit
 
+protocol ActivitySelectionDelegate: AnyObject {
+    var maximumSelectionCount: Int { get }
+    
+    func numberOfSelectedItems(in collectionView: UICollectionView) -> Int
+    func activityCollectionView(_ collectionView: ActivitySelectedView, didSelectActivity activity: String)
+    func activityCollectionView(_ collectionView: ActivitySelectedView, didDeselectActivity activity: String)
+    func configureSelection(forActivity activity: String,
+                            in collectionView: UICollectionView,
+                            at indexPath: IndexPath)
+}
+
 final class ActivitySelectedView: UIView {
     
     private let activityList: [ActivityList] = ActivityList.list
+    private let bottomSheetHeight: CGFloat = 364
+    private let animationDuration: TimeInterval = 0.3
     
-    var activitys: [String] = []
-    var activityInit: Bool = true // 활동선택이 처음일때/아닐때
-    var selectedActivitys: [String: Bool] = [:]
-    var selectedItemInit: Bool = true
+    weak var selectionDelegate: ActivitySelectionDelegate?
     
     let containerView: UIView = {
         let view = UIView()
@@ -57,6 +67,11 @@ final class ActivitySelectedView: UIView {
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+        collectionView.register(ActivityCell.self, forCellWithReuseIdentifier: ActivityCell.identifier)
+        collectionView.alwaysBounceVertical = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.allowsMultipleSelection = true
         return collectionView
     }()
     
@@ -89,14 +104,20 @@ final class ActivitySelectedView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        addSubviews()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupView() {
+    func changeSubTitle() {
+        subTitleLabel.isHidden = false
+        subTitleLabel.text = "활동을 변경하면, 기존에 선택한 활동은 저장되지 않아요."
+    }
+    
+    private func addSubviews() {
         addSubview(containerView)
         addSubview(handlebarView)
         addSubview(titleLabel)
@@ -104,6 +125,9 @@ final class ActivitySelectedView: UIView {
         addSubview(collectionView)
         addSubview(doneButton)
         addSubview(newActivityStackView)
+    }
+    
+    private func setupConstraints() {
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -126,13 +150,6 @@ final class ActivitySelectedView: UIView {
             make.left.right.equalToSuperview()
             make.height.equalTo(100)
         }
-        
-        collectionView.register(ActivityCell.self, forCellWithReuseIdentifier: ActivityCell.identifier)
-        collectionView.alwaysBounceVertical = false
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.allowsMultipleSelection = true
-        
         doneButton.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom).offset(47)
             make.left.right.equalToSuperview().inset(16)
@@ -160,23 +177,34 @@ final class ActivitySelectedView: UIView {
         return layout
     }
     
-    func changeCatagotyName(name: String) -> String {
-        switch name {
-        case "음악":
-            return "music"
-        case "카페":
-            return "cafe"
-        case "명상":
-            return "meditation"
-        case "독서":
-            return "reading"
-        case "음주":
-            return "drinking"
-        case "패션":
-            return "fashion01"
-        default:
-            return ""
+    func showBottomSheet() {
+        UIView.animate(withDuration: animationDuration) { [weak self] in
+            guard let self = self else { return }
+            self.snp.updateConstraints { make in
+                make.height.equalTo(self.bottomSheetHeight)
+            }
+            self.superview?.layoutIfNeeded()
         }
+    }
+    
+    func dismissBottomSheet(completion: (() -> Void)? = nil) {
+        guard let superview = self.superview else { return }
+        
+        UIView.animate(
+            withDuration: animationDuration,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                self.frame.origin = CGPoint(
+                    x: superview.frame.origin.x,
+                    y: superview.frame.size.height
+                )
+            },
+            completion: { isCompleted in
+                if isCompleted {
+                    completion?()
+                }
+            }
+        )
     }
 }
 
@@ -187,43 +215,26 @@ extension ActivitySelectedView: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActivityCell.identifier, for: indexPath) as! ActivityCell
-        cell.configure(image: activityList[indexPath.item].image, title: activityList[indexPath.item].title)
+        
+        let activity = activityList[indexPath.item]
+        cell.configure(image: activity.image, title: activity.title)
         
         // NOTE: 활동 변경 시 선택되어 있는 활동 표시
-        if !activityInit {
-            let activityName = changeCatagotyName(name: activityList[indexPath.item].title)
-            if self.selectedItemInit {
-                if selectedActivitys["\(activityName)"] == false {
-                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
-//                    if self.activitys.contains(activityList[indexPath.item].title) {
-//                        
-//                    } else {
-//                        self.activitys.append(activityList[indexPath.item].title)
-//                    }
-                    self.doneButton.isEnabled = true
-                }
-            } else {
-                if self.activitys.contains(activityName) {
-                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
-                }
-            }
-        }
+        selectionDelegate?.configureSelection(forActivity: activity.title,
+                                              in: collectionView,
+                                              at: indexPath)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if activityInit {
-            subTitleLabel.isHidden = false
-        }
-        doneButton.isEnabled = true
-//        return (collectionView.indexPathsForSelectedItems?.count ?? 0) < 2
-        return self.activitys.count < 2
+        guard let selectionDelegate else { return false }
+        let currentSelectedCount = selectionDelegate.numberOfSelectedItems(in: collectionView)
+        return currentSelectedCount < selectionDelegate.maximumSelectionCount
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if self.activitys.count < 2 {
-            self.activitys.append(self.changeCatagotyName(name: activityList[indexPath.item].title))
-        }
+        let activity = activityList[indexPath.item]
+        selectionDelegate?.activityCollectionView(self, didSelectActivity: activity.title)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
@@ -231,17 +242,7 @@ extension ActivitySelectedView: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if collectionView.indexPathsForSelectedItems?.count == 0 {
-            if activityInit {
-                subTitleLabel.isHidden = true
-            } else {
-                self.selectedItemInit = false
-            }
-            doneButton.isEnabled = false
-        }
-        if let index = activitys.firstIndex(of: self.changeCatagotyName(name: activityList[indexPath.item].title)) {
-            self.activitys.remove(at: index)
-            self.selectedItemInit = false
-        }
+        let activity = activityList[indexPath.item]
+        selectionDelegate?.activityCollectionView(self, didDeselectActivity: activity.title)
     }
 }

@@ -11,37 +11,23 @@ import SnapKit
 final class HomeViewController: UIViewController {
     
     private let homeView = HomeView()
+    private let tutorialView = TutorialView()
+    private let buttonSetView = HomeButtonSetView()
     private var journal: Journal?
     
-    private var addAssetButton: UIButton = {
-        let button = UIButton()
-        button.setImage(DZImage.addasset, for: .normal)
-        return button
-    }()
-    private var archiveButton: UIButton = {
-        let button = UIButton()
-        button.setImage(DZImage.archive, for: .normal)
-        return button
-    }()
-    private lazy var buttonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [addAssetButton, archiveButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 6
-        return stackView
-    }()
-    
     var selectedActivitys: [String: Bool] = [:]
-    
-    private let tutorialView = TutorialView()
-    private var tapCount: Int = 0
+    var selectedActivities: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavigationBar()
         setupView()
+        setupTutorialView()
+        setupActions()
         reloadView()
         getImage()
+        setupGestureRecognizer()
         
         // 1. ActivitySelectedViewController에서 활동 선택 후 홈 화면에 반영
         NotificationCenter.default.addObserver(self, selector: #selector(didDismissNotification), name: NSNotification.Name("ActivitySelectedViewController"), object: nil)
@@ -53,6 +39,7 @@ final class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = DZColor.black
     }
     
+    // 네비게이션바 세팅
     private func setupNavigationBar() {
         self.navigationItem.leftBarButtonItem =  UIBarButtonItem(image: DZImage.settings, style: .plain, target: self, action: #selector(settingButtonTapped))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: DZImage.alarm, style: .plain, target: self, action: #selector(alarmButtonTapped))
@@ -61,43 +48,54 @@ final class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : DZFont.subTitle24]
     }
     
+    // 뷰 세팅
     private func setupView() {
         self.view.backgroundColor = DZColor.backgroundColor
         self.view.addSubview(homeView)
-        self.view.addSubview(buttonStackView)
+        self.view.addSubview(buttonSetView)
+        
         homeView.snp.makeConstraints { make in
             make.left.right.top.equalTo(self.view.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
-        buttonStackView.snp.makeConstraints { make in
+        buttonSetView.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(19)
             make.bottom.equalToSuperview().inset(39)
         }
-        addAssetButton.addTarget(self, action: #selector(addAssetButtonTapped), for: .touchUpInside)
-        archiveButton.addTarget(self, action: #selector(archiveButtonTapped), for: .touchUpInside)
+    }
+    
+    private func setupTutorialView() {
+        self.view.addSubview(tutorialView)
+        tutorialView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    private func setupActions() {
+        let buttons = [
+            homeView.cdplayerImageButton,
+            homeView.fashion01ImageButton,
+            homeView.fashion02ImageButton,
+            homeView.iceCoffeeImageButton,
+            homeView.readingImageButton,
+            homeView.meditationImageButton,
+            homeView.wastedImageButton
+        ]
         
-        homeView.cdplayerImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.fashion01ImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.fashion02ImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.iceCoffeeImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.readingImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.meditationImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        homeView.wastedImageButton.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
-        
-        
-        // NOTE: 튜토리얼 - 회원가입 후 처음 한 번
-        if UserDefaults.standard.bool(forKey: "Tutorial") {
-            UserDefaults.standard.setValue(false, forKey: "Tutorial")
-            self.view.addSubview(tutorialView)
-            tutorialView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-            }
+        buttons.forEach { button in
+            button.addTarget(self, action: #selector(activityImageButtonTapped), for: .touchUpInside)
         }
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureTapped))
-        self.tutorialView.addGestureRecognizer(tapGesture)
-        
-        // 격일간지 스와이프 버전
+        buttonSetView.addAssetButton.addTarget(self,
+                                               action: #selector(addAssetButtonTapped),
+                                               for: .touchUpInside)
+        buttonSetView.archiveButton.addTarget(self,
+                                              action: #selector(archiveButtonTapped),
+                                              for: .touchUpInside)
+    }
+    
+    // 격일간지 스와이프 제스처
+    private func setupGestureRecognizer() {
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swipeGestureTapped))
         swipeUp.direction = UISwipeGestureRecognizer.Direction.up
         self.view.addGestureRecognizer(swipeUp)
@@ -111,60 +109,71 @@ final class HomeViewController: UIViewController {
                 for (key, value) in snapshot {
                     self.selectedActivitys.updateValue((value as! Int).boolValue, forKey: key)
                 }
-                self.homeView.cdplayerImageButton.isHidden = self.selectedActivitys["music"]!
-                self.homeView.fashion01ImageButton.isHidden = self.selectedActivitys["fashion01"]!
-                self.homeView.fashion02ImageButton.isHidden = self.selectedActivitys["fashion02"]!
-                self.homeView.tableImageView.isHidden = self.selectedActivitys["table"]!
-                self.homeView.iceCoffeeImageButton.isHidden = self.selectedActivitys["cafe"]!
-                self.homeView.readingImageButton.isHidden = self.selectedActivitys["reading"]!
-                self.homeView.meditationImageButton.isHidden = self.selectedActivitys["meditation"]!
-                self.homeView.wastedImageButton.isHidden = self.selectedActivitys["drinking"]!
-                self.view.setNeedsDisplay()
+                self.updateUI(selectedActivitys: self.selectedActivitys)
             }
         }
     }
     
-    private func isExistSelectedActivity(completion: @escaping (Bool) -> Void) {
+    private func updateUI(selectedActivitys: [String: Bool]) {
+        // 버튼 또는 다른 뷰에 따라 분리된 매핑
+        let buttonVisibilityMap: [String: UIButton] = [
+            "music": homeView.cdplayerImageButton,
+            "fashion01": homeView.fashion01ImageButton,
+            "fashion02": homeView.fashion02ImageButton,
+            "cafe": homeView.iceCoffeeImageButton,
+            "reading": homeView.readingImageButton,
+            "meditation": homeView.meditationImageButton,
+            "drinking": homeView.wastedImageButton
+        ]
+        
+        let imageViewVisibilityMap: [String: UIImageView] = [
+            "table": homeView.tableImageView
+        ]
+        
+        // 버튼 가시성 업데이트
+        for (key, button) in buttonVisibilityMap {
+            if let isHidden = selectedActivitys[key] {
+                button.isHidden = isHidden
+            }
+        }
+        
+        // 이미지 뷰 가시성 업데이트
+        for (key, imageView) in imageViewVisibilityMap {
+            if let isHidden = selectedActivitys[key] {
+                imageView.isHidden = isHidden
+            }
+        }
+        
+        self.view.setNeedsDisplay()
+    }
+    
+    private func loadSelectedActivity(completion: @escaping ([String]) -> Void) {
         Networking.shared.getUserInfo { userInfo in
-            if userInfo.archive.first == "" {
-                completion(false)
-                
+            if userInfo.archive == [""] {
+                completion([])
             } else {
-                completion(true)
+                completion(userInfo.archive)
             }
         }
     }
 
     @objc private func addAssetButtonTapped(_ sender: UIButton) {
         // NOTE: 활동 선택이 처음인지 아닌지 확인하기 위하여 유저 정보 불러오기
-        self.isExistSelectedActivity { result in
-            if result {
-                // 선택한 활동이 있을 때
-                DispatchQueue.main.async {
-                    let activitySelectedViewController = ActivitySelectedViewController()
-                    activitySelectedViewController.modalPresentationStyle = .overCurrentContext
-                    activitySelectedViewController.activityDelegate = self
-                    activitySelectedViewController.activityInit = false
-                    activitySelectedViewController.selectedActivitys = self.selectedActivitys
-                    self.present(activitySelectedViewController, animated: false)
-                }
-            } else {
-                // 선택한 활동이 없을 때
-                DispatchQueue.main.async {
-                    let activitySelectedViewController = ActivitySelectedViewController()
-                    activitySelectedViewController.modalPresentationStyle = .overCurrentContext
-                    activitySelectedViewController.activityDelegate = self
-                    activitySelectedViewController.activityInit = true
-                    self.present(activitySelectedViewController, animated: false)
-                }
+        self.loadSelectedActivity { result in
+            DispatchQueue.main.async {
+                let activitySelectedViewController = ActivitySelectedViewController()
+                activitySelectedViewController.modalPresentationStyle = .overCurrentContext
+                activitySelectedViewController.activityDelegate = self
+                activitySelectedViewController.selectedActivities = result
+                self.present(activitySelectedViewController, animated: false)
             }
         }
     }
     
     @objc private func archiveButtonTapped(_ sender: UIButton) {
         // NOTE: 활동을 선택하지 않았을 때엔 알럿
-        self.isExistSelectedActivity { result in
-            if result {
+        self.loadSelectedActivity { result in
+            if !result.isEmpty {
                 DispatchQueue.main.async {
                     let archiveListViewController = ArchiveListViewController()
                     self.navigationController?.pushViewController(archiveListViewController, animated: true)
@@ -197,45 +206,16 @@ final class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(cameraViewController, animated: false)
     }
     
+    // 설정 버튼 클릭 시 설정 화면으로 전환
     @objc private func settingButtonTapped(_ sender: UIButton) {
         let settingViewController = SettingViewController()
         self.navigationController?.pushViewController(settingViewController, animated: false)
     }
     
+    // 알림 버튼 클릭 시 알림 화면으로 전환
     @objc private func alarmButtonTapped(_ sender: UIButton) {
         let alarmViewController = AlarmViewController()
         self.navigationController?.pushViewController(alarmViewController, animated: false)
-    }
-    
-    @objc private func tapGestureTapped(_ tapGesture: UITapGestureRecognizer) {
-        tapGesture.isEnabled = false
-        if self.tapCount == 0 {
-            self.tutorialView.assetStackView.isHidden = true
-            self.tutorialView.sofaStackView.isHidden = false
-            tapGesture.isEnabled = true
-        } else if self.tapCount == 1 {
-            self.tutorialView.sofaStackView.isHidden = true
-            self.tutorialView.archiveStackView.isHidden = false
-            tapGesture.isEnabled = true
-        } else if self.tapCount == 2 {
-            self.tutorialView.archiveStackView.isHidden = true
-            self.tutorialView.arrowImageView.isHidden = false
-            self.tutorialView.arrowTitleLabel.isHidden = false
-            // 화살표 올라가는 애니메이션
-            UIView.animate(withDuration: 0.8) { [weak self] in
-                self?.tutorialView.arrowImageView.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview().inset(172)
-                }
-                self?.tutorialView.arrowTitleLabel.snp.updateConstraints { make in
-                    make.bottom.equalToSuperview().inset(212)
-                }
-                self?.view.layoutIfNeeded()
-            }
-            tapGesture.isEnabled = true
-        } else {
-            self.tutorialView.isHidden = true
-        }
-        self.tapCount += 1
     }
     
     // 격일간지 스와이프 버전

@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import SnapKit
 
 final class JournalView: UIView {
+    
+    private let animationDuration: TimeInterval = 1
     
     // 스크롤뷰 추가
     lazy var scrollView: UIScrollView = {
@@ -97,7 +100,8 @@ final class JournalView: UIView {
     }
     
     func configure(mainImageUrl: String, subImageUrl: String) {
-        self.mainImageView.setImageURL(mainImageUrl)
+//        self.mainImageView.setImageURL(mainImageUrl)
+        self.mainImageView.image = DZImage.journalTester
         self.subImageView.setImageURL(subImageUrl)
     }
     
@@ -122,11 +126,13 @@ final class JournalView: UIView {
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalTo(863)
+//            make.height.equalTo(863)
+            make.height.equalTo(663)
         }
         mainImageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(509)
+//            make.height.equalTo(509)
+            make.height.equalTo(309)
         }
         subView.snp.makeConstraints { make in
             make.top.equalTo(mainImageView.snp.bottom).offset(15)
@@ -159,5 +165,25 @@ final class JournalView: UIView {
             make.centerX.equalToSuperview()
             make.top.equalTo(knockTitleLabel.snp.bottom).offset(2)
         }
+    }
+    
+    func dismissBottomSheet(completion: (() -> Void)? = nil) {
+        guard let superview = self.superview else { return }
+        
+        UIView.animate(
+            withDuration: animationDuration,
+            animations: { [weak self] in
+                guard let self = self else { return }
+                self.frame.origin = CGPoint(
+                    x: superview.frame.origin.x,
+                    y: superview.frame.size.height
+                )
+            },
+            completion: { isCompleted in
+                if isCompleted {
+                    completion?()
+                }
+            }
+        )
     }
 }
