@@ -18,4 +18,4 @@
 - 의존성 관리: SPM
 - 서버: Firebase 
 
-<img width="200" src="images/firebase.png">
+<img src="images/firebase.png">
